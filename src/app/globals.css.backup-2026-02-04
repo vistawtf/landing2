@@ -1,0 +1,855 @@
+@import "tailwindcss";
+
+:root {
+  /* Light Mode (Default) */
+  --background: #FFFFFF;
+  --foreground: #111111;
+  --surface: #FAFAFA;
+  --surface-hover: #F5F5F5;
+  --border: #E4E2D8;
+  --border-hover: #CCCCCC;
+  --muted: #666666;
+  --muted-light: #888888;
+
+  /* Vista Brand Colors (persist across modes) */
+  --ultra-orange: #FF5233;
+  --medium-orange: #FF7043;
+  --light-orange: #FF8A65;
+  --ultra-blue: #2962FF;
+  --medium-blue: #448AFF;
+  --light-blue: #90CAF9;
+  --ultra-purple: #BA68C8;
+  --medium-purple: #EA80FC;
+  --light-purple: #CE93D8;
+  --medium-lime: #B2FF59;
+  --light-lime: #C5E1A5;
+
+  /* Legacy support */
+  --vista-black: #111111;
+  --vista-dark: #0a0a0a;
+  --vista-light: #E4E2D8;
+  --ultra-gray: #191919;
+  --idle-gray: #1a1a1a;
+  --surface-gray: #161616;
+  --border-gray: #2a2a2a;
+  --medium-gray: #575757;
+  --light-gray: #888888;
+  --muted-gray: #666666;
+
+  /* Spacing - 8px grid */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-20: 80px;
+  --space-24: 96px;
+}
+
+/* Dark Mode */
+.dark {
+  --background: #111111;
+  --foreground: #E4E2D8;
+  --surface: #161616;
+  --surface-hover: #1a1a1a;
+  --border: #2a2a2a;
+  --border-hover: #575757;
+  --muted: #888888;
+  --muted-light: #666666;
+}
+
+@theme inline {
+  /* Semantic colors */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-surface: var(--surface);
+  --color-surface-hover: var(--surface-hover);
+  --color-border: var(--border);
+  --color-border-hover: var(--border-hover);
+  --color-muted: var(--muted);
+  --color-muted-light: var(--muted-light);
+
+  /* Legacy Neutrals (for backward compat) */
+  --color-vista-black: var(--vista-black);
+  --color-vista-dark: var(--vista-dark);
+  --color-vista-light: var(--vista-light);
+  --color-ultra-gray: var(--ultra-gray);
+  --color-idle-gray: var(--idle-gray);
+  --color-surface-gray: var(--surface-gray);
+  --color-border-gray: var(--border-gray);
+  --color-medium-gray: var(--medium-gray);
+  --color-light-gray: var(--light-gray);
+  --color-muted-gray: var(--muted-gray);
+
+  /* Primary - Orange */
+  --color-ultra-orange: var(--ultra-orange);
+  --color-medium-orange: var(--medium-orange);
+  --color-light-orange: var(--light-orange);
+
+  /* Secondary - Blue */
+  --color-ultra-blue: var(--ultra-blue);
+  --color-medium-blue: var(--medium-blue);
+  --color-light-blue: var(--light-blue);
+
+  /* Secondary - Purple */
+  --color-ultra-purple: var(--ultra-purple);
+  --color-medium-purple: var(--medium-purple);
+  --color-light-purple: var(--light-purple);
+
+  /* Secondary - Lime */
+  --color-medium-lime: var(--medium-lime);
+  --color-light-lime: var(--light-lime);
+
+  /* Fonts */
+  --font-sans: var(--font-geist-sans), system-ui, -apple-system, sans-serif;
+  --font-mono: var(--font-geist-mono), 'SF Mono', Monaco, monospace;
+}
+
+/* ========================================
+   BASE STYLES
+   ======================================== */
+
+html {
+  font-size: 16px;
+  height: 100%;
+  overflow: hidden; /* Scrolling happens in snap-container, not html */
+  /* Note: scroll-behavior: smooth is on .snap-container, not html */
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  font-feature-settings: 'kern' 1, 'liga' 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.5;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  height: 100%;
+  overflow: hidden; /* Scrolling happens in snap-container */
+}
+
+/* ========================================
+   SNAP SCROLL SYSTEM - PREMIUM
+   ======================================== 
+   
+   Philosophy: Let CSS do the heavy lifting.
+   Browser-native scroll-snap feels premium because:
+   - Respects platform momentum (iOS/Android/macOS)
+   - Uses system-native easing curves
+   - No "scrolljacking" feel
+   
+   JS enhancement only for mouse wheel edge case.
+*/
+
+.snap-container {
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth; /* Native smooth scroll for programmatic scrolls */
+  overflow-y: scroll;
+  overflow-x: hidden; /* Prevent horizontal scroll from scaled elements */
+  height: 100vh;
+  height: 100dvh;
+  overscroll-behavior: none; /* Prevent scroll chaining/bounce */
+  -webkit-overflow-scrolling: touch; /* iOS momentum scrolling */
+  
+  /* Performance: hint that this element will scroll */
+  will-change: scroll-position;
+  
+  /* PARALLAX: Create 3D viewport on scroll container
+     300px gives subtle, premium parallax effect
+     This makes translateZ actually affect scroll speed */
+  perspective: 300px;
+  perspective-origin: center top;
+}
+
+/* Prevent overscroll glow/bounce on Android/iOS */
+@supports (overscroll-behavior-y: none) {
+  .snap-container {
+    overscroll-behavior-y: none;
+  }
+}
+
+.snap-section {
+  scroll-snap-align: start;
+  scroll-snap-stop: always; /* CRITICAL: Forces stop at each section, no skipping */
+  height: 100vh;
+  height: 100dvh;
+  min-height: 100vh;
+  max-height: 100vh;
+  max-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden; /* Prevent content overflow breaking snap */
+  position: relative;
+  
+  /* Preserve 3D context for parallax elements */
+  transform-style: preserve-3d;
+}
+
+/* Section content centering */
+.snap-section-center {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex: 1;
+  overflow: hidden;
+}
+
+/* Last section - footer at bottom */
+.snap-section-end {
+  justify-content: space-between;
+  overflow: hidden;
+}
+
+/* ========================================
+   ABOUT SECTION - MOBILE OPTIMIZED
+   ======================================== */
+
+.about-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex: 1;
+  padding: 4rem 0 1.5rem;
+}
+
+@media (min-width: 640px) {
+  .about-content {
+    padding: 5rem 0 1.75rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .about-content {
+    padding: 7rem 0;
+  }
+}
+
+/* ========================================
+   FOOTER - COMPACT MOBILE
+   ======================================== */
+
+.footer-compact {
+  padding: 1rem 0;
+  border-top: 2px solid var(--foreground);
+  flex-shrink: 0;
+}
+
+@media (min-width: 640px) {
+  .footer-compact {
+    padding: 3rem 0;
+  }
+}
+
+/* ========================================
+   NAV LINK ACTIVE INDICATOR
+   ======================================== */
+
+.nav-link {
+  position: relative;
+  padding-bottom: 4px;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--ultra-orange);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.nav-link-active::after {
+  transform: scaleX(1);
+}
+
+/* ========================================
+   TYPOGRAPHY SYSTEM
+   ======================================== */
+
+.text-display {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.text-h1 {
+  font-size: clamp(1.75rem, 3vw, 2.25rem);
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+.text-h2 {
+  font-size: 1.25rem;
+  font-weight: 500;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+}
+
+.text-h3 {
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.text-body {
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.text-body-sm {
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.text-caption {
+  font-size: 0.75rem;
+  line-height: 1.4;
+  letter-spacing: 0.02em;
+}
+
+.text-label {
+  font-size: 0.6875rem;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* ========================================
+   ANIMATIONS
+   ======================================== */
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes scrollIndicator {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  30% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(200%);
+    opacity: 0;
+  }
+}
+
+/* Intersection Observer Animations */
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: 
+    opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.animate-on-scroll.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Delayed scroll indicator animation */
+.animate-on-scroll-delay {
+  opacity: 0;
+  animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation-delay: 0.5s;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.4s ease-out forwards;
+}
+
+.animate-slide-in {
+  animation: slideIn 0.4s ease-out forwards;
+}
+
+.animate-slide-in-right {
+  animation: slideInRight 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-scroll-indicator {
+  animation: scrollIndicator 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Staggered delays */
+.delay-75 { animation-delay: 75ms; }
+.delay-150 { animation-delay: 150ms; }
+.delay-225 { animation-delay: 225ms; }
+.delay-300 { animation-delay: 300ms; }
+.delay-375 { animation-delay: 375ms; }
+
+/* ========================================
+   COMPONENTS
+   ======================================== */
+
+/* Button - Primary Orange */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 10px 20px;
+  background: var(--ultra-orange);
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-primary:hover {
+  background: var(--medium-orange);
+  transform: translateY(-1px);
+}
+
+.btn-primary:active {
+  transform: translateY(0) scale(0.98);
+}
+
+/* Button - Ghost */
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 0;
+  background: transparent;
+  color: var(--muted);
+  font-size: 0.8125rem;
+  font-weight: 400;
+  border: none;
+  cursor: pointer;
+  transition: color 0.15s ease;
+}
+
+.btn-ghost:hover {
+  color: var(--foreground);
+}
+
+/* Card Base */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.card:hover {
+  border-color: var(--border-hover);
+  transform: translateY(-2px);
+}
+
+/* Card - Featured variant */
+.card-featured {
+  background: var(--ultra-orange);
+  border: 1px solid var(--ultra-orange);
+}
+
+.card-featured:hover {
+  border-color: var(--medium-orange);
+  box-shadow: 0 20px 40px rgba(255, 82, 51, 0.15);
+}
+
+/* Newsletter Card - Clean styling (no glow) */
+.newsletter-card {
+  position: relative;
+  border: 2px solid var(--foreground);
+  background: var(--surface);
+  padding: 2rem;
+  transition: border-color 0.3s ease, transform 0.3s ease;
+}
+
+@media (min-width: 1024px) {
+  .newsletter-card {
+    padding: 3rem;
+  }
+}
+
+.newsletter-card:hover {
+  border-color: var(--ultra-orange);
+  transform: translateY(-2px);
+}
+
+/* ========================================
+   PARALLAX SYSTEM - Pure CSS 3D
+   ======================================== 
+   
+   Based on Chrome DevRel + Keith Clark research:
+   https://developer.chrome.com/blog/performant-parallaxing
+   https://keithclark.co.uk/articles/pure-css-parallax-websites/
+   
+   Why CSS 3D parallax is superior:
+   1. GPU-accelerated - compositor handles transforms
+   2. Scroll-coupled - no JavaScript events, no "best-effort" delivery
+   3. No smoothing/transition - movement is 1:1 with scroll (premium feel)
+   4. Works with scroll-snap (perspective on the snap container)
+   
+   How it works:
+   - perspective on the scroll container creates 3D viewport
+   - translateZ on children makes them scroll at different rates
+   - Negative Z = slower scroll (appears further back)
+   - Scale correction: scale = 1 + (translateZ * -1) / perspective
+*/
+
+/* Hero section - preserves 3D context from snap-container */
+.hero-parallax-container {
+  /* Critical: preserve 3D for children to inherit perspective from snap-container */
+  transform-style: preserve-3d;
+}
+
+/* Wrapper for parallax elements - preserves 3D context */
+.parallax-wrapper {
+  position: absolute;
+  inset: 0;
+  overflow: visible; /* Allow elements to extend beyond during parallax */
+  pointer-events: none;
+  user-select: none;
+  
+  /* CRITICAL: preserve the 3D context from parent */
+  transform-style: preserve-3d;
+}
+
+/* Base parallax layer styling */
+.parallax-layer {
+  position: absolute;
+  
+  /* NO transition - this was causing the "disconnected" feel!
+     Movement must be instant/scroll-coupled for premium parallax */
+  
+  /* GPU hint - browser can optimize knowing these will change */
+  will-change: transform;
+  
+  /* Ensure proper 3D rendering */
+  backface-visibility: hidden;
+}
+
+/*
+ * Parallax depth layers
+ * 
+ * With perspective: 300px (on .snap-container), the scale formula is:
+ * scale = 1 + (translateZ * -1) / 300
+ * 
+ * Layer speeds (how fast they scroll relative to content):
+ * - deep: translateZ(-100px) → scale(1.333) → scrolls at ~0.75x (slowest)
+ * - mid:  translateZ(-60px)  → scale(1.2)   → scrolls at ~0.83x
+ * - near: translateZ(-30px)  → scale(1.1)   → scrolls at ~0.91x (fastest decorative)
+ * 
+ * These subtle differences create depth without being distracting.
+ * The effect is most noticeable at section boundaries.
+ */
+
+/* Deep layer - slowest, appears furthest back */
+.parallax-layer--deep {
+  transform: translateZ(-100px) scale(1.333);
+}
+
+/* Mid layer - medium depth */
+.parallax-layer--mid {
+  transform: translateZ(-60px) scale(1.2);
+}
+
+/* Near layer - subtle parallax, closest decorative element */
+.parallax-layer--near {
+  transform: translateZ(-30px) scale(1.1);
+}
+
+/* 
+ * Mobile: Disable parallax for performance and UX
+ * Premium sites (Apple, Stripe) typically disable parallax on mobile
+ * Reasons:
+ * - Touch scrolling momentum doesn't work well with 3D transforms
+ * - Smaller screens don't benefit as much from depth effects
+ * - Battery/performance considerations
+ */
+@media (max-width: 768px) {
+  .snap-container {
+    perspective: none;
+  }
+  
+  .snap-section,
+  .hero-parallax-container,
+  .parallax-wrapper {
+    transform-style: flat;
+  }
+  
+  .parallax-layer--deep,
+  .parallax-layer--mid {
+    transform: none;
+  }
+  
+  /* Near layer needs translateX centering preserved */
+  .parallax-layer--near {
+    transform: translateX(-50%);
+  }
+}
+
+/* Badge */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 12px;
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border: 1px solid;
+}
+
+.badge-orange {
+  background: var(--ultra-orange);
+  border-color: var(--ultra-orange);
+  color: white;
+  box-shadow: 0 2px 8px rgba(255, 82, 51, 0.3);
+}
+
+.badge-outline {
+  background: transparent;
+  border-color: var(--border);
+  color: var(--muted);
+}
+
+.badge-ghost {
+  background: transparent;
+  border-color: transparent;
+  color: var(--muted);
+  padding: 0;
+}
+
+/* Tag */
+.tag {
+  display: inline-flex;
+  padding: 3px 8px;
+  background: var(--surface-hover);
+  border: 1px solid var(--border);
+  font-size: 0.6875rem;
+  color: var(--muted);
+  transition: all 0.15s ease;
+}
+
+.tag:hover {
+  border-color: var(--border-hover);
+  color: var(--foreground);
+}
+
+/* Divider */
+.divider {
+  height: 1px;
+  background: var(--border);
+}
+
+.divider-vertical {
+  width: 1px;
+  height: 100%;
+  background: var(--border);
+}
+
+/* Link arrow animation */
+.link-arrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--muted);
+  font-size: 0.8125rem;
+  transition: all 0.2s ease;
+}
+
+.link-arrow:hover {
+  color: var(--ultra-orange);
+}
+
+.link-arrow svg {
+  transition: transform 0.2s ease;
+}
+
+.link-arrow:hover svg {
+  transform: translateX(3px);
+}
+
+/* ========================================
+   FORM ELEMENTS
+   ======================================== */
+
+.input {
+  width: 100%;
+  padding: 14px 16px;
+  background: var(--surface-hover);
+  border: 1px solid var(--border);
+  color: var(--foreground);
+  font-size: 0.9375rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.input::placeholder {
+  color: var(--muted);
+}
+
+.input:focus {
+  outline: none;
+  border-color: var(--ultra-orange);
+  box-shadow: 0 0 0 3px rgba(255, 82, 51, 0.1);
+}
+
+/* ========================================
+   LAYOUT HELPERS
+   ======================================== */
+
+.container {
+  width: 100%;
+  max-width: 1536px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+@media (min-width: 640px) {
+  .container {
+    padding: 0 20px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    padding: 0 32px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .container {
+    padding: 0 40px;
+  }
+}
+
+/* Grid layout */
+.grid-editorial {
+  display: grid;
+  gap: 1px;
+  background: var(--border);
+}
+
+.grid-editorial > * {
+  background: var(--background);
+}
+
+/* ========================================
+   SELECTION & SCROLLBAR
+   ======================================== */
+
+::selection {
+  background: rgba(255, 82, 51, 0.3);
+  color: var(--foreground);
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--background);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--border-hover);
+}
+
+/* ========================================
+   CUSTOM UTILITIES
+   ======================================== */
+
+/* Hover reveal for children */
+.hover-reveal .reveal-target {
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.hover-reveal:hover .reveal-target {
+  opacity: 1;
+}
+
+/* Subtle glow effect on featured items */
+.glow-orange {
+  box-shadow: 0 0 60px rgba(255, 82, 51, 0.1);
+}
+
+/* Border subtle hover */
+.border-hover {
+  transition: border-color 0.2s ease;
+}
+
+.border-hover:hover {
+  border-color: var(--border-hover) !important;
+}
+
+/* Theme toggle button */
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--muted);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.theme-toggle:hover {
+  border-color: var(--border-hover);
+  color: var(--foreground);
+}

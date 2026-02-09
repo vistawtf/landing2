@@ -1,0 +1,19 @@
+<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background circle -->
+  <rect width="32" height="32" rx="6" fill="#FF5233"/>
+  
+  <!-- Vista symbol ₊˚⊹ simplified as geometric shapes -->
+  <!-- Plus sign -->
+  <rect x="8" y="15" width="4" height="2" fill="white"/>
+  <rect x="9" y="14" width="2" height="4" fill="white"/>
+  
+  <!-- Degree symbol -->
+  <circle cx="16" cy="10" r="1.5" fill="none" stroke="white" stroke-width="1"/>
+  
+  <!-- Star/asterisk -->
+  <g transform="translate(22, 16)">
+    <line x1="0" y1="-3" x2="0" y2="3" stroke="white" stroke-width="1.2" stroke-linecap="round"/>
+    <line x1="-2.6" y1="-1.5" x2="2.6" y2="1.5" stroke="white" stroke-width="1.2" stroke-linecap="round"/>
+    <line x1="-2.6" y1="1.5" x2="2.6" y2="-1.5" stroke="white" stroke-width="1.2" stroke-linecap="round"/>
+  </g>
+</svg>
