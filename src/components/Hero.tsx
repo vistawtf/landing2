@@ -62,7 +62,7 @@ export function HeroSection() {
               <span className="text-ultra-orange group-hover:underline">Join 10,000+ readers →</span>
             </a>
 
-            <h1 className="text-display text-foreground mb-4">
+            <h1 className="text-display text-foreground mb-4" style={{ fontWeight: 400 }}>
               <span className="underline decoration-ultra-orange decoration-4 underline-offset-8">vista</span> investigates
               <br />
               the future of the internet

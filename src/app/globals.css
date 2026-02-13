@@ -391,23 +391,306 @@ body {
   transform: translateY(0) scale(0.98);
 }
 
-.newsletter-card {
-  position: relative;
-  border: 2px solid var(--foreground);
-  background: var(--surface);
-  padding: 2rem;
-  transition: border-color 0.3s ease, transform 0.3s ease;
+.newsletter-hero-card {
+  min-height: 270px;
+  outline: 1px solid rgba(255, 82, 51, 0.3);
+  outline-offset: -1px;
 }
 
-@media (min-width: 1024px) {
-  .newsletter-card {
-    padding: 3rem;
+.newsletter-hero-bg-base {
+  background: #f7f7f7;
+}
+
+.newsletter-hero-overlay {
+  background: linear-gradient(to right, #f7f7f7, rgba(247, 247, 247, 0.9), rgba(247, 247, 247, 0.62));
+}
+
+.newsletter-hero-vector {
+  opacity: 0.4;
+}
+
+@media (min-width: 768px) {
+  .newsletter-hero-vector {
+    opacity: 1;
   }
 }
 
-.newsletter-card:hover {
-  border-color: var(--ultra-orange);
-  transform: translateY(-2px);
+@media (min-width: 1024px) {
+  .newsletter-hero-vector {
+    opacity: 0.68;
+  }
+}
+
+@media (max-width: 1366px) and (min-width: 768px) {
+  .newsletter-hero-overlay {
+    background: linear-gradient(to right, #f7f7f7, rgba(247, 247, 247, 0.76), rgba(247, 247, 247, 0.14));
+  }
+}
+
+@media (min-width: 1367px) {
+  .newsletter-hero-overlay {
+    background: linear-gradient(to right, #f7f7f7, rgba(247, 247, 247, 0.68), rgba(247, 247, 247, 0.08));
+  }
+}
+
+.dark .newsletter-hero-card {
+  border-color: #171717;
+  background: #111111;
+  outline: 1px solid rgba(255, 82, 51, 0.24);
+  outline-offset: -1px;
+}
+
+.dark .newsletter-hero-bg-base {
+  background: #111111;
+}
+
+.dark .newsletter-hero-overlay {
+  background: linear-gradient(to right, #111111, rgba(17, 17, 17, 0.9), rgba(17, 17, 17, 0.58));
+}
+
+.dark .newsletter-hero-vector {
+  opacity: 0.4;
+}
+
+@media (min-width: 768px) {
+  .dark .newsletter-hero-vector {
+    opacity: 1;
+  }
+}
+
+@media (min-width: 1024px) {
+  .dark .newsletter-hero-vector {
+    opacity: 0.75;
+  }
+}
+
+@media (max-width: 1366px) and (min-width: 768px) {
+  .dark .newsletter-hero-overlay {
+    background: linear-gradient(to right, #111111, rgba(17, 17, 17, 0.72), rgba(17, 17, 17, 0.16));
+  }
+}
+
+@media (min-width: 1367px) {
+  .dark .newsletter-hero-overlay {
+    background: linear-gradient(to right, #111111, rgba(17, 17, 17, 0.66), rgba(17, 17, 17, 0.1));
+  }
+}
+
+.newsletter-hero-content {
+  position: relative;
+  z-index: 2;
+  width: min(100%, 620px);
+}
+
+.newsletter-hero-kicker {
+  margin: 0 0 10px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: #52525b;
+}
+
+.newsletter-hero-title {
+  margin: 0;
+  color: #18181b;
+  font-weight: 500;
+  font-size: clamp(1.2rem, 2.85vw, 1.8rem);
+  line-height: 1.28;
+  letter-spacing: -0.015em;
+  max-width: 26ch;
+}
+
+.newsletter-hero-bullets {
+  margin: 12px 0 0;
+  padding-left: 0;
+  color: #27272a;
+  font-family: var(--font-sans);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.7;
+  list-style: none;
+}
+
+.newsletter-hero-bullets li {
+  position: relative;
+  padding-left: 20px;
+  color: #27272a;
+}
+
+.newsletter-hero-bullets li::before {
+  content: "\203A";
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: #71717a;
+}
+
+.newsletter-hero-bullets li + li {
+  margin-top: 4px;
+}
+
+.newsletter-hero-form {
+  margin-top: clamp(16px, 2.4vw, 24px);
+  width: min(100%, 620px);
+  height: 56px;
+  display: flex;
+  border: 1px solid #737373;
+  outline: none;
+  transition: outline-color 0.15s ease;
+}
+
+.newsletter-hero-form:focus-within {
+  outline: 1px solid #ffffff;
+  outline-offset: -1px;
+}
+
+.newsletter-hero-input {
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  border: none;
+  background: #ffffff;
+  color: #171717;
+  padding: 0 20px;
+  font-size: clamp(1rem, 2.1vw, 1.02rem);
+  font-family: var(--font-mono);
+  letter-spacing: 0.015em;
+}
+
+.newsletter-hero-input::placeholder {
+  color: #52525b;
+}
+
+.newsletter-hero-input:focus {
+  outline: none;
+}
+
+.newsletter-hero-submit {
+  width: 56px;
+  min-width: 56px;
+  height: 100%;
+  border: none;
+  border-left: 1px solid rgba(0, 0, 0, 0.2);
+  background: #ff5233;
+  color: #fff;
+  outline: 1px solid rgba(0, 0, 0, 0.12);
+  outline-offset: -1px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s ease;
+}
+
+.newsletter-hero-submit-icon {
+  width: 34px;
+  height: 34px;
+  stroke: currentColor;
+}
+
+.newsletter-hero-submit:hover {
+  background: #ff6a47;
+}
+
+.newsletter-hero-submit:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
+
+.dark .newsletter-hero-kicker {
+  color: #8e8e8e;
+}
+
+.dark .newsletter-hero-title {
+  color: #f5f5f5;
+}
+
+.dark .newsletter-hero-bullets {
+  color: #e6e6e6;
+}
+
+.dark .newsletter-hero-bullets li {
+  color: #e6e6e6;
+}
+
+.dark .newsletter-hero-bullets li::before {
+  color: #bdbdbd;
+}
+
+.dark .newsletter-hero-form {
+  border-color: #2a2a2a;
+  outline: none;
+}
+
+.dark .newsletter-hero-input {
+  background: #171717;
+  color: #ededed;
+}
+
+.dark .newsletter-hero-input::placeholder {
+  color: #9a9a9a;
+}
+
+.dark .newsletter-hero-submit {
+  border-left: 1px solid rgba(255, 255, 255, 0.2);
+  outline: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+@media (min-width: 768px) {
+  #newsletter .section-content-with-header {
+    flex: 1;
+    justify-content: center;
+    padding-bottom: clamp(2rem, 5vh, 4.5rem);
+  }
+
+  #newsletter .container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  #newsletter .animate-on-scroll {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: stretch;
+  }
+
+}
+
+@media (max-width: 1023px) {
+  .newsletter-hero-title {
+    max-width: 28ch;
+  }
+}
+
+@media (max-width: 767px) {
+  .newsletter-hero-title {
+    max-width: none;
+    font-size: clamp(1.3rem, 6.2vw, 1.6rem);
+  }
+
+  .newsletter-hero-bullets {
+    margin-top: 10px;
+    font-size: 16px;
+  }
+
+  .newsletter-hero-form {
+    width: 100%;
+    height: 54px;
+  }
+
+  .newsletter-hero-input {
+    padding: 0 16px;
+    font-size: 0.98rem;
+  }
+
+  .newsletter-hero-submit {
+    width: 54px;
+    min-width: 54px;
+  }
+
 }
 
 /* ========================================
@@ -578,3 +861,4 @@ body {
   border-color: var(--border-hover);
   color: var(--foreground);
 }
+

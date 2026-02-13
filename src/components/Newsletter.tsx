@@ -1,32 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { ChevronRight } from "lucide-react";
 import { AnimatedSection, SectionHeader } from "./shared";
-import { ArrowRightIcon } from "./icons";
-
-const NEWSLETTER_ITEMS = [
-  { icon: "📰", text: "Top story of the week (no hype)" },
-  { icon: "🔧", text: "Tool of the week — tools we actually use" },
-  { icon: "📖", text: "Practical tutorial or how-to" },
-  { icon: "⚖️", text: "Regulatory updates" },
-  { icon: "💼", text: "Job opportunities" },
-  { icon: "🎁", text: "Partner perks & discounts" },
-];
 
 export function NewsletterSection() {
-  const [email, setEmail] = useState("");
-  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!email) return;
-    setStatus("loading");
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    setStatus("success");
-    setEmail("");
-    setTimeout(() => setStatus("idle"), 5000);
-  };
-
   return (
     <section id="newsletter" className="snap-section">
       <SectionHeader number="01" label="Current Project" />
@@ -34,65 +11,49 @@ export function NewsletterSection() {
       <div className="snap-section-center section-content-with-header">
         <div className="container">
           <AnimatedSection delay={150}>
-            <div className="newsletter-card">
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
-                {/* Content */}
-                <div className="flex flex-col justify-center">
-                  <p className="text-body-sm text-ultra-orange mb-2 flex items-center gap-2">
-                    <span>✦</span>
-                    <span>Join over 10,000 subscribers</span>
-                  </p>
-                  <h2 className="text-h1 text-foreground mb-3">Emergent Stack</h2>
-                  <p className="text-body text-muted italic mb-6">
-                    Crypto + AI in Latin America — signals, tools, and field-tested guides.
-                  </p>
+            <div className="newsletter-hero-card relative isolate flex w-full min-h-[270px] items-start overflow-hidden border border-[#d4d4d4] bg-[#f7f7f7] p-[clamp(20px,3.2vw,30px)] max-md:pb-[16px] md:min-h-[clamp(520px,72vh,920px)] md:h-full md:items-center">
+              <div className="newsletter-hero-bg-base absolute inset-0 bg-[#f7f7f7]" aria-hidden="true" />
+              <div
+                className="newsletter-hero-vector absolute inset-0 bg-[url('/frame-110.svg')] bg-no-repeat bg-[length:auto_125%] bg-[position:170%_center] md:bg-[length:auto_108%] md:bg-[position:100%_center] lg:bg-[length:auto_112%] lg:bg-[position:100%_center]"
+                aria-hidden="true"
+              />
+              <div
+                className="newsletter-hero-overlay absolute inset-0"
+                aria-hidden="true"
+              />
 
-                  <div className="mb-6">
-                    <p className="text-body text-foreground mb-3 font-semibold">
-                      What you&apos;ll get every 2 weeks:
-                    </p>
-                    <ul className="space-y-2 text-body-sm text-muted">
-                      {NEWSLETTER_ITEMS.map(({ icon, text }) => (
-                        <li key={icon} className="flex items-start gap-2">
-                          <span className="flex-shrink-0">{icon}</span>
-                          <span>{text}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-
-                  <div className="pt-4 border-t border-border">
-                    <p className="text-caption text-muted mb-3">In partnership with:</p>
-                    <div className="flex items-center gap-4">
-                      <div className="px-4 py-2 border border-dashed border-border text-caption text-muted">[ETH Latam Logo]</div>
-                      <div className="px-4 py-2 border border-dashed border-border text-caption text-muted">[Arco Logo]</div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Form */}
-                <div className="flex flex-col justify-center">
-                  <form onSubmit={handleSubmit} className="space-y-4">
-                    <input
-                      type="email"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      placeholder="your@email.com"
-                      required
-                      disabled={status === "loading"}
-                      className="input w-full"
-                    />
-                    <button type="submit" disabled={status === "loading"} className="btn-primary w-full px-8 py-4 justify-center">
-                      {status === "loading" ? "..." : status === "success" ? "✓ You're in!" : <>JOIN FREE <ArrowRightIcon /></>}
-                    </button>
-                  </form>
-                  <p className="mt-4 text-caption text-muted text-center">No spam. Unsubscribe anytime.</p>
-                  {status === "success" && (
-                    <p className="mt-4 text-medium-lime text-sm animate-fade-in text-center">
-                      Thanks for subscribing! We&apos;ll be in touch soon.
-                    </p>
-                  )}
-                </div>
+              <div className="newsletter-hero-content relative z-10 w-full md:max-w-[62%]">
+                <p className="newsletter-hero-kicker">GET VISTA IN YOUR INBOX</p>
+                <h2 className="newsletter-hero-title">
+                  Biweekly briefings on DeFi, L2s, AI agents, and emerging crypto trends.
+                </h2>
+                <ul className="newsletter-hero-bullets" aria-label="Newsletter highlights">
+                  <li>Curated news, without the noise</li>
+                  <li>Built for operators who ship</li>
+                  <li>Read in minutes, relevant all week</li>
+                </ul>
+                <form
+                  className="newsletter-hero-form"
+                  onSubmit={(e) => e.preventDefault()}
+                  aria-label="Subscribe to Vista newsletter"
+                >
+                  <input
+                    type="email"
+                    className="newsletter-hero-input"
+                    placeholder="you@company.com"
+                    aria-label="Email address"
+                    required
+                  />
+                  <button
+                    type="submit"
+                    className="newsletter-hero-submit"
+                    aria-label="Subscribe"
+                    style={{ width: "auto", minWidth: "auto", padding: "0 16px", gap: "8px" }}
+                  >
+                    <span>Subscribe</span>
+                    <ChevronRight className="newsletter-hero-submit-icon" strokeWidth={2.2} style={{ width: "18px", height: "18px" }} />
+                  </button>
+                </form>
               </div>
             </div>
           </AnimatedSection>
