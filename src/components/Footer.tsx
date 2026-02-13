@@ -1,6 +1,7 @@
 "use client";
 
-import { Logo, DarkModeToggle } from "./shared";
+import Image from "next/image";
+import { DarkModeToggle } from "./shared";
 
 const navLinks = [
   { id: "newsletter", label: "Newsletter" },
@@ -20,6 +21,32 @@ function scrollToSection(e: React.MouseEvent, id: string) {
   }
 }
 
+function FooterBrandLogo() {
+  return (
+    <a
+      href="#hero"
+      onClick={(e) => scrollToSection(e, "hero")}
+      className="inline-flex items-center"
+      aria-label="Go to top"
+    >
+      <Image
+        src="/partners/vista logo for light bgs.svg"
+        alt="Vista logo"
+        width={452}
+        height={164}
+        className="footer-vista-logo-light w-[64px] h-[20px] object-contain"
+      />
+      <Image
+        src="/partners/vista logo for dark bgs.svg"
+        alt="Vista logo"
+        width={513}
+        height={236}
+        className="footer-vista-logo-dark w-[64px] h-[20px] object-contain"
+      />
+    </a>
+  );
+}
+
 export function Footer() {
   return (
     <footer className="footer-compact">
@@ -27,7 +54,7 @@ export function Footer() {
         {/* Mobile layout */}
         <div className="sm:hidden">
           <div className="flex items-start justify-between gap-4 pb-4 border-b border-border">
-            <Logo />
+            <FooterBrandLogo />
             <div className="flex gap-6 text-caption">
               <div className="flex flex-col gap-1">
                 {navLinks.map(({ id, label }) => (
@@ -52,7 +79,7 @@ export function Footer() {
         <div className="hidden sm:block">
           <div className="grid grid-cols-3 gap-8">
             <div>
-              <Logo />
+              <FooterBrandLogo />
               <p className="text-caption text-muted mt-4">Research collective exploring<br />blockchain and AI.</p>
             </div>
             <div>
@@ -68,7 +95,6 @@ export function Footer() {
               <div className="flex flex-col gap-2">
                 <a href="mailto:info@vista.wtf" className="text-body-sm text-muted hover:text-foreground transition-colors">info@vista.wtf</a>
                 <a href="https://twitter.com/viaboratorio" target="_blank" rel="noopener noreferrer" className="text-body-sm text-muted hover:text-foreground transition-colors">Twitter</a>
-                <a href="https://linkedin.com/company/vista" target="_blank" rel="noopener noreferrer" className="text-body-sm text-muted hover:text-foreground transition-colors">LinkedIn</a>
               </div>
             </div>
           </div>

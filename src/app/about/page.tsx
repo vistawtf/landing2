@@ -27,15 +27,16 @@ export default function AboutPage() {
 
             <div className="prose prose-lg max-w-none">
               <p className="text-body text-muted leading-relaxed">
-                Vista is a research hub exploring the intersection of blockchain, AI, 
-                and emerging technology. We publish original analysis for builders, 
-                investors, and explorers navigating the future of the internet.
+                Vista is a research and execution team working across blockchain,
+                AI, and emerging internet infrastructure. We treat information as a
+                core strategic asset and turn technical change into clear signals,
+                practical strategy, and production-ready products.
               </p>
 
               <div className="mt-12 pt-12 border-t border-border">
                 <p className="text-body-sm text-muted">
-                  <strong>Coming soon:</strong> Full about page with team bios, mission, 
-                  and research methodology.
+                  We are currently expanding this section with deeper detail on our methodology,
+                  collaborations, and active initiatives.
                 </p>
               </div>
             </div>

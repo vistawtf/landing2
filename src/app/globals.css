@@ -156,19 +156,37 @@ body {
   justify-content: flex-start;
   flex: 1;
   min-height: 0;
-  padding-bottom: 1rem;
-  overflow-y: auto;
+  /* Account for fixed header (h-14) and keep the block visually balanced */
+  padding-top: clamp(4.25rem, 10vh, 6rem);
+  padding-bottom: clamp(1rem, 2.5vh, 1.75rem);
+  overflow: visible;
+}
+
+.about-partner-image-light {
+  display: block;
+}
+
+.about-partner-image-dark {
+  display: none;
+}
+
+.dark .about-partner-image-light {
+  display: none;
+}
+
+.dark .about-partner-image-dark {
+  display: block;
 }
 
 @media (min-width: 640px) {
   .about-content {
-    padding-bottom: 1.5rem;
+    padding-bottom: clamp(1rem, 2.5vh, 1.75rem);
   }
 }
 
 @media (min-width: 1024px) {
   .about-content {
-    padding-bottom: 2rem;
+    padding-bottom: clamp(1rem, 2.5vh, 1.75rem);
   }
 }
 
@@ -180,6 +198,22 @@ body {
   padding: 1rem 0 1.5rem;
   border-top: 2px solid var(--foreground);
   flex-shrink: 0;
+}
+
+.footer-vista-logo-light {
+  display: block;
+}
+
+.footer-vista-logo-dark {
+  display: none;
+}
+
+.dark .footer-vista-logo-light {
+  display: none;
+}
+
+.dark .footer-vista-logo-dark {
+  display: block;
 }
 
 @media (min-width: 640px) {
