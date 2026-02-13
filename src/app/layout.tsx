@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   metadataBase: new URL('https://vista.wtf'),
   title: "Vista | Blockchain and AI Research Collective",
   description:
-    "Vista is a research collective on blockchain and AI. See what's coming before others do. Curated insights for builders and investors.",
+    "Vista is a research and execution team focused on blockchain and AI. We turn emerging signals into practical strategy and production-ready products.",
   keywords: [
     "blockchain research",
     "AI agents",
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Vista | Blockchain and AI Research Collective",
     description:
-      "A research collective on blockchain and AI. See what's coming before others do.",
+      "Research and execution across blockchain and AI for builders, operators, and investors.",
     type: "website",
     locale: "en_US",
     siteName: "Vista",
@@ -45,7 +45,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Vista | Blockchain and AI Research Collective",
     description:
-      "A research collective on blockchain and AI. See what's coming before others do.",
+      "Research and execution across blockchain and AI for builders, operators, and investors.",
     images: ["/og-image.png"],
   },
   robots: {

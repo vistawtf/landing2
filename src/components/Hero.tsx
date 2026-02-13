@@ -63,7 +63,7 @@ export function HeroSection() {
             </a>
 
             <h1 className="text-display text-foreground mb-4" style={{ fontWeight: 400 }}>
-              <span className="underline decoration-ultra-orange decoration-4 underline-offset-8">vista</span> investigates
+              <span className="underline decoration-ultra-orange decoration-2 underline-offset-[0.20em]">vista</span> investigates
               <br />
               the future of the internet
             </h1>
