@@ -10,7 +10,7 @@ export function NewsletterSection() {
       <div className="snap-section-center">
         <div className="container">
           <AnimatedSection delay={150}>
-            <div className="newsletter-hero-card relative isolate flex w-full min-h-[280px] items-start overflow-hidden border border-[#d4d4d4] bg-[#f7f7f7] px-[clamp(18px,3vw,26px)] py-[clamp(28px,4vw,42px)] max-md:pb-[18px] md:min-h-[clamp(585px,81vh,860px)] md:py-[clamp(62px,7vw,98px)] md:px-[clamp(24px,2.8vw,36px)] md:items-center">
+            <div className="newsletter-hero-card relative isolate flex w-full min-h-[270px] items-start overflow-hidden border border-[#d4d4d4] bg-[#f7f7f7] px-[clamp(18px,3vw,26px)] py-[clamp(28px,3.9vw,40px)] max-md:pb-[18px] md:min-h-[clamp(500px,64vh,640px)] md:py-[clamp(40px,4.8vw,58px)] md:px-[clamp(24px,2.8vw,36px)] md:items-center">
               <div className="newsletter-hero-bg-base absolute inset-0 bg-[#f7f7f7]" aria-hidden="true" />
               <div
                 className="newsletter-hero-vector absolute inset-0 bg-[url('/frame-110.svg')] bg-no-repeat bg-[length:auto_125%] bg-[position:170%_center] md:bg-[length:auto_108%] md:bg-[position:100%_center] lg:bg-[length:auto_112%] lg:bg-[position:100%_center]"

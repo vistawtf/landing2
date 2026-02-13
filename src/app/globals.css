@@ -468,7 +468,7 @@ body {
 .newsletter-hero-layout {
   display: flex;
   flex-direction: column;
-  gap: clamp(14px, 2vw, 22px);
+  gap: clamp(14px, 2vw, 20px);
 }
 
 .newsletter-hero-main {
@@ -806,7 +806,8 @@ body {
 @media (min-width: 768px) {
   #newsletter .snap-section-center {
     justify-content: center;
-    padding: clamp(30px, 5vh, 64px) 0;
+    padding-top: calc(56px + clamp(12px, 2vh, 20px));
+    padding-bottom: clamp(30px, 5vh, 64px);
   }
 
   #newsletter .container {
