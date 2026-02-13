@@ -137,60 +137,9 @@ body {
   justify-content: center;
   flex: 1;
   overflow: hidden;
+  padding-top: 32px;
 }
 
-.snap-section-center.section-content-with-header {
-  justify-content: flex-start;
-}
-
-/* ========================================
-   SECTION HEADER
-   ======================================== */
-
-.section-header {
-  position: absolute;
-  top: calc(56px + 2rem);
-  left: 0;
-  right: 0;
-  z-index: 10;
-  padding: 0 16px;
-}
-
-@media (min-width: 640px) {
-  .section-header {
-    top: calc(56px + 2.5rem);
-    padding: 0 20px;
-  }
-}
-
-@media (min-width: 1024px) {
-  .section-header {
-    top: calc(56px + 3rem);
-    padding: 0 32px;
-  }
-}
-
-@media (min-width: 1280px) {
-  .section-header {
-    padding: 0 40px;
-  }
-}
-
-.section-content-with-header {
-  padding-top: calc(56px + 2rem + 3rem);
-}
-
-@media (min-width: 640px) {
-  .section-content-with-header {
-    padding-top: calc(56px + 2.5rem + 3.5rem);
-  }
-}
-
-@media (min-width: 1024px) {
-  .section-content-with-header {
-    padding-top: calc(56px + 3rem + 4rem);
-  }
-}
 
 .snap-section-end {
   justify-content: space-between;
@@ -479,11 +428,29 @@ body {
 .newsletter-hero-content {
   position: relative;
   z-index: 2;
+  width: 100%;
+}
+
+.newsletter-hero-layout {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(14px, 2vw, 22px);
+}
+
+.newsletter-hero-main {
+  width: min(100%, 700px);
+}
+
+.newsletter-hero-form-wrap {
+  width: min(100%, 620px);
+}
+
+.newsletter-hero-partners {
   width: min(100%, 620px);
 }
 
 .newsletter-hero-kicker {
-  margin: 0 0 10px;
+  margin: 0;
   font-size: 0.75rem;
   font-weight: 600;
   letter-spacing: 0.07em;
@@ -491,31 +458,50 @@ body {
   color: #52525b;
 }
 
+.newsletter-kicker-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
 .newsletter-hero-title {
   margin: 0;
   color: #18181b;
   font-weight: 500;
-  font-size: clamp(1.2rem, 2.85vw, 1.8rem);
-  line-height: 1.28;
+  font-size: clamp(1.24rem, 2.95vw, 1.96rem);
+  line-height: 1.25;
   letter-spacing: -0.015em;
-  max-width: 26ch;
+  max-width: 24ch;
+}
+
+.newsletter-subcopy {
+  margin: 12px 0 0;
+  color: #3f3f46;
+  font-family: var(--font-sans);
+  font-size: clamp(0.98rem, 1.5vw, 1.05rem);
+  font-weight: 400;
+  line-height: 1.6;
+  letter-spacing: 0.005em;
+  max-width: 50ch;
 }
 
 .newsletter-hero-bullets {
   margin: 12px 0 0;
-  padding-left: 0;
-  color: #27272a;
+  padding: 0;
+  color: #3f3f46;
   font-family: var(--font-sans);
-  font-size: 16px;
+  font-size: clamp(0.92rem, 1.35vw, 0.98rem);
   font-weight: 400;
-  line-height: 1.7;
+  line-height: 1.55;
   list-style: none;
+  max-width: 52ch;
 }
 
 .newsletter-hero-bullets li {
   position: relative;
-  padding-left: 20px;
-  color: #27272a;
+  padding-left: 18px;
 }
 
 .newsletter-hero-bullets li::before {
@@ -527,12 +513,131 @@ body {
 }
 
 .newsletter-hero-bullets li + li {
-  margin-top: 4px;
+  margin-top: 3px;
+}
+
+.newsletter-subcopy-emphasis {
+  color: #ff5233;
+  font-weight: 450;
+}
+
+.newsletter-meta .newsletter-subcopy-emphasis {
+  color: #ff5233;
+  font-weight: 400;
+}
+
+.newsletter-meta {
+  margin: 10px 0 0;
+  color: #52525b;
+  font-size: 0.88rem;
+  line-height: 1.45;
+  max-width: 56ch;
+}
+
+.newsletter-form-meta {
+  margin-top: 6px;
+  font-size: 0.8rem;
+  line-height: 1.35;
+}
+
+.newsletter-partner-strip {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: clamp(14px, 2.2vw, 22px);
+  width: min(100%, 620px);
+  max-width: 100%;
+  border: none;
+  background: transparent;
+  padding: 8px 6px;
+}
+
+.newsletter-partner-logo {
+  display: inline-flex;
+  align-items: center;
+}
+
+.newsletter-partner-link {
+  opacity: 0.7;
+  transition: opacity 0.2s ease;
+}
+
+.newsletter-partner-link:hover,
+.newsletter-partner-link:focus-visible {
+  opacity: 0.9;
+}
+
+.newsletter-partner-link:focus-visible {
+  outline: 1px solid currentColor;
+  outline-offset: 4px;
+}
+
+.newsletter-partner-image {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.newsletter-partner-image-dark {
+  display: none;
+}
+
+.dark .newsletter-partner-image-light {
+  display: none;
+}
+
+.dark .newsletter-partner-image-dark {
+  display: block;
+}
+
+.newsletter-partner-logo-arco {
+  width: clamp(58px, 7.6vw, 80px);
+}
+
+.newsletter-partner-logo-eth {
+  width: clamp(108px, 14vw, 152px);
+}
+
+.newsletter-proof-row {
+  margin: 12px 0 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.newsletter-proof-row-top {
+  margin: -6px 0 12px;
+}
+
+.newsletter-proof-row-inline {
+  margin: 0;
+}
+
+.newsletter-proof-row-inline .newsletter-proof-chip {
+  font-size: 0.7rem;
+  padding: 5px 9px;
+}
+
+.newsletter-proof-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 10px;
+  border: 1px solid #d4d4d4;
+  background: #ffffff;
+  color: #27272a;
+  font-size: 0.78rem;
+  font-weight: 500;
+  line-height: 1.3;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  border-radius: 8px;
 }
 
 .newsletter-hero-form {
-  margin-top: clamp(16px, 2.4vw, 24px);
-  width: min(100%, 620px);
+  margin-top: 0;
+  width: 100%;
   height: 56px;
   display: flex;
   border: 1px solid #737373;
@@ -541,7 +646,7 @@ body {
 }
 
 .newsletter-hero-form:focus-within {
-  outline: 1px solid #ffffff;
+  outline: 1px solid #ff5233;
   outline-offset: -1px;
 }
 
@@ -567,8 +672,8 @@ body {
 }
 
 .newsletter-hero-submit {
-  width: 56px;
-  min-width: 56px;
+  width: auto;
+  min-width: max-content;
   height: 100%;
   border: none;
   border-left: 1px solid rgba(0, 0, 0, 0.2);
@@ -580,12 +685,20 @@ body {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  gap: 8px;
+  padding: 0 16px;
+  white-space: nowrap;
+  font-size: 0.76rem;
+  font-family: var(--font-mono);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  font-weight: 600;
   transition: background-color 0.2s ease;
 }
 
 .newsletter-hero-submit-icon {
-  width: 34px;
-  height: 34px;
+  width: 18px;
+  height: 18px;
   stroke: currentColor;
 }
 
@@ -606,16 +719,35 @@ body {
   color: #f5f5f5;
 }
 
-.dark .newsletter-hero-bullets {
-  color: #e6e6e6;
+.dark .newsletter-subcopy {
+  color: #dedede;
 }
 
-.dark .newsletter-hero-bullets li {
+.dark .newsletter-hero-bullets {
   color: #e6e6e6;
 }
 
 .dark .newsletter-hero-bullets li::before {
   color: #bdbdbd;
+}
+
+.dark .newsletter-subcopy-emphasis {
+  color: #ff8a65;
+}
+
+.dark .newsletter-meta .newsletter-subcopy-emphasis {
+  color: #ff8a65;
+  font-weight: 400;
+}
+
+.dark .newsletter-meta {
+  color: #bdbdbd;
+}
+
+.dark .newsletter-proof-chip {
+  border-color: #353535;
+  background: #171717;
+  color: #e5e5e5;
 }
 
 .dark .newsletter-hero-form {
@@ -638,30 +770,27 @@ body {
 }
 
 @media (min-width: 768px) {
-  #newsletter .section-content-with-header {
-    flex: 1;
+  #newsletter .snap-section-center {
     justify-content: center;
-    padding-bottom: clamp(2rem, 5vh, 4.5rem);
+    padding: clamp(30px, 5vh, 64px) 0;
   }
 
   #newsletter .container {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
+    display: block;
   }
 
   #newsletter .animate-on-scroll {
-    height: 100%;
-    width: 100%;
-    display: flex;
-    align-items: stretch;
+    display: block;
   }
 
+  #newsletter .newsletter-hero-card {
+    flex: none;
+  }
 }
 
 @media (max-width: 1023px) {
   .newsletter-hero-title {
-    max-width: 28ch;
+    max-width: 26ch;
   }
 }
 
@@ -671,9 +800,42 @@ body {
     font-size: clamp(1.3rem, 6.2vw, 1.6rem);
   }
 
+  .newsletter-subcopy {
+    margin-top: 10px;
+    font-size: 0.97rem;
+    line-height: 1.58;
+  }
+
   .newsletter-hero-bullets {
     margin-top: 10px;
-    font-size: 16px;
+    font-size: 0.92rem;
+    line-height: 1.52;
+  }
+
+  .newsletter-meta {
+    margin-top: 8px;
+    font-size: 0.84rem;
+  }
+
+  .newsletter-partner-strip {
+    width: 100%;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 10px 8px;
+  }
+
+  .newsletter-partner-logo-arco {
+    width: clamp(50px, 18vw, 68px);
+  }
+
+  .newsletter-partner-logo-eth {
+    width: clamp(96px, 36vw, 132px);
+  }
+
+  .newsletter-proof-chip {
+    font-size: 0.72rem;
+    padding: 6px 9px;
   }
 
   .newsletter-hero-form {
@@ -687,10 +849,10 @@ body {
   }
 
   .newsletter-hero-submit {
-    width: 54px;
-    min-width: 54px;
+    padding: 0 12px;
+    gap: 6px;
+    font-size: 0.68rem;
   }
-
 }
 
 /* ========================================
@@ -820,16 +982,6 @@ body {
     margin-top: auto;
   }
 
-  .section-header {
-    position: relative;
-    top: auto;
-    padding-top: 1rem;
-    padding-bottom: 1rem;
-  }
-
-  .section-content-with-header {
-    padding-top: 0;
-  }
 
   .about-content {
     padding-top: 0;
