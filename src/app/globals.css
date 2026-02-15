@@ -1298,3 +1298,24 @@ body {
   background: var(--surface);
 }
 
+
+/* Landing2 gentle snap focus for newsletter */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  scroll-snap-type: y proximity;
+}
+
+#hero,
+#latest,
+#services,
+#who-we-are {
+  scroll-snap-align: start;
+}
+
+#newsletter {
+  scroll-snap-align: center;
+  scroll-snap-stop: always;
+}
