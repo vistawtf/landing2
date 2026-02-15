@@ -7,7 +7,7 @@ import { Footer } from "./Footer";
 
 export function AboutSection() {
   return (
-    <section id="about" className="snap-section snap-section-end">
+    <section id="about" className="about-section-wrapper">
       <div className="about-content">
         <div className="container">
           <AnimatedSection delay={150}>

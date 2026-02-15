@@ -84,8 +84,7 @@
 
 html {
   font-size: 16px;
-  height: 100%;
-  overflow: hidden;
+  scroll-behavior: smooth;
 }
 
 body {
@@ -97,37 +96,17 @@ body {
   -moz-osx-font-smoothing: grayscale;
   line-height: 1.5;
   transition: background-color 0.2s ease, color 0.2s ease;
-  height: 100%;
-  overflow: hidden;
 }
 
 /* ========================================
-   SNAP SCROLL SYSTEM
+   SECTION SYSTEM (natural scroll)
    ======================================== */
 
-.snap-container {
-  scroll-snap-type: y mandatory;
-  scroll-behavior: smooth;
-  overflow-y: scroll;
-  overflow-x: hidden;
-  height: 100vh;
-  height: 100dvh;
-  overscroll-behavior: none;
-  -webkit-overflow-scrolling: touch;
-  will-change: scroll-position;
-}
-
 .snap-section {
-  scroll-snap-align: start;
-  scroll-snap-stop: always;
-  height: 100vh;
-  height: 100dvh;
   min-height: 100vh;
-  max-height: 100vh;
-  max-height: 100dvh;
+  min-height: 100dvh;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
   position: relative;
 }
 
@@ -136,19 +115,29 @@ body {
   flex-direction: column;
   justify-content: center;
   flex: 1;
-  overflow: hidden;
   padding-top: 32px;
 }
 
-
 .snap-section-end {
   justify-content: space-between;
-  overflow: visible;
+}
+
+/* ========================================
+   NEWSLETTER SECTION WRAPPER
+   ======================================== */
+
+.newsletter-section-wrapper {
+  border-top: 1px solid var(--border);
 }
 
 /* ========================================
    ABOUT SECTION
    ======================================== */
+
+.about-section-wrapper {
+  padding-top: clamp(60px, 8vh, 100px);
+  padding-bottom: 0;
+}
 
 .about-content {
   display: flex;
@@ -891,6 +880,200 @@ body {
 }
 
 /* ========================================
+   SERVICES PREVIEW
+   ======================================== */
+
+.services-preview-section {
+  padding: clamp(80px, 10vh, 120px) 0;
+}
+
+.services-preview-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: clamp(32px, 5vh, 48px);
+}
+
+.services-preview-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+@media (min-width: 768px) {
+  .services-preview-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+}
+
+.service-card {
+  padding: clamp(24px, 3vw, 32px);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: default;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.service-card:hover {
+  border-color: var(--border-hover);
+  background: var(--surface-hover);
+  transform: translateY(-2px);
+}
+
+.service-card-icon {
+  font-size: 1.5rem;
+  margin-bottom: 16px;
+}
+
+.service-card-title {
+  font-size: 1.125rem;
+  font-weight: 500;
+  color: var(--foreground);
+  margin-bottom: 8px;
+}
+
+.service-card-desc {
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: var(--muted);
+  flex: 1;
+}
+
+.service-card-link {
+  display: inline-flex;
+  align-items: center;
+  margin-top: 16px;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--ultra-orange);
+  transition: color 0.2s;
+}
+
+.services-preview-cta {
+  margin-top: clamp(24px, 3vh, 40px);
+  text-align: center;
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 24px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  color: var(--foreground);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  transition: all 0.2s;
+  text-decoration: none;
+}
+
+.btn-secondary:hover {
+  border-color: var(--ultra-orange);
+  color: var(--ultra-orange);
+}
+
+/* ========================================
+   ARTICLES PREVIEW
+   ======================================== */
+
+.articles-preview-section {
+  padding: clamp(80px, 10vh, 120px) 0;
+  border-top: 1px solid var(--border);
+}
+
+.articles-preview-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: clamp(32px, 5vh, 48px);
+}
+
+.articles-preview-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+@media (min-width: 768px) {
+  .articles-preview-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+}
+
+.article-card {
+  display: flex;
+  flex-direction: column;
+  padding: clamp(20px, 2.5vw, 28px);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  text-decoration: none;
+  height: 100%;
+}
+
+.article-card:hover {
+  border-color: var(--border-hover);
+  background: var(--surface-hover);
+  transform: translateY(-2px);
+}
+
+.article-card-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.article-card-category {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ultra-orange);
+  padding: 3px 8px;
+  border: 1px solid rgba(255, 82, 51, 0.25);
+  border-radius: 4px;
+}
+
+.article-card-date {
+  font-size: 0.75rem;
+  color: var(--muted-light);
+}
+
+.article-card-title {
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.35;
+  color: var(--foreground);
+  margin-bottom: 8px;
+}
+
+.article-card-excerpt {
+  font-size: 0.8125rem;
+  line-height: 1.6;
+  color: var(--muted);
+  flex: 1;
+}
+
+.article-card-read {
+  display: inline-flex;
+  align-items: center;
+  margin-top: 16px;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--ultra-orange);
+}
+
+/* ========================================
    FORM ELEMENTS
    ======================================== */
 
@@ -970,29 +1153,13 @@ body {
    ======================================== */
 
 @media (max-width: 767px) {
-  html,
-  body {
-    overflow-y: auto;
-    overflow-x: hidden;
-    height: auto;
-    min-height: 100%;
-  }
-
-  .snap-container {
-    scroll-snap-type: none;
-    height: auto;
-    min-height: 100vh;
-    min-height: 100dvh;
-    overflow: visible;
-  }
-
   .snap-section {
-    height: auto;
+    min-height: auto;
+  }
+
+  #hero.snap-section {
     min-height: 100vh;
     min-height: 100dvh;
-    max-height: none;
-    overflow: visible;
-    scroll-snap-align: none;
   }
 
   .snap-section-end {
@@ -1012,15 +1179,8 @@ body {
     padding-bottom: 0;
   }
 
-  .footer-compact {
-    position: relative;
-    margin-top: auto;
-  }
-
-
   .about-content {
     padding-top: 0;
-    overflow: visible;
     min-height: auto;
     flex: none;
   }
