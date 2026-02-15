@@ -14,7 +14,7 @@ export function FooterSection() {
         <div className="grid grid-cols-1 md:grid-cols-[2fr_1fr_1fr] border-b border-white/[0.08]">
           <div className="py-12 md:py-14 md:pr-10 border-b md:border-b-0 border-white/[0.08] md:border-r md:border-white/[0.08]">
             <p className="text-xs uppercase tracking-[0.12em] text-white/50 mb-3">Ready to work together?</p>
-            <h3 className="text-3xl md:text-4xl font-medium leading-tight text-[#EDEDED] mb-4">
+            <h3 className="text-3xl md:text-4xl font-medium leading-tight text-[#E4E2D8] mb-4">
               Build something useful
               <br className="hidden md:block" />
               with Vista.
@@ -22,7 +22,7 @@ export function FooterSection() {
             <div className="flex gap-3 flex-wrap">
               <Link
                 href="/landing2/services"
-                className="bg-[#FF5233] text-white px-6 py-3 rounded-[2px] text-sm font-semibold uppercase tracking-wider hover:bg-[#FF6A47] transition-colors"
+                className="bg-[#FF5233] text-white px-6 py-3 rounded-[2px] text-sm font-semibold uppercase tracking-wider hover:bg-[#FF7043] transition-colors"
               >
                 Work with Vista →
               </Link>
@@ -37,7 +37,7 @@ export function FooterSection() {
 
           <div className="py-12 md:py-14 md:px-8 border-b md:border-b-0 border-white/[0.08] md:border-r md:border-white/[0.08]">
             <Code2 className="w-4 h-4 text-white/50 mb-4" />
-            <h4 className="text-base font-medium text-[#EDEDED] mb-2">Start shipping</h4>
+            <h4 className="text-base font-medium text-[#E4E2D8] mb-2">Start shipping</h4>
             <p className="text-sm text-white/60 mb-3">Research and execution for teams moving fast.</p>
             <Link href="/landing2/services" className="text-sm text-white/80 hover:text-[#FF5233] transition-colors">
               Explore services →
@@ -46,7 +46,7 @@ export function FooterSection() {
 
           <div className="py-12 md:py-14 md:pl-8">
             <Tags className="w-4 h-4 text-white/50 mb-4" />
-            <h4 className="text-base font-medium text-[#EDEDED] mb-2">See pricing</h4>
+            <h4 className="text-base font-medium text-[#E4E2D8] mb-2">See pricing</h4>
             <p className="text-sm text-white/60 mb-3">Engagement models aligned with your scope.</p>
             <Link href="/landing2/services" className="text-sm text-white/80 hover:text-[#FF5233] transition-colors">
               Talk to us →

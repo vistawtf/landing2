@@ -50,26 +50,22 @@ export function Navigation() {
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
         inverted
           ? 'bg-[rgba(17,17,17,0.8)] border-b border-white/[0.08]'
           : scrolled
           ? 'bg-[rgba(250,250,250,0.8)] border-b border-black/[0.08]'
           : 'bg-transparent border-b-0'
       }`}
-      style={{ backdropFilter: (scrolled || inverted) ? 'blur(12px)' : 'none' }}
+      style={{ backdropFilter: scrolled || inverted ? 'blur(16px) saturate(1.4)' : 'none' }}
     >
       <div className="max-w-[1200px] mx-auto px-4 md:px-16">
-        <div className={`flex items-center justify-between transition-all duration-300 ${scrolled ? 'py-4' : 'py-5'}`}>
-          {/* Logo */}
-          <Link href="/" className="flex items-center gap-0 transition-all duration-300">
+        <div className={`flex items-center justify-between transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${scrolled ? 'py-4' : 'py-5'}`}>
+          <Link href="/" className="flex items-center gap-0 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]">
             <span
-              className={`text-lg font-medium transition-all duration-300 overflow-hidden ${inverted ? 'text-[#E4E2D8]' : 'text-[#111111]'}`}
-              style={{
-                maxWidth: scrolled ? '80px' : '0px',
-                opacity: scrolled ? 1 : 0,
-                marginRight: scrolled ? '4px' : '0px',
-              }}
+              className={`text-lg font-medium transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] overflow-hidden whitespace-nowrap ${
+                inverted ? 'text-[#E4E2D8]' : 'text-[#111111]'
+              } ${scrolled ? 'w-[80px] opacity-100 mr-1' : 'w-0 opacity-0 mr-0'}`}
             >
               vista
             </span>
@@ -78,7 +74,6 @@ export function Navigation() {
             </span>
           </Link>
 
-          {/* Nav Links */}
           <div className="hidden lg:flex items-center gap-8">
             <Link
               href="/landing2#services"
@@ -112,16 +107,9 @@ export function Navigation() {
             </Link>
           </div>
 
-          <Link
-            href="#newsletter"
-            className="hidden md:inline-flex lg:hidden bg-[#FF5233] text-white px-5 py-2 rounded-[2px] text-sm font-medium hover:bg-[#FF7043] transition-colors duration-200"
-          >
-            Subscribe
-          </Link>
-
           <button
             onClick={() => setMenuOpen((v) => !v)}
-            className={`md:hidden inline-flex items-center justify-center w-10 h-10 border rounded-[2px] transition-colors ${
+            className={`lg:hidden inline-flex items-center justify-center w-10 h-10 border rounded-[2px] transition-colors ${
               inverted ? 'border-white/20 text-[#E4E2D8]' : 'border-black/20 text-[#111111]'
             }`}
             aria-label="Toggle menu"
@@ -131,16 +119,20 @@ export function Navigation() {
           </button>
         </div>
 
-        {menuOpen && (
-          <div className={`md:hidden pb-4 pt-1 border-t ${inverted ? 'border-white/[0.08]' : 'border-black/[0.08]'}`}>
-            <div className="flex flex-col gap-3">
-              <Link onClick={() => setMenuOpen(false)} href="/landing2#services" className={`${inverted ? 'text-[#E4E2D8]' : 'text-[#111111]'} text-base`}>
+        <div
+          className={`lg:hidden overflow-hidden transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+            menuOpen ? 'max-h-[300px] opacity-100 pb-5 pt-2' : 'max-h-0 opacity-0 pb-0 pt-0'
+          }`}
+        >
+          <div className={`border-t ${inverted ? 'border-white/[0.08]' : 'border-black/[0.08]'}`}>
+            <div className="flex flex-col gap-4 pt-4">
+              <Link onClick={() => setMenuOpen(false)} href="/landing2#services" className={`${inverted ? 'text-[#E4E2D8]' : 'text-[#111111]'} text-[17px] py-1`}>
                 Services
               </Link>
-              <Link onClick={() => setMenuOpen(false)} href="/landing2#latest" className={`${inverted ? 'text-[#E4E2D8]' : 'text-[#111111]'} text-base`}>
+              <Link onClick={() => setMenuOpen(false)} href="/landing2#latest" className={`${inverted ? 'text-[#E4E2D8]' : 'text-[#111111]'} text-[17px] py-1`}>
                 Research
               </Link>
-              <Link onClick={() => setMenuOpen(false)} href="/landing2/about" className={`${inverted ? 'text-[#E4E2D8]' : 'text-[#111111]'} text-base`}>
+              <Link onClick={() => setMenuOpen(false)} href="/landing2/about" className={`${inverted ? 'text-[#E4E2D8]' : 'text-[#111111]'} text-[17px] py-1`}>
                 About
               </Link>
               <Link
@@ -152,7 +144,7 @@ export function Navigation() {
               </Link>
             </div>
           </div>
-        )}
+        </div>
       </div>
     </nav>
   );

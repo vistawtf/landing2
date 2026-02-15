@@ -22,7 +22,7 @@ export function NewsletterSection() {
         <div className="flex flex-col gap-5 max-w-[700px]">
           {/* Kicker + Badge */}
           <div className="flex items-center gap-3 mb-4">
-            <p className="text-xs font-semibold uppercase tracking-wider text-[#8E8E8E]">
+            <p className="text-xs font-semibold uppercase tracking-wider text-[#999999]">
               EMERGENT STACK BY ETH LATAM
             </p>
             <div className="bg-white/[0.08] border border-white/[0.15] rounded-2xl px-3 py-1 text-[11px] font-semibold text-[#E4E2D8]">
@@ -31,24 +31,24 @@ export function NewsletterSection() {
           </div>
 
           {/* Headline */}
-          <h2 className="text-[clamp(1.3rem,6.2vw,1.6rem)] md:text-5xl font-medium text-[#F5F5F5] leading-tight max-w-[26ch] md:max-w-none mb-4">
+          <h2 className="text-[clamp(1.3rem,6.2vw,1.6rem)] md:text-5xl font-medium text-[#E4E2D8] leading-tight max-w-[26ch] md:max-w-none mb-4">
             Less scrolling & more insights:
             <br />
             The blockchain + AI newsletter for builders shaping the future
           </h2>
 
           {/* Bullets */}
-          <ul className="mt-3 mb-5 space-y-1 text-lg md:text-base text-[#E6E6E6] leading-relaxed">
+          <ul className="mt-3 mb-5 space-y-1 text-lg md:text-base text-[#E4E2D8] leading-relaxed">
             <li className="relative pl-5">
-              <span className="absolute left-0 text-[#BDBDBD]">›</span>
+              <span className="absolute left-0 text-[#999999]">›</span>
               Curated signals, without the noise.
             </li>
             <li className="relative pl-5">
-              <span className="absolute left-0 text-[#BDBDBD]">›</span>
+              <span className="absolute left-0 text-[#999999]">›</span>
               Built for operators shipping across LatAm.
             </li>
             <li className="relative pl-5">
-              <span className="absolute left-0 text-[#BDBDBD]">›</span>
+              <span className="absolute left-0 text-[#999999]">›</span>
               Read in minutes, relevant all week.
             </li>
           </ul>
@@ -60,13 +60,13 @@ export function NewsletterSection() {
           >
             <input
               type="email"
-              className="flex-1 h-14 md:h-14 px-5 md:px-5 bg-white/[0.08] border border-white/[0.15] rounded-[2px] md:rounded-r-none text-[#EDEDED] text-base placeholder:text-[#9A9A9A] focus:outline-none focus:border-white/[0.3] transition-colors"
+              className="flex-1 h-14 md:h-14 px-5 md:px-5 bg-white/[0.08] border border-white/[0.15] rounded-[2px] md:rounded-r-none text-[#EDEDED] text-base placeholder:text-[#999999] focus:outline-none focus:border-white/[0.3] transition-colors"
               placeholder="you@company.com"
               required
             />
             <button
               type="submit"
-              className="h-14 md:h-14 px-6 md:px-6 bg-[#FF5233] text-white rounded-[2px] md:rounded-l-none text-sm font-semibold uppercase tracking-wider flex items-center justify-center gap-2 hover:bg-[#FF6A47] focus:outline focus:outline-2 focus:outline-white focus:outline-offset-2 transition-colors"
+              className="h-14 md:h-14 px-6 md:px-6 bg-[#FF5233] text-white rounded-[2px] md:rounded-l-none text-sm font-semibold uppercase tracking-wider flex items-center justify-center gap-2 hover:bg-[#FF7043] focus:outline focus:outline-2 focus:outline-white focus:outline-offset-2 transition-colors"
             >
               <span>SUBSCRIBE</span>
               <ChevronRight className="w-[18px] h-[18px]" strokeWidth={2.2} />
