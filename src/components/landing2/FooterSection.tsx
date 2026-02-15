@@ -9,10 +9,10 @@ export function FooterSection() {
         <div className="absolute inset-0 before:absolute before:left-0 before:top-0 before:bottom-0 before:w-px before:bg-white/[0.06] after:absolute after:right-0 after:top-0 after:bottom-0 after:w-px after:bg-white/[0.06]" />
       </div>
 
-      <div className="relative z-10 max-w-[1200px] mx-auto px-6 md:px-16">
+      <div className="relative z-10 max-w-[1200px] mx-auto">
         {/* CTA band (Stripe/Chaos inspired) */}
-        <div className="grid grid-cols-1 md:grid-cols-[2fr_1fr_1fr] border-b border-white/[0.08]">
-          <div className="py-12 md:py-14 md:pr-10 border-b md:border-b-0 border-white/[0.08] md:border-r md:border-white/[0.08]">
+        <div className="grid grid-cols-1 md:grid-cols-[2fr_1fr_1fr] px-6 md:px-16 relative after:absolute after:bottom-0 after:left-0 after:right-0 after:h-px after:bg-white/[0.08] [&>*:not(:last-child)]:border-b [&>*:not(:last-child)]:md:border-b-0 [&>*:not(:last-child)]:border-white/[0.08]">
+          <div className="py-12 md:py-14 md:pr-10 md:border-r md:border-white/[0.08]">
             <p className="text-xs uppercase tracking-[0.12em] text-white/50 mb-3">Ready to work together?</p>
             <h3 className="text-3xl md:text-4xl font-medium leading-tight text-[#E4E2D8] mb-4">
               Build something useful
@@ -35,7 +35,7 @@ export function FooterSection() {
             </div>
           </div>
 
-          <div className="py-12 md:py-14 md:px-8 border-b md:border-b-0 border-white/[0.08] md:border-r md:border-white/[0.08]">
+          <div className="py-12 md:py-14 md:px-8 md:border-r md:border-white/[0.08]">
             <Code2 className="w-4 h-4 text-white/50 mb-4" />
             <h4 className="text-base font-medium text-[#E4E2D8] mb-2">Start shipping</h4>
             <p className="text-sm text-white/60 mb-3">Research and execution for teams moving fast.</p>
@@ -55,8 +55,8 @@ export function FooterSection() {
         </div>
 
         {/* Main footer columns with separators */}
-        <div className="grid grid-cols-1 md:grid-cols-4 mb-14 border-b border-white/[0.08]">
-          <div className="py-10 md:py-12 md:pr-8 border-b md:border-b-0 border-white/[0.08] md:border-r md:border-white/[0.08]">
+        <div className="grid grid-cols-1 md:grid-cols-4 mb-14 px-6 md:px-16 relative after:absolute after:bottom-0 after:left-0 after:right-0 after:h-px after:bg-white/[0.08] [&>*:not(:last-child)]:border-b [&>*:not(:last-child)]:md:border-b-0 [&>*:not(:last-child)]:border-white/[0.08]">
+          <div className="py-10 md:py-12 md:pr-8 md:border-r md:border-white/[0.08]">
             <div className="flex items-center gap-1 mb-4">
               <span className="text-2xl font-medium text-[#E4E2D8]">vista</span>
               <span className="text-[#FF5233] text-2xl" style={{ marginLeft: '4px', transform: 'rotate(0deg)' }}>₊˚⊹</span>
@@ -66,7 +66,7 @@ export function FooterSection() {
             </p>
           </div>
 
-          <div className="py-10 md:py-12 md:px-8 border-b md:border-b-0 border-white/[0.08] md:border-r md:border-white/[0.08]">
+          <div className="py-10 md:py-12 md:px-8 md:border-r md:border-white/[0.08]">
             <h3 className="text-xs font-semibold uppercase tracking-wider text-white/40 mb-4">Pages</h3>
             <ul className="space-y-2">
               <li><Link href="/landing2" className="text-sm text-white/70 hover:text-[#FF5233] transition-colors">Home</Link></li>
@@ -76,7 +76,7 @@ export function FooterSection() {
             </ul>
           </div>
 
-          <div className="py-10 md:py-12 md:px-8 border-b md:border-b-0 border-white/[0.08] md:border-r md:border-white/[0.08]">
+          <div className="py-10 md:py-12 md:px-8 md:border-r md:border-white/[0.08]">
             <h3 className="text-xs font-semibold uppercase tracking-wider text-white/40 mb-4">Resources</h3>
             <ul className="space-y-2">
               <li><a href="https://vistasubstack.substack.com" target="_blank" rel="noopener noreferrer" className="text-sm text-white/70 hover:text-[#FF5233] transition-colors">Substack</a></li>
@@ -96,7 +96,7 @@ export function FooterSection() {
         </div>
 
         {/* Bottom bar */}
-        <div className="pt-2 flex flex-col md:flex-row justify-between items-center gap-4 text-center md:text-left">
+        <div className="pt-2 px-6 md:px-16 flex flex-col md:flex-row justify-between items-center gap-4 text-center md:text-left">
           <div className="flex flex-col md:flex-row gap-2 md:gap-4 text-sm text-white/40">
             <span>© 2026 Vista</span>
             <span className="hidden md:inline">|</span>
