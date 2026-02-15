@@ -1,6 +1,6 @@
 "use client";
 
-import { AnimatedSection } from "./shared";
+import { AnimatedSection, SectionHeader } from "./shared";
 
 const placeholderArticles = [
   {
@@ -28,33 +28,28 @@ const placeholderArticles = [
 
 export function ArticlesPreview() {
   return (
-    <section id="articles" className="articles-preview-section">
+    <section id="articles" className="section-spacing border-t border-border">
       <div className="container">
-        <AnimatedSection>
-          <div className="articles-preview-header">
-            <span className="text-label text-muted font-mono">03</span>
-            <div className="flex-1 h-px bg-border" />
-            <span className="text-label text-muted">Latest from Vista</span>
-          </div>
-        </AnimatedSection>
+        <SectionHeader number="02" label="Latest from Vista" />
 
-        <div className="articles-preview-grid">
+        <div className="articles-preview-grid mt-10">
           {placeholderArticles.map((article, i) => (
-            <AnimatedSection key={article.title} delay={i * 100}>
+            <AnimatedSection key={article.title} delay={i * 120}>
               <a
-                href="#"
+                href="https://vistasubstack.substack.com"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="article-card group"
-                onClick={(e) => e.preventDefault()}
               >
                 <div className="article-card-meta">
                   <span className="article-card-category">{article.category}</span>
                   <span className="article-card-date">{article.date}</span>
                 </div>
-                <h3 className="article-card-title">{article.title}</h3>
+                <h3 className="article-card-title group-hover:text-ultra-orange transition-colors duration-300">{article.title}</h3>
                 <p className="article-card-excerpt">{article.excerpt}</p>
                 <span className="article-card-read">
                   Read on Substack
-                  <svg className="w-3 h-3 ml-1 transition-transform group-hover:translate-x-1" viewBox="0 0 12 12" fill="none">
+                  <svg className="w-3 h-3 ml-1 transition-transform duration-300 group-hover:translate-x-1" viewBox="0 0 12 12" fill="none">
                     <path d="M2.5 6H9.5M9.5 6L6 2.5M9.5 6L6 9.5" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
                 </span>

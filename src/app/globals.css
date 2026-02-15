@@ -99,39 +99,127 @@ body {
 }
 
 /* ========================================
-   SECTION SYSTEM (natural scroll)
+   SECTION SYSTEM
    ======================================== */
 
-.snap-section {
-  min-height: 100vh;
-  min-height: 100dvh;
-  display: flex;
-  flex-direction: column;
-  position: relative;
+.section-spacing {
+  padding-top: clamp(80px, 10vh, 128px);
+  padding-bottom: clamp(80px, 10vh, 128px);
 }
 
-.snap-section-center {
-  display: flex;
-  flex-direction: column;
+/* ========================================
+   SUBSCRIBE BUTTON (Fortune 500 polish)
+   ======================================== */
+
+.subscribe-btn {
+  display: inline-flex;
+  align-items: center;
   justify-content: center;
-  flex: 1;
-  padding-top: 32px;
+  gap: 6px;
+  padding: 9px 20px;
+  background: var(--ultra-orange);
+  color: white;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  white-space: nowrap;
 }
 
-.snap-section-end {
-  justify-content: space-between;
+.subscribe-btn:hover {
+  background: var(--medium-orange);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(255, 82, 51, 0.25);
+}
+
+.subscribe-btn:active {
+  transform: translateY(0);
 }
 
 /* ========================================
-   NEWSLETTER SECTION WRAPPER
+   SERVICE CARDS
    ======================================== */
 
-.newsletter-section-wrapper {
-  border-top: 1px solid var(--border);
+.service-card {
+  display: block;
+  text-decoration: none;
+  height: 100%;
+}
+
+.service-card-inner {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: clamp(24px, 3vw, 32px);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--background);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.service-card:hover .service-card-inner {
+  border-color: var(--border-hover);
+  background: var(--surface);
+  transform: translateY(-3px);
+  box-shadow:
+    0 4px 6px -1px rgba(0, 0, 0, 0.04),
+    0 10px 20px -2px rgba(0, 0, 0, 0.06);
+}
+
+.dark .service-card:hover .service-card-inner {
+  box-shadow:
+    0 4px 6px -1px rgba(0, 0, 0, 0.2),
+    0 10px 20px -2px rgba(0, 0, 0, 0.3);
 }
 
 /* ========================================
-   ABOUT SECTION
+   VALUE CARDS
+   ======================================== */
+
+.value-card {
+  padding: clamp(24px, 3vw, 32px);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--background);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.value-card:hover {
+  border-color: var(--border-hover);
+  background: var(--surface);
+}
+
+/* ========================================
+   STAT VALUES
+   ======================================== */
+
+.stat-value {
+  font-size: clamp(2rem, 4.5vw, 3.25rem);
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  color: var(--foreground);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ========================================
+   CLIENT LOGOS
+   ======================================== */
+
+.client-logo {
+  opacity: 0.5;
+  transition: opacity 0.3s ease;
+}
+
+.client-logo:hover {
+  opacity: 0.85;
+}
+
+/* ========================================
+   ABOUT SECTION (legacy support)
    ======================================== */
 
 .about-section-wrapper {
@@ -184,8 +272,8 @@ body {
    ======================================== */
 
 .footer-compact {
-  padding: 1rem 0 1.5rem;
-  border-top: 2px solid var(--foreground);
+  padding: 1.5rem 0 2rem;
+  border-top: 1px solid var(--border);
   flex-shrink: 0;
 }
 
@@ -217,20 +305,20 @@ body {
 
 .nav-link {
   position: relative;
-  padding-bottom: 4px;
+  padding-bottom: 2px;
 }
 
 .nav-link::after {
   content: '';
   position: absolute;
-  bottom: 0;
+  bottom: -2px;
   left: 0;
   width: 100%;
-  height: 2px;
+  height: 1.5px;
   background: var(--ultra-orange);
   transform: scaleX(0);
   transform-origin: left;
-  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .nav-link-active::after {
@@ -311,10 +399,11 @@ body {
 
 .animate-on-scroll {
   opacity: 0;
-  transform: translateY(24px);
+  transform: translateY(20px);
   transition:
-    opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
-    transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
 }
 
 .animate-on-scroll.is-visible {
@@ -341,15 +430,14 @@ body {
   align-items: center;
   justify-content: center;
   gap: 6px;
-  padding: 10px 20px;
+  padding: 10px 22px;
   background: var(--ultra-orange);
   color: white;
-  font-size: 0.75rem;
+  font-size: 0.8125rem;
   font-weight: 500;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
+  letter-spacing: 0.02em;
   border: none;
-  border-radius: 4px;
+  border-radius: 6px;
   cursor: pointer;
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -357,10 +445,11 @@ body {
 .btn-primary:hover {
   background: var(--medium-orange);
   transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(255, 82, 51, 0.25);
 }
 
 .btn-primary:active {
-  transform: translateY(0) scale(0.98);
+  transform: translateY(0);
 }
 
 .newsletter-hero-card {
@@ -1011,19 +1100,28 @@ body {
 .article-card {
   display: flex;
   flex-direction: column;
-  padding: clamp(20px, 2.5vw, 28px);
+  padding: clamp(24px, 2.5vw, 32px);
   border: 1px solid var(--border);
-  border-radius: 8px;
-  background: var(--surface);
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  border-radius: 10px;
+  background: var(--background);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
   text-decoration: none;
   height: 100%;
 }
 
 .article-card:hover {
   border-color: var(--border-hover);
-  background: var(--surface-hover);
-  transform: translateY(-2px);
+  background: var(--surface);
+  transform: translateY(-3px);
+  box-shadow:
+    0 4px 6px -1px rgba(0, 0, 0, 0.04),
+    0 10px 20px -2px rgba(0, 0, 0, 0.06);
+}
+
+.dark .article-card:hover {
+  box-shadow:
+    0 4px 6px -1px rgba(0, 0, 0, 0.2),
+    0 10px 20px -2px rgba(0, 0, 0, 0.3);
 }
 
 .article-card-meta {
@@ -1034,14 +1132,20 @@ body {
 }
 
 .article-card-category {
-  font-size: 0.6875rem;
+  font-size: 0.625rem;
   font-weight: 600;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--ultra-orange);
   padding: 3px 8px;
-  border: 1px solid rgba(255, 82, 51, 0.25);
+  border: 1px solid rgba(255, 82, 51, 0.2);
   border-radius: 4px;
+  background: rgba(255, 82, 51, 0.04);
+}
+
+.dark .article-card-category {
+  background: rgba(255, 82, 51, 0.08);
+  border-color: rgba(255, 82, 51, 0.15);
 }
 
 .article-card-date {
@@ -1050,11 +1154,12 @@ body {
 }
 
 .article-card-title {
-  font-size: 1rem;
+  font-size: 1.0625rem;
   font-weight: 500;
   line-height: 1.35;
   color: var(--foreground);
-  margin-bottom: 8px;
+  margin-bottom: 10px;
+  transition: color 0.3s ease;
 }
 
 .article-card-excerpt {
@@ -1153,30 +1258,13 @@ body {
    ======================================== */
 
 @media (max-width: 767px) {
-  .snap-section {
-    min-height: auto;
+  .section-spacing {
+    padding-top: clamp(60px, 8vh, 80px);
+    padding-bottom: clamp(60px, 8vh, 80px);
   }
 
-  #hero.snap-section {
-    min-height: 100vh;
-    min-height: 100dvh;
-  }
-
-  .snap-section-end {
-    min-height: auto;
-    padding-bottom: 0;
-  }
-
-  #newsletter.snap-section {
-    min-height: auto;
-    padding-top: calc(56px + 1rem);
-    padding-bottom: 2rem;
-  }
-
-  #about.snap-section {
-    min-height: auto;
-    padding-top: calc(56px + 1rem);
-    padding-bottom: 0;
+  .stat-value {
+    font-size: clamp(1.75rem, 8vw, 2.25rem);
   }
 
   .about-content {
@@ -1194,18 +1282,19 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 36px;
-  height: 36px;
+  width: 34px;
+  height: 34px;
   background: transparent;
   border: 1px solid var(--border);
-  border-radius: 6px;
+  border-radius: 8px;
   color: var(--muted);
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .theme-toggle:hover {
   border-color: var(--border-hover);
   color: var(--foreground);
+  background: var(--surface);
 }
 
