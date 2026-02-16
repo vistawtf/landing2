@@ -1,5 +1,14 @@
 import Link from 'next/link';
-import { Twitter, Linkedin, Youtube } from 'lucide-react';
+import { X, Linkedin } from 'lucide-react';
+
+// Custom Substack icon SVG
+function SubstackIcon({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M22.539 8.242H1.46V5.406h21.08v2.836zM1.46 10.812V24L12 18.11 22.54 24V10.812H1.46zM22.54 0H1.46v2.836h21.08V0z" fill="currentColor"/>
+    </svg>
+  );
+}
 
 export function FooterSection() {
   return (
@@ -13,26 +22,18 @@ export function FooterSection() {
         {/* LEFT/RIGHT layout - Who we are + CTAs */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-0 border-b border-white/[0.08]">
           {/* LEFT: Who we are */}
-          <div className="py-16 md:py-20 px-6 md:px-16 md:border-r md:border-white/[0.08] flex flex-col justify-center">
-            <div className="flex items-center gap-2 mb-6">
-              <span className="text-[28px] md:text-[36px] font-medium text-[#E4E2D8] lowercase">vista</span>
-              <span className="text-[#FF5233] text-[28px] md:text-[36px]">₊˚⊹</span>
-            </div>
-            <h2 className="text-[24px] md:text-[32px] font-semibold text-[#E4E2D8] lowercase mb-4">
-              who we are
+          <div className="py-10 md:py-12 px-6 md:px-16 md:border-r md:border-white/[0.08] flex flex-col justify-center">
+            <p className="text-xs uppercase tracking-[0.12em] text-white/50 mb-4">Who we are</p>
+            <h2 className="text-[32px] md:text-[42px] font-medium leading-tight text-[#E4E2D8] mb-8">
+              Research collective exploring blockchain and AI.
             </h2>
-            <p className="text-[16px] md:text-[18px] text-white/70 leading-relaxed mb-6">
-              We're a research collective at the frontier of blockchain and AI. 
+            <p className="text-[16px] md:text-[18px] text-white/60 leading-relaxed">
               We find signal in the noise and help teams move faster with research-backed insights.
-            </p>
-            <p className="text-[14px] md:text-[16px] text-white/50 leading-relaxed">
-              Deep technical analysis meets practical execution. 
-              That's the Vista difference.
             </p>
           </div>
 
           {/* RIGHT: CTAs */}
-          <div className="py-16 md:py-20 px-6 md:px-16 flex flex-col justify-center">
+          <div className="py-10 md:py-12 px-6 md:px-16 flex flex-col justify-center">
             <p className="text-xs uppercase tracking-[0.12em] text-white/50 mb-4">Ready to work together?</p>
             <h3 className="text-[32px] md:text-[42px] font-medium leading-tight text-[#E4E2D8] mb-8">
               Build something useful with Vista.
@@ -104,9 +105,9 @@ export function FooterSection() {
           </div>
 
           <div className="flex gap-4">
-            <a href="https://twitter.com/viaboratorio" target="_blank" rel="noopener noreferrer" className="text-white/40 hover:text-white transition-colors"><Twitter className="w-5 h-5" /></a>
-            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="text-white/40 hover:text-white transition-colors"><Linkedin className="w-5 h-5" /></a>
-            <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" className="text-white/40 hover:text-white transition-colors"><Youtube className="w-5 h-5" /></a>
+            <a href="https://twitter.com/viaboratorio" target="_blank" rel="noopener noreferrer" className="text-white/40 hover:text-white transition-colors" aria-label="X (Twitter)"><X className="w-5 h-5" /></a>
+            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="text-white/40 hover:text-white transition-colors" aria-label="LinkedIn"><Linkedin className="w-5 h-5" strokeWidth={2.5} /></a>
+            <a href="https://vistasubstack.substack.com" target="_blank" rel="noopener noreferrer" className="text-white/40 hover:text-white transition-colors" aria-label="Substack"><SubstackIcon className="w-5 h-5" /></a>
           </div>
         </div>
       </div>
