@@ -5,7 +5,6 @@ import { HeroSection } from '@/components/landing2/HeroSection';
 import { LatestSection } from '@/components/landing2/LatestSection';
 import { NewsletterSection } from '@/components/landing2/NewsletterSection';
 import { ServicesSection } from '@/components/landing2/ServicesSection';
-import { WhoWeAreSection } from '@/components/landing2/WhoWeAreSection';
 import { FooterSection } from '@/components/landing2/FooterSection';
 
 function SectionDivider({ dark = false }: { dark?: boolean }) {
@@ -46,8 +45,6 @@ export default function Landing2Page() {
       <NewsletterSection />
       <SectionDivider dark />
       <ServicesSection />
-      <SectionDivider dark />
-      <WhoWeAreSection />
       <FooterSection />
     </main>
   );
