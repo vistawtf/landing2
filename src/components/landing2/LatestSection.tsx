@@ -59,7 +59,7 @@ function ArticleCard({ article, isLarge = false }: { article: Article; isLarge?:
       href={article.link}
       target="_blank"
       rel="noopener noreferrer"
-      className={`group block bg-[#F2F2F2] hover:bg-[#E8E8E8] transition-all duration-200 h-full ${isLarge ? '' : 'aspect-square'} shadow-[0_1px_3px_rgba(0,0,0,0.08),0_1px_2px_rgba(0,0,0,0.06)] hover:shadow-[0_4px_8px_rgba(0,0,0,0.12),0_2px_4px_rgba(0,0,0,0.08)]`}
+      className={`group block bg-[#F2F2F2] hover:bg-[#E8E8E8] transition-colors duration-200 h-full ${isLarge ? '' : 'aspect-square'}`}
     >
       <article className="h-full flex flex-col">
         {/* Image - 50% height */}
@@ -128,25 +128,25 @@ export function LatestSection() {
       <div className="relative z-10 max-w-[1200px] mx-auto px-6 md:px-16">
         <h2 className="text-[32px] md:text-[44px] font-semibold text-[#111] lowercase mb-10 md:mb-14">the latest</h2>
 
-        <div className="hidden md:grid md:grid-cols-2 gap-4 aspect-[2/1]">
+        <div className="hidden md:grid md:grid-cols-2 gap-0 border border-black/[0.12] aspect-[2/1]">
           {latest && (
-            <div className="h-full">
+            <div className="h-full border-r border-black/[0.12]">
               <ArticleCard article={latest} isLarge />
             </div>
           )}
 
-          <div className="grid grid-cols-2 grid-rows-2 gap-4 h-full">
+          <div className="grid grid-cols-2 grid-rows-2 h-full">
             {rest.map((article, idx) => (
-              <div key={idx} className="h-full">
+              <div key={idx} className="h-full [&:nth-child(odd)]:border-r [&:nth-child(-n+2)]:border-b border-black/[0.12]">
                 <ArticleCard article={article} />
               </div>
             ))}
           </div>
         </div>
 
-        <div className="md:hidden grid grid-cols-1 gap-4">
+        <div className="md:hidden border border-black/[0.12] grid grid-cols-1 gap-0">
           {articles.map((article, idx) => (
-            <div key={idx}>
+            <div key={idx} className={idx > 0 ? 'border-t border-black/[0.12]' : ''}>
               <ArticleCard article={article} />
             </div>
           ))}
