@@ -5,11 +5,14 @@ import { ChevronRight } from 'lucide-react';
 
 export function NewsletterSection() {
   return (
-    <section id="newsletter" className="relative h-screen flex items-center justify-center bg-[#111] text-[#E4E2D8] overflow-hidden" style={{ scrollSnapAlign: 'center' }}>
+    <section
+      id="newsletter"
+      className="relative scroll-mt-0 md:scroll-mt-20 snap-start h-screen pt-32 pb-24 bg-[#111] text-[#E4E2D8] overflow-hidden flex items-center"
+    >
       {/* Background layers */}
       <div className="absolute inset-0 bg-[#111]" aria-hidden="true" />
       <div
-        className="absolute inset-0 bg-[url('/frame-110.svg')] bg-no-repeat bg-[length:auto_125%] bg-[position:170%_center] md:bg-[length:auto_108%] md:bg-[position:100%_center] lg:bg-[length:auto_112%] lg:bg-[position:100%_center] opacity-40 md:opacity-100 lg:opacity-75"
+        className="absolute inset-0 bg-[url('/frame-110.svg')] bg-no-repeat bg-[length:auto_125%] bg-[position:120%_center] md:bg-[length:auto_108%] md:bg-[position:100%_center] lg:bg-[length:auto_112%] lg:bg-[position:100%_center] opacity-40 md:opacity-100 lg:opacity-75"
         aria-hidden="true"
       />
       <div
@@ -22,16 +25,16 @@ export function NewsletterSection() {
         <div className="flex flex-col gap-5 max-w-[700px]">
           {/* Kicker + Badge */}
           <div className="flex items-center gap-3 mb-4">
-            <p className="text-xs font-semibold uppercase tracking-wider text-[#999999]">
+            <p className="text-xs md:text-sm font-semibold uppercase tracking-wider text-[#999999]">
               EMERGENT STACK BY ETH LATAM
             </p>
-            <div className="bg-white/[0.08] border border-white/[0.15] rounded-2xl px-3 py-1 text-[11px] font-semibold text-[#E4E2D8]">
+            <div className="bg-white/[0.08] border border-white/[0.15] rounded-2xl px-3 py-1 text-sm md:text-base font-semibold text-[#E4E2D8]">
               10k+ subscribers
             </div>
           </div>
 
           {/* Headline */}
-          <h2 className="text-[clamp(1.3rem,6.2vw,1.6rem)] md:text-5xl font-medium text-[#E4E2D8] leading-tight max-w-[26ch] md:max-w-none mb-4">
+          <h2 className="text-[clamp(1.2rem,5vw,1.4rem)] md:text-4xl font-medium text-[#E4E2D8] leading-tight max-w-[26ch] md:max-w-none mb-4">
             Less scrolling & more insights:
             <br />
             The blockchain + AI newsletter for builders shaping the future
@@ -55,18 +58,18 @@ export function NewsletterSection() {
 
           {/* Form */}
           <form
-            className="flex flex-col md:flex-row gap-3 md:gap-0 w-full max-w-[620px] mt-5"
+            className="flex flex-col md:flex-row gap-3 w-full max-w-[620px] mt-5"
             onSubmit={(e) => e.preventDefault()}
           >
             <input
               type="email"
-              className="flex-1 h-14 md:h-14 px-5 md:px-5 bg-white/[0.08] border border-white/[0.15] rounded-[2px] md:rounded-r-none text-[#EDEDED] text-base placeholder:text-[#999999] focus:outline-none focus:border-white/[0.3] transition-colors"
+              className="flex-1 min-h-[60px] md:min-h-[56px] px-5 py-4 md:py-0 bg-white/[0.08] border border-white/[0.15] rounded-[2px] md:rounded-r-none text-[#EDEDED] text-[17px] md:text-base placeholder:text-[#999999] focus:outline-none focus:border-[#FF5233] transition-colors"
               placeholder="you@company.com"
               required
             />
             <button
               type="submit"
-              className="h-14 md:h-14 px-6 md:px-6 bg-[#FF5233] text-white rounded-[2px] md:rounded-l-none text-sm font-semibold uppercase tracking-wider flex items-center justify-center gap-2 hover:bg-[#FF7043] focus:outline focus:outline-2 focus:outline-white focus:outline-offset-2 transition-colors"
+              className="h-14 md:h-14 px-6 md:px-6 bg-[#FF5233] text-white rounded-[3px] md:rounded-l-none text-sm font-semibold uppercase tracking-wider flex items-center justify-center gap-2 hover:bg-[#FF7043] focus:outline focus:outline-2 focus:outline-white focus:outline-offset-2 transition-colors"
             >
               <span>SUBSCRIBE</span>
               <ChevronRight className="w-[18px] h-[18px]" strokeWidth={2.2} />
@@ -91,7 +94,7 @@ export function NewsletterSection() {
                 alt="ETH Latam"
                 width={120}
                 height={32}
-                className="h-8 w-auto"
+                className="h-10 md:h-12 w-auto"
               />
             </a>
             <a
@@ -105,7 +108,7 @@ export function NewsletterSection() {
                 alt="Arco"
                 width={120}
                 height={32}
-                className="h-8 w-auto"
+                className="h-10 md:h-12 w-auto"
               />
             </a>
           </div>
