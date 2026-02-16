@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { Menu, X } from 'lucide-react';
 
@@ -8,6 +8,7 @@ export function Navigation() {
   const [scrolled, setScrolled] = useState(false);
   const [inverted, setInverted] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const navRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -17,23 +18,43 @@ export function Navigation() {
     handleScroll();
     window.addEventListener('scroll', handleScroll, { passive: true });
 
-    let observer: IntersectionObserver | null = null;
-    const newsletterSection = document.getElementById('newsletter');
-    if (newsletterSection) {
-      observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            setInverted(entry.isIntersecting);
-          });
-        },
-        {
-          threshold: 0.1,
-          rootMargin: '-50px 0px -50px 0px',
-        }
-      );
+    let rafId: number | null = null;
 
-      observer.observe(newsletterSection);
-    }
+    const checkNewsletterPosition = () => {
+      const newsletterSection = document.getElementById('newsletter');
+      if (!newsletterSection) return;
+
+      const rect = newsletterSection.getBoundingClientRect();
+      const navHeight = navRef.current?.offsetHeight ?? 60;
+
+      // Hysteresis thresholds to avoid jumpy color flips:
+      // - Enter dark mode only when newsletter is very close to nav (tight trigger)
+      // - Exit dark mode only when newsletter is clearly away from nav (looser trigger)
+      const enterTopThreshold = navHeight + 14;
+      const exitTopThreshold = navHeight + 140;
+      const exitBottomThreshold = navHeight + 36;
+
+      setInverted((prev) => {
+        if (!prev) {
+          const shouldEnter = rect.top <= enterTopThreshold && rect.bottom > exitBottomThreshold;
+          return shouldEnter;
+        }
+
+        const shouldExit = rect.top >= exitTopThreshold || rect.bottom <= exitBottomThreshold;
+        return shouldExit ? false : true;
+      });
+    };
+
+    const onNewsletterScroll = () => {
+      if (rafId !== null) return;
+      rafId = window.requestAnimationFrame(() => {
+        checkNewsletterPosition();
+        rafId = null;
+      });
+    };
+
+    checkNewsletterPosition();
+    window.addEventListener('scroll', onNewsletterScroll, { passive: true });
 
     const handleResize = () => {
       if (window.innerWidth >= 1024) setMenuOpen(false);
@@ -43,33 +64,35 @@ export function Navigation() {
 
     return () => {
       window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('scroll', onNewsletterScroll);
       window.removeEventListener('resize', handleResize);
-      observer?.disconnect();
+      if (rafId !== null) {
+        window.cancelAnimationFrame(rafId);
+      }
     };
   }, []);
 
   return (
     <nav
+      ref={navRef}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
         inverted
-          ? 'bg-[rgba(17,17,17,0.8)] border-b border-white/[0.08]'
-          : scrolled
-          ? 'bg-[rgba(250,250,250,0.8)] border-b border-black/[0.08]'
-          : 'bg-transparent border-b-0'
+          ? 'bg-[#111111] border-b border-white/[0.08]'
+          : 'bg-[#E4E2D8] border-b border-black/[0.08]'
       }`}
-      style={{ backdropFilter: scrolled || inverted ? 'blur(16px) saturate(1.4)' : 'none' }}
+      style={{ backdropFilter: 'blur(14px) saturate(1.25)' }}
     >
       <div className="max-w-[1200px] mx-auto px-4 md:px-16">
-        <div className={`flex items-center justify-between transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${scrolled ? 'py-4' : 'py-5'}`}>
+        <div className={`flex items-center justify-between transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${scrolled ? 'py-2.5' : 'py-3'}`}>
           <Link href="/" className="flex items-center gap-0 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]">
             <span
-              className={`text-lg font-medium transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] overflow-hidden whitespace-nowrap ${
+              className={`inline-block text-lg font-medium overflow-hidden whitespace-nowrap will-change-[max-width,opacity,transform] transition-[max-width,opacity,transform,color] duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${
                 inverted ? 'text-[#E4E2D8]' : 'text-[#111111]'
-              } ${scrolled ? 'w-[80px] opacity-100 mr-1' : 'w-0 opacity-0 mr-0'}`}
+              } ${scrolled ? 'max-w-[100px] opacity-100 translate-x-0' : 'max-w-0 opacity-0 -translate-x-1'}`}
             >
               vista
             </span>
-            <span className="text-[#FF5233] text-2xl" style={{ transform: 'rotate(0deg)' }}>
+            <span className="text-[#FF5233] text-2xl">
               ₊˚⊹
             </span>
           </Link>
@@ -101,7 +124,7 @@ export function Navigation() {
             </Link>
             <Link
               href="#newsletter"
-              className="bg-[#FF5233] text-white px-6 py-2.5 rounded-[2px] text-base font-medium hover:bg-[#FF7043] transition-colors duration-200"
+              className="bg-[#FF5233] text-white px-6 py-2.5 rounded-[3px] text-base font-medium hover:bg-[#E64A2E] transition-colors duration-200"
             >
               Subscribe
             </Link>
@@ -109,7 +132,7 @@ export function Navigation() {
 
           <button
             onClick={() => setMenuOpen((v) => !v)}
-            className={`lg:hidden inline-flex items-center justify-center w-10 h-10 border rounded-[2px] transition-colors ${
+            className={`lg:hidden inline-flex items-center justify-center w-10 h-10 border rounded-[3px] transition-colors ${
               inverted ? 'border-white/20 text-[#E4E2D8]' : 'border-black/20 text-[#111111]'
             }`}
             aria-label="Toggle menu"
@@ -138,7 +161,7 @@ export function Navigation() {
               <Link
                 onClick={() => setMenuOpen(false)}
                 href="#newsletter"
-                className="mt-1 inline-flex w-fit bg-[#FF5233] text-white px-5 py-2 rounded-[2px] text-sm font-medium"
+                className="mt-1 inline-flex w-fit bg-[#FF5233] text-white px-5 py-2 rounded-[3px] text-sm font-medium"
               >
                 Subscribe
               </Link>
