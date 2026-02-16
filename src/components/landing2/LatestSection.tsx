@@ -59,7 +59,7 @@ function ArticleCard({ article, isLarge = false }: { article: Article; isLarge?:
       href={article.link}
       target="_blank"
       rel="noopener noreferrer"
-      className={`group block bg-[#F2F2F2] hover:bg-[#E8E8E8] transition-colors duration-200 h-full ${isLarge ? '' : 'aspect-square'} border border-black/[0.12]`}
+      className={`group block bg-[#F2F2F2] hover:bg-[#E8E8E8] transition-colors duration-200 h-full ${isLarge ? '' : 'aspect-square'} border border-black/[0.08]`}
     >
       <article className="h-full flex flex-col">
         {/* Image - 50% height */}
