@@ -1,26 +1,18 @@
-import Link from 'next/link';
-import { GridLines } from './GridLines';
-
 export function WhoWeAreSection() {
   return (
-    <section id="who-we-are" className="relative landing2-section-spacing bg-[#FFFFFF]">
-      <GridLines />
+    <section className="relative bg-[#E4E2D8] text-[#111] py-16 md:py-20">
+      {/* Outer grid rails */}
+      <div className="absolute inset-0 max-w-[1200px] mx-auto pointer-events-none">
+        <div className="absolute inset-0 before:absolute before:left-0 before:top-0 before:bottom-0 before:w-px before:bg-black/[0.06] after:absolute after:right-0 after:top-0 after:bottom-0 after:w-px after:bg-black/[0.06]" />
+      </div>
 
-      <div className="relative z-10 max-w-[1200px] mx-auto px-6 md:px-16">
-        <h2 className="text-[36px] md:text-[48px] font-semibold text-[#111] lowercase mb-6">
+      <div className="relative z-10 max-w-[1200px] mx-auto px-6 md:px-16 text-center">
+        <h2 className="text-2xl md:text-[32px] font-semibold lowercase mb-6">
           who we are
         </h2>
-
-        <p className="text-xl text-[#575757] leading-relaxed max-w-[640px] mb-6">
-          Vista is a research collective exploring blockchain and AI. We&apos;re at the frontier, finding signal in the noise. We help teams move faster with research-backed insights and execution.
+        <p className="text-lg md:text-xl leading-relaxed max-w-[700px] mx-auto">
+          Vista is a research collective exploring blockchain and AI, finding signal in the noise.
         </p>
-
-        <Link
-          href="/landing2/about"
-          className="inline-block text-base font-medium text-[#575757] hover:text-[#FF5233] hover:underline hover:underline-offset-4 transition-all"
-        >
-          Learn more about Vista →
-        </Link>
       </div>
     </section>
   );
