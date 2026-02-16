@@ -128,14 +128,14 @@ export function LatestSection() {
       <div className="relative z-10 max-w-[1200px] mx-auto px-6 md:px-16">
         <h2 className="text-[32px] md:text-[44px] font-semibold text-[#111] lowercase mb-10 md:mb-14">the latest</h2>
 
-        <div className="hidden md:grid md:grid-cols-2 gap-4 aspect-[2/1]">
+        <div className="hidden md:grid md:grid-cols-2 gap-0 aspect-[2/1]">
           {latest && (
             <div className="h-full">
               <ArticleCard article={latest} isLarge />
             </div>
           )}
 
-          <div className="grid grid-cols-2 grid-rows-2 gap-4 h-full">
+          <div className="grid grid-cols-2 grid-rows-2 gap-0 h-full">
             {rest.map((article, idx) => (
               <div key={idx} className="h-full">
                 <ArticleCard article={article} />
@@ -144,7 +144,7 @@ export function LatestSection() {
           </div>
         </div>
 
-        <div className="md:hidden grid grid-cols-1 gap-4">
+        <div className="md:hidden grid grid-cols-1 gap-0">
           {articles.map((article, idx) => (
             <div key={idx}>
               <ArticleCard article={article} />
