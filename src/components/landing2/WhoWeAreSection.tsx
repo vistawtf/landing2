@@ -3,7 +3,7 @@ import { GridLines } from './GridLines';
 
 export function WhoWeAreSection() {
   return (
-    <section id="who-we-are" className="relative py-20 md:py-32 bg-[#E4E2D8]">
+    <section id="who-we-are" className="relative landing2-section-spacing bg-[#FFFFFF]">
       <GridLines />
 
       <div className="relative z-10 max-w-[1200px] mx-auto px-6 md:px-16">

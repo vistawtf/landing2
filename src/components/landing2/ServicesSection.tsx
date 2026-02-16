@@ -64,7 +64,7 @@ function ServiceCard({ service }: { service: typeof services[0] }) {
 
 export function ServicesSection() {
   return (
-    <section id="services" className="relative py-20 md:py-32 bg-[#E4E2D8]">
+    <section id="services" className="relative landing2-section-spacing bg-[#FFFFFF]">
       <GridLines />
 
       <div className="relative z-10 max-w-[1200px] mx-auto px-6 md:px-16">

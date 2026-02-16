@@ -69,7 +69,7 @@ export function NewsletterSection() {
             />
             <button
               type="submit"
-              className="h-14 md:h-14 px-6 md:px-6 bg-[#FF5233] text-white rounded-[3px] md:rounded-l-none text-sm font-semibold uppercase tracking-wider flex items-center justify-center gap-2 hover:bg-[#FF7043] focus:outline focus:outline-2 focus:outline-white focus:outline-offset-2 transition-colors"
+              className="h-14 md:h-14 px-6 md:px-6 bg-[#FF5233] text-white rounded-[3px] md:rounded-l-none text-sm font-semibold uppercase tracking-wider flex items-center justify-center gap-2 hover:bg-[#E64A2E] focus:outline focus:outline-2 focus:outline-white focus:outline-offset-2 transition-colors duration-200"
             >
               <span>SUBSCRIBE</span>
               <ChevronRight className="w-[18px] h-[18px]" strokeWidth={2.2} />

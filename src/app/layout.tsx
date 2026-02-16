@@ -20,10 +20,8 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "Vista" }],
   icons: {
-    icon: [
-      { url: "/favicon.svg", type: "image/svg+xml" },
-      { url: "/favicon.ico", sizes: "any" }
-    ],
+    icon: [{ url: "/favicon.svg", type: "image/svg+xml" }],
+    shortcut: "/favicon.svg",
   },
   openGraph: {
     title: "Vista | Blockchain and AI Research Collective",

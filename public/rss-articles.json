@@ -1,0 +1,46 @@
+{
+  "articles": [
+    {
+      "title": "Charts of the Week: Customer Service Reckoning",
+      "excerpt": "Industrials valuation pop; SF is the hub; Capex; White collar sitters",
+      "category": "AI",
+      "link": "https://www.a16z.news/p/charts-of-the-week-customer-service",
+      "image": "https://substack-post-media.s3.amazonaws.com/public/images/669e99cf-8eda-408e-919c-723b26014bf1_2844x1600.png",
+      "date": "Fri, 13 Feb 2026 15:00:29 GMT"
+    },
+    {
+      "title": "The Lighthouse Playbook",
+      "excerpt": "How today's founders make friends and influence people",
+      "category": "AI",
+      "link": "https://www.a16z.news/p/the-lighthouse-playbook",
+      "image": "https://substack-post-media.s3.amazonaws.com/public/images/7be27b23-f8d6-4de1-9637-260b68a495be_2844x1600.png",
+      "date": "Thu, 12 Feb 2026 15:02:58 GMT"
+    },
+    {
+      "title": "\"I'm out, who's with me?\": 'Exit' as an organizing idea",
+      "excerpt": "A guest post for a16z Culture",
+      "category": "AI",
+      "link": "https://www.a16z.news/p/im-out-whos-with-me-exit-as-an-organizing",
+      "image": "https://substack-post-media.s3.amazonaws.com/public/images/bdb83748-9308-4615-a7ad-f4785f1cefd3_2844x1600.png",
+      "date": "Wed, 11 Feb 2026 15:15:17 GMT"
+    },
+    {
+      "title": "The Case for Scaling Venture",
+      "excerpt": "Your fund size is your belief in the future",
+      "category": "Infra",
+      "link": "https://www.a16z.news/p/the-case-for-scaling-venture",
+      "image": "https://substack-post-media.s3.amazonaws.com/public/images/2ad89a74-62d9-4792-865b-2b5935b6f69a_2844x1600.png",
+      "date": "Tue, 10 Feb 2026 15:03:37 GMT"
+    },
+    {
+      "title": "Defense Acquisition Reform: Victories and Next Steps for FY27 NDAA",
+      "excerpt": "Securing critical technology for warfighters, at the speed the moment demands",
+      "category": "AI",
+      "link": "https://www.a16z.news/p/defense-acquisition-reform-victories",
+      "image": "https://substack-post-media.s3.amazonaws.com/public/images/6e1e680a-5fca-45d7-bcd3-094b8c187e6f_2844x1600.png",
+      "date": "Tue, 10 Feb 2026 14:31:43 GMT"
+    }
+  ],
+  "fetchedAt": "2026-02-16T17:38:22.615Z",
+  "feedUrl": "https://www.a16z.news/feed"
+}

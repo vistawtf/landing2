@@ -78,7 +78,7 @@ export function Navigation() {
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
         inverted
           ? 'bg-[#111111] border-b border-white/[0.08]'
-          : 'bg-[#E4E2D8] border-b border-black/[0.08]'
+          : 'bg-[#FFFFFF] border-b border-black/[0.08]'
       }`}
       style={{ backdropFilter: 'blur(14px) saturate(1.25)' }}
     >

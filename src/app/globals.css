@@ -6,7 +6,7 @@
 
 :root {
   /* Light Mode (Default) */
-  --background: #FFFFFF;
+  --background: #FAFAFA;
   --foreground: #111111;
   --surface: #FAFAFA;
   --surface-hover: #F5F5F5;
@@ -1299,23 +1299,16 @@ body {
 }
 
 
-/* Landing2 gentle snap focus for newsletter */
-html {
-  scroll-behavior: smooth;
+/* Landing2 shared section spacing (avoid Tailwind JIT/caching misses for arbitrary values) */
+.landing2-section-spacing {
+  padding-top: 140px;
+  padding-bottom: 90px;
+  /* Keep true 140/90 internal spacing, but avoid additive 90+140 gaps between stacked sections */
+  margin-top: -90px;
 }
 
-body {
-  scroll-snap-type: y proximity;
+/* First stacked section after hero keeps a slightly larger transition due to hero divider strip */
+#latest.landing2-section-spacing {
+  margin-top: -72px;
 }
 
-#hero,
-#latest,
-#services,
-#who-we-are {
-  scroll-snap-align: start;
-}
-
-#newsletter {
-  scroll-snap-align: center;
-  scroll-snap-stop: always;
-}

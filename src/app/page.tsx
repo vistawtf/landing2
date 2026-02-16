@@ -5,16 +5,22 @@ import { Navigation } from "@/components/landing2/Navigation";
 import { NewsletterSection } from "@/components/landing2/NewsletterSection";
 import { ServicesSection } from "@/components/landing2/ServicesSection";
 import { WhoWeAreSection } from "@/components/landing2/WhoWeAreSection";
+import { HeroLatestDivider, SectionDivider } from "@/components/landing2/SectionDividers";
 
-export default function LandingV2Page() {
+export default function Landing2Page() {
   return (
-    <main className="relative bg-[#E4E2D8] text-[#111111]" style={{ scrollSnapType: "y proximity" }}>
+    <main className="relative scroll-smooth snap-y snap-mandatory">
       <Navigation />
       <HeroSection />
+      <HeroLatestDivider />
       <LatestSection />
+      <SectionDivider dark />
       <NewsletterSection />
+      <SectionDivider dark />
       <ServicesSection />
+      <SectionDivider dark />
       <WhoWeAreSection />
+      <SectionDivider />
       <FooterSection />
     </main>
   );
