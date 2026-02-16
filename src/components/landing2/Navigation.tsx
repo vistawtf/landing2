@@ -92,7 +92,7 @@ export function Navigation() {
             >
               vista
             </span>
-            <span className="text-[#FF5233] text-2xl">
+            <span className="text-[#FF5233] text-2xl" style={{ marginLeft: '4px' }}>
               ₊˚⊹
             </span>
           </Link>
