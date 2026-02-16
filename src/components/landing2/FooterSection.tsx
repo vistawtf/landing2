@@ -10,10 +10,17 @@ export function FooterSection() {
       </div>
 
       <div className="relative z-10 max-w-[1200px] mx-auto">
-        {/* CTA Band - READY TO WORK TOGETHER? */}
-        <div className="border-b border-white/[0.08]">
-          {/* Main CTA section */}
-          <div className="py-12 md:py-14 px-6 border-b border-white/[0.08]">
+        {/* Who we are intro */}
+        <div className="py-16 md:py-20 px-6 md:px-16 text-center border-b border-white/[0.08]">
+          <h2 className="text-[32px] md:text-[44px] font-semibold text-[#E4E2D8] lowercase mb-6">who we are</h2>
+          <p className="text-[18px] md:text-[20px] text-white/70 leading-relaxed max-w-[800px] mx-auto">
+            Vista is a research collective exploring blockchain and AI. We're at the frontier, finding signal in the noise. We help teams move faster with research-backed insights and execution.
+          </p>
+        </div>
+
+        {/* CTA band (Stripe/Chaos inspired) */}
+        <div className="grid grid-cols-1 md:[grid-template-columns:repeat(4,minmax(0,1fr))] gap-0 px-0 relative after:absolute after:bottom-0 after:left-0 after:right-0 after:h-px after:bg-white/[0.08] [&>*:not(:last-child)]:border-b [&>*:not(:last-child)]:md:border-b-0 [&>*:not(:last-child)]:border-white/[0.08]">
+          <div className="md:col-span-2 py-12 md:py-14 px-6 md:border-r md:border-white/[0.08]">
             <p className="text-xs uppercase tracking-[0.12em] text-white/50 mb-3">Ready to work together?</p>
             <h3 className="text-3xl md:text-4xl font-medium leading-tight text-[#E4E2D8] mb-4">
               Build something useful
@@ -36,32 +43,26 @@ export function FooterSection() {
             </div>
           </div>
 
-          {/* Sub-columns: Get insights / Let's talk */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-0">
-            <div className="py-12 md:py-14 px-6 border-b md:border-b-0 md:border-r border-white/[0.08]">
-              <Code2 className="w-4 h-4 text-white/50 mb-4" />
-              <h4 className="text-base font-medium text-[#E4E2D8] mb-2">Get insights</h4>
-              <p className="text-sm text-white/60 mb-3">Research and analysis for teams moving fast.</p>
-              <Link href="/landing2/services" className="text-sm text-white/80 hover:text-[#FF5233] transition-colors">
-                Explore services →
-              </Link>
-            </div>
+          <div className="py-12 md:py-14 px-6 md:border-r md:border-white/[0.08]">
+            <Code2 className="w-4 h-4 text-white/50 mb-4" />
+            <h4 className="text-base font-medium text-[#E4E2D8] mb-2">Get insights</h4>
+            <p className="text-sm text-white/60 mb-3">Research and analysis for teams moving fast.</p>
+            <Link href="/landing2/services" className="text-sm text-white/80 hover:text-[#FF5233] transition-colors">
+              Explore services →
+            </Link>
+          </div>
 
-            <div className="py-12 md:py-14 px-6">
-              <Tags className="w-4 h-4 text-white/50 mb-4" />
-              <h4 className="text-base font-medium text-[#E4E2D8] mb-2">Let's talk</h4>
-              <p className="text-sm text-white/60 mb-3">Engagement models aligned with your scope.</p>
-              <Link href="/landing2/services" className="text-sm text-white/80 hover:text-[#FF5233] transition-colors">
-                Get in touch →
-              </Link>
-            </div>
+          <div className="py-12 md:py-14 px-6">
+            <Tags className="w-4 h-4 text-white/50 mb-4" />
+            <h4 className="text-base font-medium text-[#E4E2D8] mb-2">Let's talk</h4>
+            <p className="text-sm text-white/60 mb-3">Engagement models aligned with your scope.</p>
+            <Link href="/landing2/services" className="text-sm text-white/80 hover:text-[#FF5233] transition-colors">
+              Get in touch →
+            </Link>
           </div>
         </div>
 
-        {/* Divider */}
-        <div className="h-px bg-white/[0.08]" />
-
-        {/* Footer navigation links */}
+        {/* Main footer columns with separators */}
         <div className="grid grid-cols-1 md:[grid-template-columns:repeat(4,minmax(0,1fr))] gap-0 mb-14 px-0 relative after:absolute after:bottom-0 after:left-0 after:right-0 after:h-px after:bg-white/[0.08] [&>*:not(:last-child)]:border-b [&>*:not(:last-child)]:md:border-b-0 [&>*:not(:last-child)]:border-white/[0.08]">
           <div className="py-10 md:py-12 px-6 md:border-r md:border-white/[0.08]">
             <div className="flex items-center gap-1 mb-4">
