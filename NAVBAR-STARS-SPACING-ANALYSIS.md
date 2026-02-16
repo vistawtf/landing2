@@ -39,3 +39,32 @@ Add `style={{ marginLeft: '4px' }}` to navbar stars span to match footer spacing
 
 ## Files to Modify
 - `/root/clawd/vista-website/src/components/landing2/Navigation.tsx` (line ~91)
+
+---
+
+## Fix Applied ✅
+
+**Commit:** `9842272` - "fix(navbar): add 4px left margin to stars for proper spacing (matches footer)"
+
+**Change:**
+```tsx
+// BEFORE
+<span className="text-[#FF5233] text-2xl">
+  ₊˚⊹
+</span>
+
+// AFTER
+<span className="text-[#FF5233] text-2xl" style={{ marginLeft: '4px' }}>
+  ₊˚⊹
+</span>
+```
+
+**Results:**
+- ✅ Stars now have proper 4px spacing from "vista" text
+- ✅ Visual parity with footer achieved
+- ✅ Animation functionality preserved (450ms, cubic-bezier)
+- ✅ Stars always visible (no opacity changes)
+- ✅ Build passes
+- ✅ Pushed to `vista-redesign` branch
+
+**Screenshot:** `navbar-spacing-fixed.png` (scrolled state showing "vista ₊˚⊹" with proper spacing)
