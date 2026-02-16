@@ -73,7 +73,7 @@ function ArticleCard({ article, isLarge = false }: { article: Article; isLarge?:
         </div>
 
         <div className={`${isLarge ? 'p-5 md:p-6' : 'p-4'} flex-1 flex flex-col justify-between min-h-0`}>
-          <div>
+          <div className={isLarge ? '' : 'h-[72px]'}>
             {/* Title - bigger and more lines since no description on small cards */}
             <h3 className={`${isLarge ? 'text-[28px] md:text-[32px] line-clamp-2' : 'text-[20px] md:text-[22px] line-clamp-3'} font-medium text-[#111] leading-[1.15]`}>
               {article.title}
