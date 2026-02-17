@@ -7,7 +7,7 @@ export function NewsletterSection() {
   return (
     <section
       id="newsletter"
-      className="relative w-full h-screen mt-[-90px] pt-24 pb-16 md:pt-32 md:pb-24 bg-[#111] text-[#E4E2D8] overflow-hidden flex items-center z-10"
+      className="relative w-full h-screen mt-[-40px] pt-24 pb-16 md:pt-32 md:pb-24 bg-[#111] text-[#E4E2D8] overflow-hidden flex items-center z-10"
     >
       {/* Background layers */}
       <div className="absolute inset-0 bg-[#111]" aria-hidden="true" />
