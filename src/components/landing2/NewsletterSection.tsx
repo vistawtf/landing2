@@ -78,7 +78,7 @@ export function NewsletterSection() {
 
           {/* Authorship */}
           <p className="text-sm text-white/60 mt-3">
-            authored by <span className="text-[#FF5233] font-semibold">vista</span> in collab with arco.lat
+            a collaboration between <span className="text-[#FF5233] font-semibold">vista</span> and arco.lat
           </p>
 
           {/* Partner Logos */}
