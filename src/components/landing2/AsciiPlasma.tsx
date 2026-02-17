@@ -48,6 +48,8 @@ export function AsciiPlasma() {
   // Ref instead of state — mouse moves don't trigger re-renders;
   // colors update on the next 8fps plasma tick (≤125ms lag, imperceptible here).
   const mousePosRef = useRef<{ x: number; y: number } | null>(null);
+  const radiusRef = useRef<number>(80);
+  const isExpandingRef = useRef<boolean>(false);
 
   useEffect(() => {
     const getSize = () => {
@@ -62,6 +64,13 @@ export function AsciiPlasma() {
     let t = 0;
 
     const interval = setInterval(() => {
+      // Update radius for click wave effect
+      if (isExpandingRef.current && radiusRef.current < 200) {
+        radiusRef.current = Math.min(200, radiusRef.current + 15); // ~8 frames to expand
+      } else if (!isExpandingRef.current && radiusRef.current > 80) {
+        radiusRef.current = Math.max(80, radiusRef.current - 12); // ~10 frames to contract
+      }
+
       const dims = getSize();
       setPlasma(drawPlasma(t++, dims.cols, dims.rows));
     }, 1000 / 8); // 8 FPS
@@ -83,6 +92,12 @@ export function AsciiPlasma() {
       }}
       onMouseLeave={() => {
         mousePosRef.current = null;
+      }}
+      onMouseDown={() => {
+        isExpandingRef.current = true;
+      }}
+      onMouseUp={() => {
+        isExpandingRef.current = false;
       }}
     >
       <pre
@@ -112,7 +127,7 @@ export function AsciiPlasma() {
                 const dist = Math.sqrt(
                   (charCenterX - mouse.x) ** 2 + (charCenterY - mouse.y) ** 2
                 );
-                if (dist < HOVER_RADIUS) {
+                if (dist < radiusRef.current) {
                   color = HOVER_COLOR;
                 }
               }
