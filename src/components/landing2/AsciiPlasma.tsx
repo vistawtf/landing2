@@ -15,7 +15,8 @@ const LETTER_SPACING = 4;
 // Monospace char ~60% of font-size + letter-spacing
 const CHAR_WIDTH = FONT_SIZE * 0.6 + LETTER_SPACING; // ~12.4px
 
-const HOVER_RADIUS = 80;
+const BASE_RADIUS = 50;
+const CLICK_RADIUS = 100;
 
 // Base color components (rgba(228, 226, 216, 0.55))
 const BASE_R = 228, BASE_G = 226, BASE_B = 216;
@@ -50,8 +51,8 @@ function interpolatedColor(intensity: number): string {
  * AsciiPlasma — fills its parent container completely.
  * Parent must be position:relative (or absolute/fixed) with explicit dimensions.
  * Dark aesthetic: very dim characters against black background.
- * Hover: characters within ~80px of cursor glow orange (#FF5233).
- * Click: entire grid melts to orange and fades back smoothly over ~2.5s.
+ * Hover: characters within 50px of cursor glow orange (#FF5233).
+ * Click (held): radius expands smoothly to 100px and holds; releases back to 50px.
  */
 export function AsciiPlasma() {
   const [plasma, setPlasma] = useState<string[][]>([]);
@@ -59,9 +60,9 @@ export function AsciiPlasma() {
   // Ref instead of state — mouse moves don't trigger re-renders;
   // colors update on the next 8fps plasma tick (≤125ms lag, imperceptible here).
   const mousePosRef = useRef<{ x: number; y: number } | null>(null);
-  // Flash intensity: 0 = base color, 1 = full orange. Animated via 8fps loop.
-  const flashIntensityRef = useRef<number>(0);
-  const isFlashingRef = useRef<boolean>(false); // true = ramp up, false = decay
+  // Radius: smoothly animates between BASE_RADIUS and CLICK_RADIUS
+  const radiusRef = useRef<number>(BASE_RADIUS);
+  const isClickRef = useRef<boolean>(false);
 
   useEffect(() => {
     const getSize = () => {
@@ -76,11 +77,12 @@ export function AsciiPlasma() {
     let t = 0;
 
     const interval = setInterval(() => {
-      // Animate flash intensity
-      if (isFlashingRef.current) {
-        flashIntensityRef.current = Math.min(1, flashIntensityRef.current + 0.25);
-      } else if (flashIntensityRef.current > 0) {
-        flashIntensityRef.current = Math.max(0, flashIntensityRef.current - 0.08);
+      // Animate radius smoothly
+      if (isClickRef.current && radiusRef.current < CLICK_RADIUS) {
+        radiusRef.current = Math.min(CLICK_RADIUS, radiusRef.current + 8);
+      }
+      if (!isClickRef.current && radiusRef.current > BASE_RADIUS) {
+        radiusRef.current = Math.max(BASE_RADIUS, radiusRef.current - 6);
       }
 
       const dims = getSize();
@@ -104,11 +106,13 @@ export function AsciiPlasma() {
       }}
       onMouseLeave={() => {
         mousePosRef.current = null;
+        isClickRef.current = false;
       }}
-      onClick={() => {
-        isFlashingRef.current = true;
-        // Stop ramping after one frame's worth, let it decay naturally
-        setTimeout(() => { isFlashingRef.current = false; }, 600);
+      onMouseDown={() => {
+        isClickRef.current = true;
+      }}
+      onMouseUp={() => {
+        isClickRef.current = false;
       }}
     >
       <pre
@@ -130,25 +134,18 @@ export function AsciiPlasma() {
         {plasma.map((row, rowIdx) => (
           <Fragment key={rowIdx}>
             {row.map((char, colIdx) => {
-              const intensity = flashIntensityRef.current;
+              const mouse = mousePosRef.current;
               let color: string;
 
-              if (intensity > 0) {
-                // Flash active — blend entire grid toward orange
-                color = interpolatedColor(intensity);
+              if (mouse) {
+                const charCenterX = colIdx * CHAR_WIDTH + CHAR_WIDTH / 2;
+                const charCenterY = rowIdx * LINE_HEIGHT + LINE_HEIGHT / 2;
+                const dist = Math.sqrt(
+                  (charCenterX - mouse.x) ** 2 + (charCenterY - mouse.y) ** 2
+                );
+                color = dist < radiusRef.current ? '#FF5233' : interpolatedColor(0);
               } else {
-                // No flash — hover logic only
-                const mouse = mousePosRef.current;
-                if (mouse) {
-                  const charCenterX = colIdx * CHAR_WIDTH + CHAR_WIDTH / 2;
-                  const charCenterY = rowIdx * LINE_HEIGHT + LINE_HEIGHT / 2;
-                  const dist = Math.sqrt(
-                    (charCenterX - mouse.x) ** 2 + (charCenterY - mouse.y) ** 2
-                  );
-                  color = dist < HOVER_RADIUS ? '#FF5233' : interpolatedColor(0);
-                } else {
-                  color = interpolatedColor(0);
-                }
+                color = interpolatedColor(0);
               }
 
               return (
