@@ -62,7 +62,7 @@ export function FooterSection() {
           </div>
 
           {/* RIGHT: ASCII plasma animation */}
-          <div className="relative min-h-[200px] md:min-h-0 overflow-hidden border-r border-white/[0.08]">
+          <div className="relative min-h-[200px] md:min-h-0 overflow-hidden border-t border-r border-white/[0.08]">
             <AsciiPlasma />
           </div>
         </div>
