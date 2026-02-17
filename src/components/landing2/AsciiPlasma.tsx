@@ -64,7 +64,7 @@ export function AsciiPlasma() {
   return (
     <div
       ref={containerRef}
-      className="absolute inset-0 overflow-hidden bg-black"
+      className="absolute inset-0 overflow-hidden bg-[#111]"
       aria-hidden="true"
     >
       <pre
@@ -75,7 +75,7 @@ export function AsciiPlasma() {
           letterSpacing: '4px',
           overflowX: 'hidden',
           // Very dim — coherent with dark Vista footer
-          color: 'rgba(255, 255, 255, 0.15)',
+          color: 'rgba(228, 226, 216, 0.25)',
           margin: 0,
           padding: 0,
           position: 'absolute',
