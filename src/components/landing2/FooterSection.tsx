@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { AsciiPlasma } from './AsciiPlasma';
 
 // Custom Substack icon SVG
 function SubstackIcon({ className }: { className?: string }) {
@@ -36,21 +37,10 @@ export function FooterSection() {
       </div>
 
       <div className="relative z-10 max-w-[1200px] mx-auto">
-        {/* LEFT/RIGHT layout - Who we are + CTAs */}
+        {/* LEFT/RIGHT layout - CTA + ASCII plasma */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-0 border-b border-white/[0.08]">
-          {/* LEFT: Who we are */}
+          {/* LEFT: CTAs */}
           <div className="py-8 md:py-10 px-6 md:border-r md:border-white/[0.08] flex flex-col justify-center">
-            <p className="text-xs uppercase tracking-[0.12em] text-white/50 mb-3">Who we are</p>
-            <h2 className="text-[32px] md:text-[42px] font-medium leading-tight text-[#E4E2D8] mb-6">
-              Research-backed insights for blockchain & AI.
-            </h2>
-            <p className="text-[16px] md:text-[18px] text-white/60 leading-relaxed">
-              We find signal in the noise and help teams move faster with research-backed insights.
-            </p>
-          </div>
-
-          {/* RIGHT: CTAs */}
-          <div className="py-8 md:py-10 px-6 flex flex-col justify-center">
             <p className="text-xs uppercase tracking-[0.12em] text-white/50 mb-3">Ready to work together?</p>
             <h3 className="text-[32px] md:text-[42px] font-medium leading-tight text-[#E4E2D8] mb-6">
               Build something useful with Vista.
@@ -69,6 +59,11 @@ export function FooterSection() {
                 Learn more
               </Link>
             </div>
+          </div>
+
+          {/* RIGHT: ASCII plasma animation */}
+          <div className="relative min-h-[200px] md:min-h-0 overflow-hidden">
+            <AsciiPlasma />
           </div>
         </div>
 
