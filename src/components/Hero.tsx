@@ -5,35 +5,59 @@ import { RingIcon, GridIcon, PlusIcon } from "./icons";
 
 function DecorativeSymbols() {
   return (
-    <div className="parallax-container absolute inset-0 overflow-hidden pointer-events-none select-none" style={{ perspective: "1000px" }}>
-      <RingIcon
-        className="absolute text-ultra-orange will-change-transform"
+    <div className="absolute inset-0 overflow-hidden pointer-events-none select-none">
+      {/* Ambient gradient glow */}
+      <div
+        className="absolute opacity-[0.07] dark:opacity-[0.04]"
         style={{
-          width: "clamp(160px, 21vw, 280px)",
+          width: "800px",
+          height: "800px",
+          top: "-200px",
+          right: "-200px",
+          background: "radial-gradient(circle, var(--ultra-orange), transparent 70%)",
+          filter: "blur(80px)",
+        }}
+      />
+      <div
+        className="absolute opacity-[0.05] dark:opacity-[0.03]"
+        style={{
+          width: "600px",
+          height: "600px",
+          bottom: "-100px",
+          left: "-100px",
+          background: "radial-gradient(circle, var(--ultra-blue), transparent 70%)",
+          filter: "blur(60px)",
+        }}
+      />
+      {/* Sacred SVG symbols */}
+      <RingIcon
+        className="absolute text-ultra-orange/[0.08] dark:text-ultra-orange/[0.06]"
+        style={{
+          width: "clamp(180px, 22vw, 300px)",
           height: "auto",
-          top: "-5%",
-          left: "50%",
-          transform: "translateZ(-200px) scale(1.2)",
+          top: "-3%",
+          left: "52%",
+          transform: "rotate(-12deg)",
         }}
       />
       <GridIcon
-        className="absolute text-ultra-orange hidden sm:block will-change-transform"
+        className="absolute text-ultra-orange/[0.06] dark:text-ultra-orange/[0.04] hidden sm:block"
         style={{
-          width: "clamp(200px, 40vw, 420px)",
+          width: "clamp(220px, 38vw, 440px)",
           height: "auto",
-          top: "25%",
-          right: "-5%",
-          transform: "translateZ(-150px) scale(1.15)",
+          top: "22%",
+          right: "-4%",
+          transform: "rotate(8deg)",
         }}
       />
       <PlusIcon
-        className="absolute text-ultra-orange will-change-transform"
+        className="absolute text-ultra-orange/[0.08] dark:text-ultra-orange/[0.05]"
         style={{
-          width: "clamp(140px, 22vw, 240px)",
+          width: "clamp(150px, 20vw, 250px)",
           height: "auto",
-          bottom: "-8%",
-          left: "48%",
-          transform: "translateZ(-100px) scale(1.1)",
+          bottom: "-6%",
+          left: "46%",
+          transform: "rotate(15deg)",
         }}
       />
     </div>
@@ -42,50 +66,48 @@ function DecorativeSymbols() {
 
 export function HeroSection() {
   return (
-    <section id="hero" className="snap-section relative">
+    <section id="hero" className="relative min-h-[100vh] min-h-[100dvh] flex items-center pt-14">
       <DecorativeSymbols />
 
-      <div className="snap-section-center pt-14">
-        <div className="container relative z-10">
-          <AnimatedSection className="max-w-lg lg:max-w-xl">
-            <a
-              href="#newsletter"
-              className="group inline-flex items-center gap-2 text-body-md text-muted hover:text-foreground transition-colors mb-6 border border-ultra-orange/40 rounded-full px-4 py-2 hover:border-ultra-orange hover:bg-ultra-orange/5"
-              onClick={(e) => {
-                e.preventDefault();
-                document.getElementById("newsletter")?.scrollIntoView({ behavior: "smooth" });
-              }}
-            >
-              <span className="text-ultra-orange">📬</span>
-              <span>We share what we find</span>
-              <span className="text-muted">·</span>
-              <span className="text-ultra-orange group-hover:underline">Join 10,000+ readers →</span>
-            </a>
+      <div className="container relative z-10 py-16">
+        <AnimatedSection className="max-w-xl lg:max-w-2xl">
+          <a
+            href="#newsletter"
+            className="group inline-flex items-center gap-2 text-[13px] text-muted hover:text-foreground transition-all duration-300 mb-8 border border-border hover:border-ultra-orange/60 rounded-full px-4 py-2 hover:bg-ultra-orange/[0.03]"
+            onClick={(e) => {
+              e.preventDefault();
+              document.getElementById("newsletter")?.scrollIntoView({ behavior: "smooth" });
+            }}
+          >
+            <span className="w-1.5 h-1.5 rounded-full bg-ultra-orange animate-pulse" />
+            <span>We share what we find</span>
+            <span className="text-border">·</span>
+            <span className="text-ultra-orange group-hover:underline underline-offset-2">Join 10,000+ readers →</span>
+          </a>
 
-            <h1 className="text-display text-foreground mb-4" style={{ fontWeight: 400 }}>
-              <span className="underline decoration-ultra-orange decoration-2 underline-offset-[0.20em]">vista</span> investigates
-              <br />
-              the future of the internet
-            </h1>
+          <h1 className="text-display text-foreground mb-6 leading-[1.08]" style={{ fontWeight: 400 }}>
+            <span className="underline decoration-ultra-orange decoration-2 underline-offset-[0.18em]">vista</span> investigates
+            <br />
+            the future of the internet
+          </h1>
 
-            <p className="text-body-lg text-muted max-w-sm">
-              A research collective on blockchain and AI.<br />
-              See what&apos;s coming before others do.
-            </p>
-          </AnimatedSection>
-        </div>
+          <p className="text-body-lg text-muted max-w-md leading-relaxed">
+            A research collective on blockchain and AI.<br />
+            See what&apos;s coming before others do.
+          </p>
+        </AnimatedSection>
       </div>
 
-      <div className="absolute bottom-8 left-0 right-0">
+      <div className="absolute bottom-10 left-0 right-0">
         <div className="container">
           <button
-            onClick={() => document.getElementById("newsletter")?.scrollIntoView({ behavior: "smooth" })}
-            className="inline-flex items-center gap-2 animate-on-scroll-delay transition-colors cursor-pointer"
-            aria-label="Scroll to newsletter"
+            onClick={() => document.getElementById("services")?.scrollIntoView({ behavior: "smooth" })}
+            className="inline-flex items-center gap-2.5 animate-on-scroll-delay transition-colors cursor-pointer group"
+            aria-label="Scroll down"
           >
-            <span className="text-caption text-muted tracking-widest uppercase text-[10px]">Scroll</span>
-            <div className="animate-bounce translate-y-[1px]">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="text-ultra-orange">
+            <span className="text-[10px] text-muted tracking-[0.2em] uppercase font-medium">Explore</span>
+            <div className="animate-bounce">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="text-ultra-orange">
                 <polyline points="6 9 12 15 18 9" />
               </svg>
             </div>

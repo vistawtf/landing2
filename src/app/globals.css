@@ -6,7 +6,7 @@
 
 :root {
   /* Light Mode (Default) */
-  --background: #FFFFFF;
+  --background: #FAFAFA;
   --foreground: #111111;
   --surface: #FAFAFA;
   --surface-hover: #F5F5F5;
@@ -84,8 +84,7 @@
 
 html {
   font-size: 16px;
-  height: 100%;
-  overflow: hidden;
+  scroll-behavior: smooth;
 }
 
 body {
@@ -97,58 +96,136 @@ body {
   -moz-osx-font-smoothing: grayscale;
   line-height: 1.5;
   transition: background-color 0.2s ease, color 0.2s ease;
-  height: 100%;
-  overflow: hidden;
 }
 
 /* ========================================
-   SNAP SCROLL SYSTEM
+   SECTION SYSTEM
    ======================================== */
 
-.snap-container {
-  scroll-snap-type: y mandatory;
-  scroll-behavior: smooth;
-  overflow-y: scroll;
-  overflow-x: hidden;
-  height: 100vh;
-  height: 100dvh;
-  overscroll-behavior: none;
-  -webkit-overflow-scrolling: touch;
-  will-change: scroll-position;
+.section-spacing {
+  padding-top: clamp(80px, 10vh, 128px);
+  padding-bottom: clamp(80px, 10vh, 128px);
 }
 
-.snap-section {
-  scroll-snap-align: start;
-  scroll-snap-stop: always;
-  height: 100vh;
-  height: 100dvh;
-  min-height: 100vh;
-  max-height: 100vh;
-  max-height: 100dvh;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  position: relative;
-}
+/* ========================================
+   SUBSCRIBE BUTTON (Fortune 500 polish)
+   ======================================== */
 
-.snap-section-center {
-  display: flex;
-  flex-direction: column;
+.subscribe-btn {
+  display: inline-flex;
+  align-items: center;
   justify-content: center;
-  flex: 1;
-  overflow: hidden;
-  padding-top: 32px;
+  gap: 6px;
+  padding: 9px 20px;
+  background: var(--ultra-orange);
+  color: white;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  white-space: nowrap;
 }
 
+.subscribe-btn:hover {
+  background: var(--medium-orange);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(255, 82, 51, 0.25);
+}
 
-.snap-section-end {
-  justify-content: space-between;
-  overflow: visible;
+.subscribe-btn:active {
+  transform: translateY(0);
 }
 
 /* ========================================
-   ABOUT SECTION
+   SERVICE CARDS
    ======================================== */
+
+.service-card {
+  display: block;
+  text-decoration: none;
+  height: 100%;
+}
+
+.service-card-inner {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: clamp(24px, 3vw, 32px);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--background);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.service-card:hover .service-card-inner {
+  border-color: var(--border-hover);
+  background: var(--surface);
+  transform: translateY(-3px);
+  box-shadow:
+    0 4px 6px -1px rgba(0, 0, 0, 0.04),
+    0 10px 20px -2px rgba(0, 0, 0, 0.06);
+}
+
+.dark .service-card:hover .service-card-inner {
+  box-shadow:
+    0 4px 6px -1px rgba(0, 0, 0, 0.2),
+    0 10px 20px -2px rgba(0, 0, 0, 0.3);
+}
+
+/* ========================================
+   VALUE CARDS
+   ======================================== */
+
+.value-card {
+  padding: clamp(24px, 3vw, 32px);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--background);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.value-card:hover {
+  border-color: var(--border-hover);
+  background: var(--surface);
+}
+
+/* ========================================
+   STAT VALUES
+   ======================================== */
+
+.stat-value {
+  font-size: clamp(2rem, 4.5vw, 3.25rem);
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  color: var(--foreground);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ========================================
+   CLIENT LOGOS
+   ======================================== */
+
+.client-logo {
+  opacity: 0.5;
+  transition: opacity 0.3s ease;
+}
+
+.client-logo:hover {
+  opacity: 0.85;
+}
+
+/* ========================================
+   ABOUT SECTION (legacy support)
+   ======================================== */
+
+.about-section-wrapper {
+  padding-top: clamp(60px, 8vh, 100px);
+  padding-bottom: 0;
+}
 
 .about-content {
   display: flex;
@@ -195,8 +272,8 @@ body {
    ======================================== */
 
 .footer-compact {
-  padding: 1rem 0 1.5rem;
-  border-top: 2px solid var(--foreground);
+  padding: 1.5rem 0 2rem;
+  border-top: 1px solid var(--border);
   flex-shrink: 0;
 }
 
@@ -228,20 +305,20 @@ body {
 
 .nav-link {
   position: relative;
-  padding-bottom: 4px;
+  padding-bottom: 2px;
 }
 
 .nav-link::after {
   content: '';
   position: absolute;
-  bottom: 0;
+  bottom: -2px;
   left: 0;
   width: 100%;
-  height: 2px;
+  height: 1.5px;
   background: var(--ultra-orange);
   transform: scaleX(0);
   transform-origin: left;
-  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .nav-link-active::after {
@@ -322,10 +399,11 @@ body {
 
 .animate-on-scroll {
   opacity: 0;
-  transform: translateY(24px);
+  transform: translateY(20px);
   transition:
-    opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
-    transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
 }
 
 .animate-on-scroll.is-visible {
@@ -352,15 +430,14 @@ body {
   align-items: center;
   justify-content: center;
   gap: 6px;
-  padding: 10px 20px;
+  padding: 10px 22px;
   background: var(--ultra-orange);
   color: white;
-  font-size: 0.75rem;
+  font-size: 0.8125rem;
   font-weight: 500;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
+  letter-spacing: 0.02em;
   border: none;
-  border-radius: 4px;
+  border-radius: 6px;
   cursor: pointer;
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -368,10 +445,11 @@ body {
 .btn-primary:hover {
   background: var(--medium-orange);
   transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(255, 82, 51, 0.25);
 }
 
 .btn-primary:active {
-  transform: translateY(0) scale(0.98);
+  transform: translateY(0);
 }
 
 .newsletter-hero-card {
@@ -891,6 +969,216 @@ body {
 }
 
 /* ========================================
+   SERVICES PREVIEW
+   ======================================== */
+
+.services-preview-section {
+  padding: clamp(80px, 10vh, 120px) 0;
+}
+
+.services-preview-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: clamp(32px, 5vh, 48px);
+}
+
+.services-preview-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+@media (min-width: 768px) {
+  .services-preview-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+}
+
+.service-card {
+  padding: clamp(24px, 3vw, 32px);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: default;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.service-card:hover {
+  border-color: var(--border-hover);
+  background: var(--surface-hover);
+  transform: translateY(-2px);
+}
+
+.service-card-icon {
+  font-size: 1.5rem;
+  margin-bottom: 16px;
+}
+
+.service-card-title {
+  font-size: 1.125rem;
+  font-weight: 500;
+  color: var(--foreground);
+  margin-bottom: 8px;
+}
+
+.service-card-desc {
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: var(--muted);
+  flex: 1;
+}
+
+.service-card-link {
+  display: inline-flex;
+  align-items: center;
+  margin-top: 16px;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--ultra-orange);
+  transition: color 0.2s;
+}
+
+.services-preview-cta {
+  margin-top: clamp(24px, 3vh, 40px);
+  text-align: center;
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 24px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  color: var(--foreground);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  transition: all 0.2s;
+  text-decoration: none;
+}
+
+.btn-secondary:hover {
+  border-color: var(--ultra-orange);
+  color: var(--ultra-orange);
+}
+
+/* ========================================
+   ARTICLES PREVIEW
+   ======================================== */
+
+.articles-preview-section {
+  padding: clamp(80px, 10vh, 120px) 0;
+  border-top: 1px solid var(--border);
+}
+
+.articles-preview-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: clamp(32px, 5vh, 48px);
+}
+
+.articles-preview-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+@media (min-width: 768px) {
+  .articles-preview-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+}
+
+.article-card {
+  display: flex;
+  flex-direction: column;
+  padding: clamp(24px, 2.5vw, 32px);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--background);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  text-decoration: none;
+  height: 100%;
+}
+
+.article-card:hover {
+  border-color: var(--border-hover);
+  background: var(--surface);
+  transform: translateY(-3px);
+  box-shadow:
+    0 4px 6px -1px rgba(0, 0, 0, 0.04),
+    0 10px 20px -2px rgba(0, 0, 0, 0.06);
+}
+
+.dark .article-card:hover {
+  box-shadow:
+    0 4px 6px -1px rgba(0, 0, 0, 0.2),
+    0 10px 20px -2px rgba(0, 0, 0, 0.3);
+}
+
+.article-card-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.article-card-category {
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ultra-orange);
+  padding: 3px 8px;
+  border: 1px solid rgba(255, 82, 51, 0.2);
+  border-radius: 4px;
+  background: rgba(255, 82, 51, 0.04);
+}
+
+.dark .article-card-category {
+  background: rgba(255, 82, 51, 0.08);
+  border-color: rgba(255, 82, 51, 0.15);
+}
+
+.article-card-date {
+  font-size: 0.75rem;
+  color: var(--muted-light);
+}
+
+.article-card-title {
+  font-size: 1.0625rem;
+  font-weight: 500;
+  line-height: 1.35;
+  color: var(--foreground);
+  margin-bottom: 10px;
+  transition: color 0.3s ease;
+}
+
+.article-card-excerpt {
+  font-size: 0.8125rem;
+  line-height: 1.6;
+  color: var(--muted);
+  flex: 1;
+}
+
+.article-card-read {
+  display: inline-flex;
+  align-items: center;
+  margin-top: 16px;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--ultra-orange);
+}
+
+/* ========================================
    FORM ELEMENTS
    ======================================== */
 
@@ -970,57 +1258,17 @@ body {
    ======================================== */
 
 @media (max-width: 767px) {
-  html,
-  body {
-    overflow-y: auto;
-    overflow-x: hidden;
-    height: auto;
-    min-height: 100%;
+  .section-spacing {
+    padding-top: clamp(60px, 8vh, 80px);
+    padding-bottom: clamp(60px, 8vh, 80px);
   }
 
-  .snap-container {
-    scroll-snap-type: none;
-    height: auto;
-    min-height: 100vh;
-    min-height: 100dvh;
-    overflow: visible;
+  .stat-value {
+    font-size: clamp(1.75rem, 8vw, 2.25rem);
   }
-
-  .snap-section {
-    height: auto;
-    min-height: 100vh;
-    min-height: 100dvh;
-    max-height: none;
-    overflow: visible;
-    scroll-snap-align: none;
-  }
-
-  .snap-section-end {
-    min-height: auto;
-    padding-bottom: 0;
-  }
-
-  #newsletter.snap-section {
-    min-height: auto;
-    padding-top: calc(56px + 1rem);
-    padding-bottom: 2rem;
-  }
-
-  #about.snap-section {
-    min-height: auto;
-    padding-top: calc(56px + 1rem);
-    padding-bottom: 0;
-  }
-
-  .footer-compact {
-    position: relative;
-    margin-top: auto;
-  }
-
 
   .about-content {
     padding-top: 0;
-    overflow: visible;
     min-height: auto;
     flex: none;
   }
@@ -1034,18 +1282,33 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 36px;
-  height: 36px;
+  width: 34px;
+  height: 34px;
   background: transparent;
   border: 1px solid var(--border);
-  border-radius: 6px;
+  border-radius: 8px;
   color: var(--muted);
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .theme-toggle:hover {
   border-color: var(--border-hover);
   color: var(--foreground);
+  background: var(--surface);
+}
+
+
+/* Landing2 shared section spacing (avoid Tailwind JIT/caching misses for arbitrary values) */
+.landing2-section-spacing {
+  padding-top: 140px;
+  padding-bottom: 90px;
+  /* Keep true 140/90 internal spacing, but avoid additive 90+140 gaps between stacked sections */
+  margin-top: -90px;
+}
+
+/* First stacked section after hero keeps a slightly larger transition due to hero divider strip */
+#latest.landing2-section-spacing {
+  margin-top: -72px;
 }
 
