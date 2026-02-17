@@ -1,6 +1,14 @@
 {
   "articles": [
     {
+      "title": "A Primer on Factory Economics for Startups",
+      "excerpt": "The \"Factory-is-the-Product\" Model in Venture-Backed Manufacturing",
+      "category": "AI",
+      "link": "https://www.a16z.news/p/a-primer-on-factory-economics-for",
+      "image": "https://substack-post-media.s3.amazonaws.com/public/images/ecd23721-51b1-4664-bb90-3dfd8e43d7f5_2844x1600.png",
+      "date": "Tue, 17 Feb 2026 15:02:40 GMT"
+    },
+    {
       "title": "The mindset shift we need to rebuild American factories",
       "excerpt": "Factory Mindset means finding the best ideas and people, and giving them a shot",
       "category": "AI",
@@ -31,16 +39,8 @@
       "link": "https://www.a16z.news/p/im-out-whos-with-me-exit-as-an-organizing",
       "image": "https://substack-post-media.s3.amazonaws.com/public/images/bdb83748-9308-4615-a7ad-f4785f1cefd3_2844x1600.png",
       "date": "Wed, 11 Feb 2026 15:15:17 GMT"
-    },
-    {
-      "title": "The Case for Scaling Venture",
-      "excerpt": "Your fund size is your belief in the future",
-      "category": "Infra",
-      "link": "https://www.a16z.news/p/the-case-for-scaling-venture",
-      "image": "https://substack-post-media.s3.amazonaws.com/public/images/2ad89a74-62d9-4792-865b-2b5935b6f69a_2844x1600.png",
-      "date": "Tue, 10 Feb 2026 15:03:37 GMT"
     }
   ],
-  "fetchedAt": "2026-02-17T15:04:06.238Z",
+  "fetchedAt": "2026-02-17T15:05:35.391Z",
   "feedUrl": "https://www.a16z.news/feed"
 }

@@ -78,7 +78,7 @@ export function AsciiPlasma() {
     const interval = setInterval(() => {
       // Animate flash intensity
       if (isFlashingRef.current) {
-        flashIntensityRef.current = Math.min(1, flashIntensityRef.current + 0.15);
+        flashIntensityRef.current = Math.min(1, flashIntensityRef.current + 0.25);
       } else if (flashIntensityRef.current > 0) {
         flashIntensityRef.current = Math.max(0, flashIntensityRef.current - 0.08);
       }
@@ -108,7 +108,7 @@ export function AsciiPlasma() {
       onClick={() => {
         isFlashingRef.current = true;
         // Stop ramping after one frame's worth, let it decay naturally
-        setTimeout(() => { isFlashingRef.current = false; }, 125);
+        setTimeout(() => { isFlashingRef.current = false; }, 600);
       }}
     >
       <pre
