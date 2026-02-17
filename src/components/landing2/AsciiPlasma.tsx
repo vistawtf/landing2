@@ -77,10 +77,7 @@ export function AsciiPlasma() {
     let t = 0;
 
     const interval = setInterval(() => {
-      // Animate radius smoothly
-      if (isClickRef.current && radiusRef.current < CLICK_RADIUS) {
-        radiusRef.current = Math.min(CLICK_RADIUS, radiusRef.current + 8);
-      }
+      // Contraction only — expansion is handled instantly on mousedown
       if (!isClickRef.current && radiusRef.current > BASE_RADIUS) {
         radiusRef.current = Math.max(BASE_RADIUS, radiusRef.current - 6);
       }
@@ -110,6 +107,7 @@ export function AsciiPlasma() {
       }}
       onMouseDown={() => {
         isClickRef.current = true;
+        radiusRef.current = CLICK_RADIUS; // salto instantáneo
       }}
       onMouseUp={() => {
         isClickRef.current = false;
