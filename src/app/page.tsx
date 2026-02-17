@@ -15,7 +15,6 @@ export default function Landing2Page() {
       <LatestSection />
       <SectionDivider dark />
       <NewsletterSection />
-      <SectionDivider dark />
       <ServicesSection />
       <FooterSection />
     </main>
