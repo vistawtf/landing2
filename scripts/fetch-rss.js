@@ -2,7 +2,7 @@ const Parser = require('rss-parser');
 const fs = require('fs');
 const path = require('path');
 
-const RSS_FEED_URL = 'https://www.a16z.news/feed';
+const RSS_FEED_URL = 'https://vistalabs.substack.com/feed';
 
 // Map category intelligently based on article title/content keywords
 function inferCategory(title, description) {
@@ -80,8 +80,21 @@ async function fetchRSS() {
     console.log(`📰 Fetched ${articles.length} articles`);
     
   } catch (error) {
-    console.error('❌ Failed to fetch RSS:', error);
-    process.exit(1);
+    console.warn('⚠️ Failed to fetch RSS, using fallback articles:', error.message);
+    const fallbackArticles = [
+      { title: 'The Future of AI Agents in DeFi', excerpt: 'Exploring how autonomous agents are reshaping decentralized finance protocols.', category: 'AI', link: '#' },
+      { title: 'Protocol Governance 2.0', excerpt: 'New models for decentralized decision-making.', category: 'DeFi', link: '#' },
+      { title: 'Infrastructure Scaling', excerpt: "How L2s are solving Ethereum's throughput challenges.", category: 'Infra', link: '#' },
+      { title: 'MEV & Intent-Based Systems', excerpt: 'The evolution of transaction ordering and user intent.', category: 'DeFi', link: '#' },
+      { title: 'AI Model Coordination', excerpt: 'Multi-agent systems working together on-chain.', category: 'AI', link: '#' },
+    ];
+    const outputDir = path.join(__dirname, '../public');
+    if (!fs.existsSync(outputDir)) {
+      fs.mkdirSync(outputDir, { recursive: true });
+    }
+    const outputPath = path.join(outputDir, 'rss-articles.json');
+    fs.writeFileSync(outputPath, JSON.stringify({ articles: fallbackArticles, fetchedAt: new Date().toISOString(), feedUrl: RSS_FEED_URL }, null, 2));
+    console.log('✅ Fallback articles written to:', outputPath);
   }
 }
 
