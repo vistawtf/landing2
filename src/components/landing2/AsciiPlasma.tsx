@@ -75,7 +75,7 @@ export function AsciiPlasma() {
           letterSpacing: '4px',
           overflowX: 'hidden',
           // Very dim — coherent with dark Vista footer
-          color: 'rgba(228, 226, 216, 0.25)',
+          color: 'rgba(228, 226, 216, 0.55)',
           margin: 0,
           padding: 0,
           position: 'absolute',
