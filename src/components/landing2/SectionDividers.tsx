@@ -10,7 +10,7 @@ export function HeroLatestDivider() {
           left: 0;
           right: 0;
           height: 1px;
-          background: rgba(0, 0, 0, 0.15);
+          background: rgba(0, 0, 0, 0.06);
         }
       `}</style>
     </div>
@@ -27,7 +27,7 @@ export function SectionDivider({ dark = false }: { dark?: boolean }) {
           left: 0;
           right: 0;
           height: 1px;
-          background: ${dark ? 'rgba(0, 0, 0, 0.15)' : 'rgba(255, 255, 255, 0.15)'};
+          background: ${dark ? 'rgba(0, 0, 0, 0.06)' : 'rgba(255, 255, 255, 0.06)'};
         }
       `}</style>
     </div>
