@@ -5,8 +5,8 @@ import { createNoise3D } from 'simplex-noise';
 
 const noise3D = createNoise3D();
 
-// Characters ordered by visual density: spaces = dark, # = bright
-const shades = '    .₊˚:-=+#';
+// Vista brand characters mapped by noise intensity
+const shades = ['₊', '˚', '⊹'] as const;
 const shadesLength = shades.length;
 
 const FONT_SIZE = 14;
