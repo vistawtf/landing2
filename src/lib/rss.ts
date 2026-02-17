@@ -21,8 +21,7 @@ export interface Article {
   date?: string;
 }
 
-// Using a16z news as the RSS source (tech/crypto focused, aligns with Vista content)
-export const RSS_FEED_URL = 'https://www.a16z.news/feed';
+export const RSS_FEED_URL = 'https://vistalabs.substack.com/feed';
 
 // Map category intelligently based on article title/content keywords
 function inferCategory(title: string, description: string): string {
