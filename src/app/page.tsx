@@ -8,7 +8,7 @@ import { HeroLatestDivider, SectionDivider } from "@/components/landing2/Section
 
 export default function Landing2Page() {
   return (
-    <main className="relative scroll-smooth snap-y snap-mandatory">
+    <main className="relative scroll-smooth">
       <Navigation />
       <HeroSection />
       <HeroLatestDivider />

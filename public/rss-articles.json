@@ -1,6 +1,14 @@
 {
   "articles": [
     {
+      "title": "The mindset shift we need to rebuild American factories",
+      "excerpt": "Factory Mindset means finding the best ideas and people, and giving them a shot",
+      "category": "AI",
+      "link": "https://www.a16z.news/p/the-mindset-shift-we-need-to-rebuild",
+      "image": "https://substack-post-media.s3.amazonaws.com/public/images/12f2ea49-3b23-45bf-972b-5cbcee7e4a2a_2844x1600.png",
+      "date": "Tue, 17 Feb 2026 11:15:32 GMT"
+    },
+    {
       "title": "Charts of the Week: Customer Service Reckoning",
       "excerpt": "Industrials valuation pop; SF is the hub; Capex; White collar sitters",
       "category": "AI",
@@ -31,16 +39,8 @@
       "link": "https://www.a16z.news/p/the-case-for-scaling-venture",
       "image": "https://substack-post-media.s3.amazonaws.com/public/images/2ad89a74-62d9-4792-865b-2b5935b6f69a_2844x1600.png",
       "date": "Tue, 10 Feb 2026 15:03:37 GMT"
-    },
-    {
-      "title": "Defense Acquisition Reform: Victories and Next Steps for FY27 NDAA",
-      "excerpt": "Securing critical technology for warfighters, at the speed the moment demands",
-      "category": "AI",
-      "link": "https://www.a16z.news/p/defense-acquisition-reform-victories",
-      "image": "https://substack-post-media.s3.amazonaws.com/public/images/6e1e680a-5fca-45d7-bcd3-094b8c187e6f_2844x1600.png",
-      "date": "Tue, 10 Feb 2026 14:31:43 GMT"
     }
   ],
-  "fetchedAt": "2026-02-16T19:44:36.503Z",
+  "fetchedAt": "2026-02-17T11:41:09.896Z",
   "feedUrl": "https://www.a16z.news/feed"
 }

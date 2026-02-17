@@ -99,7 +99,7 @@ export function Navigation() {
 
           <div className="hidden lg:flex items-center gap-8">
             <Link
-              href="/landing2#services"
+              href="#services"
               className={`text-base font-medium transition-colors duration-300 ${
                 inverted ? 'text-[#E4E2D8] hover:text-[#FF5233]' : 'text-[#111111] hover:text-[#FF5233]'
               }`}
@@ -107,7 +107,7 @@ export function Navigation() {
               Services
             </Link>
             <Link
-              href="/landing2#latest"
+              href="#latest"
               className={`text-base font-medium transition-colors duration-300 ${
                 inverted ? 'text-[#E4E2D8] hover:text-[#FF5233]' : 'text-[#111111] hover:text-[#FF5233]'
               }`}
@@ -115,7 +115,7 @@ export function Navigation() {
               Research
             </Link>
             <Link
-              href="/landing2/about"
+              href="/about"
               className={`text-base font-medium transition-colors duration-300 ${
                 inverted ? 'text-[#E4E2D8] hover:text-[#FF5233]' : 'text-[#111111] hover:text-[#FF5233]'
               }`}
@@ -149,13 +149,13 @@ export function Navigation() {
         >
           <div className={`border-t ${inverted ? 'border-white/[0.08]' : 'border-black/[0.08]'}`}>
             <div className="flex flex-col gap-4 pt-4">
-              <Link onClick={() => setMenuOpen(false)} href="/landing2#services" className={`${inverted ? 'text-[#E4E2D8]' : 'text-[#111111]'} text-[17px] py-1`}>
+              <Link onClick={() => setMenuOpen(false)} href="#services" className={`${inverted ? 'text-[#E4E2D8]' : 'text-[#111111]'} text-[17px] py-1`}>
                 Services
               </Link>
-              <Link onClick={() => setMenuOpen(false)} href="/landing2#latest" className={`${inverted ? 'text-[#E4E2D8]' : 'text-[#111111]'} text-[17px] py-1`}>
+              <Link onClick={() => setMenuOpen(false)} href="#latest" className={`${inverted ? 'text-[#E4E2D8]' : 'text-[#111111]'} text-[17px] py-1`}>
                 Research
               </Link>
-              <Link onClick={() => setMenuOpen(false)} href="/landing2/about" className={`${inverted ? 'text-[#E4E2D8]' : 'text-[#111111]'} text-[17px] py-1`}>
+              <Link onClick={() => setMenuOpen(false)} href="/about" className={`${inverted ? 'text-[#E4E2D8]' : 'text-[#111111]'} text-[17px] py-1`}>
                 About
               </Link>
               <Link
