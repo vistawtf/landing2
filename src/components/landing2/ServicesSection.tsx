@@ -54,7 +54,7 @@ function ServiceCard({ service }: { service: typeof services[0] }) {
       {/* CTA */}
       <Link
         href={service.link}
-        className="inline-block text-base text-[#575757] hover:text-[#FF5233] transition-colors"
+        className="inline-block text-[13px] font-mono font-medium uppercase tracking-[0.05em] text-[#575757] hover:text-[#FF5233] transition-colors"
       >
         Learn more →
       </Link>
@@ -68,7 +68,7 @@ export function ServicesSection() {
       <GridLines />
 
       <div className="relative z-10 max-w-[1200px] mx-auto px-6 md:px-16">
-        <h2 className="text-[36px] md:text-[48px] font-semibold text-[#111] lowercase mb-12">
+        <h2 className="text-[36px] md:text-[48px] font-medium leading-tight text-[#111] lowercase mb-12">
           what we do
         </h2>
 
@@ -83,7 +83,7 @@ export function ServicesSection() {
         <div className="text-center mt-12">
           <Link
             href="/landing2/services"
-            className="inline-block text-base font-medium text-[#575757] hover:text-[#FF5233] hover:underline hover:underline-offset-4 transition-all"
+            className="inline-block text-[13px] font-mono font-medium uppercase tracking-[0.05em] text-[#575757] hover:text-[#FF5233] hover:underline hover:underline-offset-4 transition-all"
           >
             View all services →
           </Link>

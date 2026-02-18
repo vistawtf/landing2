@@ -126,7 +126,7 @@ export function LatestSection() {
       <GridLines />
 
       <div className="relative z-10 max-w-[1200px] mx-auto px-6 md:px-16">
-        <h2 className="text-[32px] md:text-[44px] font-semibold text-[#111] lowercase mb-10 md:mb-14">the latest</h2>
+        <h2 className="text-[32px] md:text-[44px] font-medium leading-tight text-[#111] lowercase mb-10 md:mb-14">the latest</h2>
 
         <div className="hidden md:grid md:grid-cols-2 gap-0 aspect-[2/1]">
           {latest && (

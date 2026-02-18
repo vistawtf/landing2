@@ -7,7 +7,7 @@ export function WhoWeAreSection() {
       </div>
 
       <div className="relative z-10 max-w-[1200px] mx-auto px-6 md:px-16 text-center">
-        <h2 className="text-2xl md:text-[32px] font-semibold lowercase mb-6">
+        <h2 className="text-2xl md:text-[32px] font-medium leading-tight lowercase mb-6">
           who we are
         </h2>
         <p className="text-lg md:text-xl leading-relaxed max-w-[700px] mx-auto">
