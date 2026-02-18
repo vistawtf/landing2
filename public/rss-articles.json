@@ -1,5 +1,36 @@
 {
-  "articles": [],
-  "fetchedAt": "2026-02-18T18:44:24.850Z",
+  "articles": [
+    {
+      "title": "The Future of AI Agents in DeFi",
+      "excerpt": "Exploring how autonomous agents are reshaping decentralized finance protocols.",
+      "category": "AI",
+      "link": "#"
+    },
+    {
+      "title": "Protocol Governance 2.0",
+      "excerpt": "New models for decentralized decision-making.",
+      "category": "DeFi",
+      "link": "#"
+    },
+    {
+      "title": "Infrastructure Scaling",
+      "excerpt": "How L2s are solving Ethereum's throughput challenges.",
+      "category": "Infra",
+      "link": "#"
+    },
+    {
+      "title": "MEV & Intent-Based Systems",
+      "excerpt": "The evolution of transaction ordering and user intent.",
+      "category": "DeFi",
+      "link": "#"
+    },
+    {
+      "title": "AI Model Coordination",
+      "excerpt": "Multi-agent systems working together on-chain.",
+      "category": "AI",
+      "link": "#"
+    }
+  ],
+  "fetchedAt": "2026-02-18T20:47:35.030Z",
   "feedUrl": "https://vistalabs.substack.com/feed"
 }

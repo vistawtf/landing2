@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { GridLines } from './GridLines';
 
 interface Article {
@@ -12,6 +12,10 @@ interface Article {
   date?: string;
 }
 
+interface DisplayArticle extends Article {
+  isPlaceholder?: boolean;
+}
+
 const FALLBACK_GRADIENTS: Record<string, string> = {
   AI: 'linear-gradient(135deg, rgba(255,82,51,0.22) 0%, rgba(255,82,51,0.06) 100%)',
   DeFi: 'linear-gradient(135deg, rgba(17,17,17,0.10) 0%, rgba(17,17,17,0.04) 100%)',
@@ -19,107 +23,97 @@ const FALLBACK_GRADIENTS: Record<string, string> = {
   default: 'linear-gradient(135deg, rgba(255,82,51,0.16) 0%, rgba(17,17,17,0.05) 100%)',
 };
 
-// Fallback articles if RSS fails
-const FALLBACK_ARTICLES: Article[] = [
-  {
-    title: 'The Future of AI Agents in DeFi',
-    excerpt: 'Exploring how autonomous agents are reshaping decentralized finance protocols.',
-    category: 'AI',
-    link: '#',
-  },
-  {
-    title: 'Protocol Governance 2.0',
-    excerpt: 'New models for decentralized decision-making.',
-    category: 'DeFi',
-    link: '#',
-  },
-  {
-    title: 'Infrastructure Scaling',
-    excerpt: "How L2s are solving Ethereum's throughput challenges.",
-    category: 'Infra',
-    link: '#',
-  },
-  {
-    title: 'MEV & Intent-Based Systems',
-    excerpt: 'The evolution of transaction ordering and user intent.',
-    category: 'DeFi',
-    link: '#',
-  },
-  {
-    title: 'AI Model Coordination',
-    excerpt: 'Multi-agent systems working together on-chain.',
-    category: 'AI',
-    link: '#',
-  },
-];
+const PLACEHOLDER_COUNT = 5;
 
-function ArticleCard({ article, isLarge = false }: { article: Article; isLarge?: boolean }) {
+function createPlaceholderArticle(index: number): DisplayArticle {
+  return {
+    title: index === 0 ? 'Fresh insight coming soon' : 'New article coming soon',
+    excerpt: 'Published updates from Vista will appear here shortly.',
+    category: 'AI',
+    link: '#',
+    isPlaceholder: true,
+  };
+}
+
+function ArticleCard({ article, isLarge = false }: { article: DisplayArticle; isLarge?: boolean }) {
+  const isPlaceholder = !!article.isPlaceholder;
+  const containerClass = `group block bg-[#F2F2F2] transition-colors duration-200 h-full ${isLarge ? '' : 'aspect-square'} border border-black/[0.08] ${isPlaceholder ? 'cursor-default' : 'hover:bg-[#E8E8E8]'}`;
+  const previewBackground = isPlaceholder
+    ? 'linear-gradient(135deg, rgba(17,17,17,0.08) 0%, rgba(17,17,17,0.02) 100%)'
+    : (article.image ? `url(${article.image}) center/cover` : FALLBACK_GRADIENTS[article.category] || FALLBACK_GRADIENTS.default);
+
+  const content = (
+    <article className="h-full flex flex-col">
+      <div
+        className={`w-full relative ${isLarge ? 'h-[50%]' : 'h-[50%]'}`}
+        style={{ background: previewBackground }}
+      >
+        <div className={`absolute inset-0 ${isPlaceholder ? 'bg-gradient-to-t from-black/[0.10] to-transparent' : 'bg-gradient-to-t from-black/[0.20] to-transparent'}`} />
+      </div>
+
+      <div className={`${isLarge ? 'p-5 md:p-6' : 'p-4'} flex-1 flex flex-col justify-between min-h-0`}>
+        <div className={isLarge ? '' : 'h-[72px]'}>
+          <h3 className={`${isLarge ? 'text-[28px] md:text-[32px] line-clamp-2' : 'text-[20px] md:text-[22px] line-clamp-3'} font-medium text-[#111] leading-[1.15] ${isPlaceholder ? 'opacity-75' : ''}`}>
+            {article.title}
+          </h3>
+
+          {isLarge && (
+            <p className={`text-[16px] leading-[1.4] line-clamp-2 mt-2 ${isPlaceholder ? 'text-[#666666]' : 'text-[#444444]'}`}>
+              {article.excerpt}
+            </p>
+          )}
+        </div>
+
+        <div className={`mt-auto pt-3 text-[13px] font-mono font-medium uppercase tracking-[0.05em] transition-colors ${isPlaceholder ? 'text-[#8A8A8A]' : 'text-[#666666] group-hover:text-[#FF5233]'}`}>
+          {isPlaceholder ? 'COMING SOON' : 'READ MORE ->'}
+        </div>
+      </div>
+    </article>
+  );
+
+  if (isPlaceholder) {
+    return <div className={containerClass} aria-hidden="true">{content}</div>;
+  }
+
   return (
-    <a
-      href={article.link}
-      target="_blank"
-      rel="noopener noreferrer"
-      className={`group block bg-[#F2F2F2] hover:bg-[#E8E8E8] transition-colors duration-200 h-full ${isLarge ? '' : 'aspect-square'} border border-black/[0.08]`}
-    >
-      <article className="h-full flex flex-col">
-        {/* Image - 50% height */}
-        <div
-          className={`w-full relative ${isLarge ? 'h-[50%]' : 'h-[50%]'}`}
-          style={{
-            background: article.image ? `url(${article.image}) center/cover` : FALLBACK_GRADIENTS[article.category] || FALLBACK_GRADIENTS.default,
-          }}
-        >
-          <div className="absolute inset-0 bg-gradient-to-t from-black/[0.20] to-transparent" />
-        </div>
-
-        <div className={`${isLarge ? 'p-5 md:p-6' : 'p-4'} flex-1 flex flex-col justify-between min-h-0`}>
-          <div className={isLarge ? '' : 'h-[72px]'}>
-            {/* Title - bigger and more lines since no description on small cards */}
-            <h3 className={`${isLarge ? 'text-[28px] md:text-[32px] line-clamp-2' : 'text-[20px] md:text-[22px] line-clamp-3'} font-medium text-[#111] leading-[1.15]`}>
-              {article.title}
-            </h3>
-
-            {/* Description - only on large card */}
-            {isLarge && (
-              <p className="text-[#444444] text-[16px] leading-[1.4] line-clamp-2 mt-2">
-                {article.excerpt}
-              </p>
-            )}
-          </div>
-
-          {/* Read more */}
-          <div className="mt-auto pt-3 text-[13px] font-mono font-medium uppercase tracking-[0.05em] text-[#666666] group-hover:text-[#FF5233] transition-colors">
-            READ MORE <span className="inline-block transition-transform group-hover:translate-x-0.5">→</span>
-          </div>
-        </div>
-      </article>
+    <a href={article.link} target="_blank" rel="noopener noreferrer" className={containerClass}>
+      {content}
     </a>
   );
 }
 
 export function LatestSection() {
-  const [articles, setArticles] = useState<Article[]>(FALLBACK_ARTICLES);
+  const [articles, setArticles] = useState<Article[]>([]);
 
   useEffect(() => {
     async function loadArticles() {
       try {
         const response = await fetch('/rss-articles.json');
-        if (response.ok) {
-          const data = await response.json();
-          if (data.articles && data.articles.length > 0) {
-            setArticles(data.articles);
-          }
-        }
+        if (!response.ok) return;
+
+        const data = await response.json();
+        const incoming = Array.isArray(data.articles) ? data.articles as Article[] : [];
+
+        // Ignore fallback rows with placeholder links so UI never shows fake editorial posts.
+        const realArticles = incoming.filter((item) => item?.link && item.link !== '#');
+        setArticles(realArticles.slice(0, PLACEHOLDER_COUNT));
       } catch (error) {
         console.error('Failed to load RSS articles:', error);
-        // Fallback articles already set in state
       }
     }
 
     loadArticles();
   }, []);
 
-  const [latest, ...rest] = articles;
+  const displayArticles = useMemo(() => {
+    const placeholders = Array.from(
+      { length: Math.max(0, PLACEHOLDER_COUNT - articles.length) },
+      (_, idx) => createPlaceholderArticle(articles.length + idx),
+    );
+    return [...articles, ...placeholders] as DisplayArticle[];
+  }, [articles]);
+
+  const [latest, ...rest] = displayArticles;
 
   return (
     <section id="latest" className="relative landing2-section-spacing bg-[#FFFFFF]">
@@ -137,7 +131,7 @@ export function LatestSection() {
 
           <div className="grid grid-cols-2 grid-rows-2 gap-0 h-full">
             {rest.map((article, idx) => (
-              <div key={idx} className="h-full">
+              <div key={`desktop-${article.link}-${idx}`} className="h-full">
                 <ArticleCard article={article} />
               </div>
             ))}
@@ -145,8 +139,8 @@ export function LatestSection() {
         </div>
 
         <div className="md:hidden grid grid-cols-1 gap-0">
-          {articles.map((article, idx) => (
-            <div key={idx}>
+          {displayArticles.map((article, idx) => (
+            <div key={`mobile-${article.link}-${idx}`}>
               <ArticleCard article={article} />
             </div>
           ))}
