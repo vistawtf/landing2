@@ -61,6 +61,24 @@ function writeArticles(articles, sourceUrl) {
   return file;
 }
 
+function readCachedArticles() {
+  const file = outputPath();
+  if (!fs.existsSync(file)) {
+    return [];
+  }
+
+  try {
+    const raw = fs.readFileSync(file, 'utf-8');
+    const parsed = JSON.parse(raw);
+    if (!Array.isArray(parsed?.articles)) {
+      return [];
+    }
+    return parsed.articles.filter((item) => item?.title && item?.link && item.link !== '#');
+  } catch {
+    return [];
+  }
+}
+
 async function fetchFromArchive() {
   console.log('Fetching archive API from:', ARCHIVE_API_URL);
   const response = await fetch(ARCHIVE_API_URL, { headers: REQUEST_HEADERS });
@@ -139,18 +157,17 @@ async function fetchRSS() {
       console.log('Archive articles saved to:', file);
       console.log(`Fetched ${archiveArticles.length} articles from archive API`);
     } catch (archiveError) {
-      console.warn('Archive API fetch failed, using hardcoded fallback:', archiveError.message);
+      console.warn('Archive API fetch failed:', archiveError.message);
+      const cachedArticles = readCachedArticles();
 
-      const fallbackArticles = [
-        { title: 'The Future of AI Agents in DeFi', excerpt: 'Exploring how autonomous agents are reshaping decentralized finance protocols.', category: 'AI', link: '#' },
-        { title: 'Protocol Governance 2.0', excerpt: 'New models for decentralized decision-making.', category: 'DeFi', link: '#' },
-        { title: 'Infrastructure Scaling', excerpt: "How L2s are solving Ethereum's throughput challenges.", category: 'Infra', link: '#' },
-        { title: 'MEV & Intent-Based Systems', excerpt: 'The evolution of transaction ordering and user intent.', category: 'DeFi', link: '#' },
-        { title: 'AI Model Coordination', excerpt: 'Multi-agent systems working together on-chain.', category: 'AI', link: '#' },
-      ];
+      if (cachedArticles.length > 0) {
+        const file = writeArticles(cachedArticles, 'cached');
+        console.log(`Using cached rss-articles.json (${cachedArticles.length} articles):`, file);
+        return;
+      }
 
-      const file = writeArticles(fallbackArticles, RSS_FEED_URL);
-      console.log('Fallback articles written to:', file);
+      const file = writeArticles([], RSS_FEED_URL);
+      console.log('No cached articles found; wrote empty rss-articles.json:', file);
     }
   }
 }

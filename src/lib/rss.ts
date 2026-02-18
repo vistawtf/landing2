@@ -136,6 +136,10 @@ export async function fetchRSSFeed(): Promise<Article[]> {
       };
     });
   } catch {
-    return fetchArchiveFeed();
+    try {
+      return await fetchArchiveFeed();
+    } catch {
+      return [];
+    }
   }
 }

@@ -1,36 +1,14 @@
 {
   "articles": [
     {
-      "title": "The Future of AI Agents in DeFi",
-      "excerpt": "Exploring how autonomous agents are reshaping decentralized finance protocols.",
+      "title": "wao",
+      "excerpt": "wao",
       "category": "AI",
-      "link": "#"
-    },
-    {
-      "title": "Protocol Governance 2.0",
-      "excerpt": "New models for decentralized decision-making.",
-      "category": "DeFi",
-      "link": "#"
-    },
-    {
-      "title": "Infrastructure Scaling",
-      "excerpt": "How L2s are solving Ethereum's throughput challenges.",
-      "category": "Infra",
-      "link": "#"
-    },
-    {
-      "title": "MEV & Intent-Based Systems",
-      "excerpt": "The evolution of transaction ordering and user intent.",
-      "category": "DeFi",
-      "link": "#"
-    },
-    {
-      "title": "AI Model Coordination",
-      "excerpt": "Multi-agent systems working together on-chain.",
-      "category": "AI",
-      "link": "#"
+      "link": "https://vistalabs.substack.com/p/wao",
+      "image": "https://substackcdn.com/image/fetch/$s_!Oizc!,w_256,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F14f6c753-8ea9-4f97-bff3-c26f9a86155f_1000x1000.png",
+      "date": "Wed, 18 Feb 2026 20:27:00 GMT"
     }
   ],
-  "fetchedAt": "2026-02-18T20:47:35.030Z",
-  "feedUrl": "https://vistalabs.substack.com/feed"
+  "fetchedAt": "2026-02-18T20:56:35.033Z",
+  "feedUrl": "cached"
 }
