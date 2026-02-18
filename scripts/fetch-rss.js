@@ -2,7 +2,7 @@ const Parser = require('rss-parser');
 const fs = require('fs');
 const path = require('path');
 
-const RSS_FEED_URL = 'https://vistalabs.substack.com/feed';
+const RSS_FEED_URL = 'https://vistasubstack.substack.com/feed';
 
 // Map category intelligently based on article title/content keywords
 function inferCategory(title, description) {

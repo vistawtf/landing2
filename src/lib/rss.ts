@@ -21,7 +21,7 @@ export interface Article {
   date?: string;
 }
 
-export const RSS_FEED_URL = 'https://vistalabs.substack.com/feed';
+export const RSS_FEED_URL = 'https://vistasubstack.substack.com/feed';
 
 // Map category intelligently based on article title/content keywords
 function inferCategory(title: string, description: string): string {
