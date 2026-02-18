@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { MoonIcon, SunIcon } from "./icons";
+import { Moon, Sun } from "lucide-react";
 
 // ========================================
 // HOOKS
@@ -119,7 +119,7 @@ export function DarkModeToggle() {
       className={`theme-toggle transition-opacity duration-300 ${mounted ? "opacity-100" : "opacity-0"}`}
       aria-label="Toggle theme"
     >
-      {mounted ? (dark ? <SunIcon /> : <MoonIcon />) : <div className="w-4 h-4" />}
+      {mounted ? (dark ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />) : <div className="w-4 h-4" />}
     </button>
   );
 }

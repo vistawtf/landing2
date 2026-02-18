@@ -88,7 +88,7 @@ function ArticleCard({ article, isLarge = false }: { article: Article; isLarge?:
           </div>
 
           {/* Read more */}
-          <div className="mt-auto pt-3 text-[13px] font-medium uppercase tracking-[0.05em] text-[#666666] group-hover:text-[#FF5233] transition-colors">
+          <div className="mt-auto pt-3 text-[13px] font-mono font-medium uppercase tracking-[0.05em] text-[#666666] group-hover:text-[#FF5233] transition-colors">
             READ MORE <span className="inline-block transition-transform group-hover:translate-x-0.5">→</span>
           </div>
         </div>

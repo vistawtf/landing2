@@ -19,11 +19,11 @@ function XIcon({ className }: { className?: string }) {
   );
 }
 
-// LinkedIn square "in" logo
-function LinkedInIcon({ className }: { className?: string }) {
+// Official Telegram logo
+function TelegramIcon({ className }: { className?: string }) {
   return (
     <svg className={className} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-      <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" fill="currentColor"/>
+      <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z" fill="currentColor"/>
     </svg>
   );
 }
@@ -41,7 +41,7 @@ export function FooterSection() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-0 border-b border-white/[0.08]">
           {/* LEFT: CTAs */}
           <div className="py-8 md:py-10 px-6 md:border-r md:border-white/[0.08] flex flex-col justify-center">
-            <p className="text-xs uppercase tracking-[0.12em] text-white/50 mb-3">Ready to work together?</p>
+            <p className="text-xs uppercase tracking-[0.12em] text-white/50 mb-3 font-mono">Ready to work together?</p>
             <h3 className="text-[32px] md:text-[42px] font-medium leading-tight text-[#E4E2D8] mb-6">
               Build something useful with Vista.
             </h3>
@@ -93,7 +93,7 @@ export function FooterSection() {
             <h3 className="text-xs font-semibold uppercase tracking-wider text-white/40 mb-4">Resources</h3>
             <ul className="space-y-2">
               <li><a href="https://vistasubstack.substack.com" target="_blank" rel="noopener noreferrer" className="text-sm text-white/70 hover:text-[#FF5233] transition-colors">Substack</a></li>
-              <li><a href="https://t.me/vistaDAO" target="_blank" rel="noopener noreferrer" className="text-sm text-white/70 hover:text-[#FF5233] transition-colors">Telegram</a></li>
+              <li><a href="https://t.me/vistainsights" target="_blank" rel="noopener noreferrer" className="text-sm text-white/70 hover:text-[#FF5233] transition-colors">Telegram</a></li>
               <li><a href="https://twitter.com/viaboratorio" target="_blank" rel="noopener noreferrer" className="text-sm text-white/70 hover:text-[#FF5233] transition-colors">Twitter</a></li>
             </ul>
           </div>
@@ -110,7 +110,7 @@ export function FooterSection() {
 
         {/* Bottom bar */}
         <div className="pt-2 px-6 flex flex-col md:flex-row justify-between items-start gap-4 text-left">
-          <div className="flex flex-col md:flex-row gap-2 md:gap-4 text-sm text-white/40">
+          <div className="flex flex-col md:flex-row gap-2 md:gap-4 text-sm text-white/40 font-mono">
             <span>© 2026 Vista</span>
             <span className="hidden md:inline">|</span>
             <span>vista.wtf</span>
@@ -118,7 +118,7 @@ export function FooterSection() {
 
           <div className="flex gap-4">
             <a href="https://twitter.com/viaboratorio" target="_blank" rel="noopener noreferrer" className="text-white/40 hover:text-white transition-colors" aria-label="X (Twitter)"><XIcon className="w-5 h-5" /></a>
-            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="text-white/40 hover:text-white transition-colors" aria-label="LinkedIn"><LinkedInIcon className="w-5 h-5" /></a>
+            <a href="https://t.me/vistainsights" target="_blank" rel="noopener noreferrer" className="text-white/40 hover:text-white transition-colors" aria-label="Telegram"><TelegramIcon className="w-5 h-5" /></a>
             <a href="https://vistasubstack.substack.com" target="_blank" rel="noopener noreferrer" className="text-white/40 hover:text-white transition-colors" aria-label="Substack"><SubstackIcon className="w-5 h-5" /></a>
           </div>
         </div>
