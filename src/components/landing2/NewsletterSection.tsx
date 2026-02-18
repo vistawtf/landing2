@@ -53,7 +53,7 @@ export function NewsletterSection() {
         <div className="flex flex-col gap-5 max-w-[700px]">
           {/* Kicker + Badge */}
           <div className="flex items-center gap-3 mb-4">
-            <p className="text-xs md:text-sm font-semibold uppercase tracking-wider text-[#999999]">
+            <p className="text-xs md:text-sm font-semibold uppercase tracking-wider text-[#999999] font-mono">
               EMERGENT STACK BY ETH LATAM
             </p>
             <div className="bg-white/[0.08] border border-white/[0.15] rounded-2xl px-3 py-1 text-sm md:text-base font-semibold text-[#E4E2D8]">

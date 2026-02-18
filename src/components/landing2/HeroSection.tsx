@@ -105,7 +105,7 @@ export function HeroSection() {
           </div>
 
           <div className="mt-10 md:mt-12">
-            <p className="text-[10px] md:text-[11px] font-semibold uppercase tracking-[0.12em] text-[#999999] mb-2 md:mb-3">
+            <p className="text-[10px] md:text-[11px] font-semibold uppercase tracking-[0.12em] text-[#999999] mb-2 md:mb-3 font-mono">
               Trusted by
             </p>
             <div className="flex gap-6 md:gap-8 items-center opacity-60">

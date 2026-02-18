@@ -1,0 +1,30 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git checkout:*)",
+      "Bash(git fetch:*)",
+      "Bash(git log:*)",
+      "Bash(git pull:*)",
+      "Bash(npm install:*)",
+      "Bash(npm run build:*)",
+      "mcp__ide__getDiagnostics",
+      "Bash(gh run view:*)",
+      "Bash(gh run:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "Bash(nslookup:*)",
+      "Bash(npm run dev:*)",
+      "Bash(powershell -Command:*)",
+      "Bash(node scripts/fetch-rss.js:*)",
+      "Bash(gh repo view:*)",
+      "Bash(gh api:*)",
+      "Bash(git merge:*)",
+      "Bash(git -C /c/Users/efra/Documents/vista_repos/landing2 status)",
+      "Bash(git -C /c/Users/efra/Documents/vista_repos/landing2 log --oneline -5)",
+      "Bash(git -C /c/Users/efra/Documents/vista_repos/landing2 add src/components/landing2/NewsletterSection.tsx)",
+      "Bash(git -C:*)",
+      "Bash(dir:*)"
+    ]
+  }
+}

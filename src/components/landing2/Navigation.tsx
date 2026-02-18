@@ -112,7 +112,7 @@ export function Navigation() {
                 inverted ? 'text-[#E4E2D8] hover:text-[#FF5233]' : 'text-[#111111] hover:text-[#FF5233]'
               }`}
             >
-              Research
+              Blog
             </Link>
             <Link
               href="/about"
@@ -153,7 +153,7 @@ export function Navigation() {
                 Services
               </Link>
               <Link onClick={() => setMenuOpen(false)} href="#latest" className={`${inverted ? 'text-[#E4E2D8]' : 'text-[#111111]'} text-[17px] py-1`}>
-                Research
+                Blog
               </Link>
               <Link onClick={() => setMenuOpen(false)} href="/about" className={`${inverted ? 'text-[#E4E2D8]' : 'text-[#111111]'} text-[17px] py-1`}>
                 About
