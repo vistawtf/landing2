@@ -2,8 +2,36 @@
 
 import Image from 'next/image';
 import { ChevronRight } from 'lucide-react';
+import { useState } from 'react';
+
+const BREVO_FORM_URL =
+  'https://d446b27f.sibforms.com/serve/MUIFAJiVPTBT8leGERph_rvrbdhDyJNavvKaUhEvOrpjis1ck-tVsBOk0q9nyU4A2tyyneGktdIDWo4b4NBzhcv5uWnCwG6DBQWRRkS3QpWIbjujNS-TytOEhRaQb6l4Y1stsHs-KW9Ee6UJys7Wj_jB-vDV7l9SIM7PCVrZLR_iu2XNjRZZ-wEdCSVdEd7iu8P0KFDL7WioPpKC';
 
 export function NewsletterSection() {
+  const [email, setEmail] = useState('');
+  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    setStatus('loading');
+    try {
+      const formData = new FormData();
+      formData.append('EMAIL', email);
+      formData.append('email_address_check', '');
+      formData.append('locale', 'es');
+
+      await fetch(BREVO_FORM_URL, {
+        method: 'POST',
+        body: formData,
+        mode: 'no-cors',
+      });
+      setStatus('success');
+      setEmail('');
+    } catch {
+      setStatus('error');
+    }
+  }
+
   return (
     <section
       id="newsletter"
@@ -57,24 +85,46 @@ export function NewsletterSection() {
           </ul>
 
           {/* Form */}
-          <form
-            className="flex flex-col md:flex-row gap-3 w-full max-w-[620px] mt-5"
-            onSubmit={(e) => e.preventDefault()}
-          >
-            <input
-              type="email"
-              className="flex-1 min-h-[60px] md:min-h-[56px] px-5 py-4 md:py-0 bg-white/[0.08] border border-white/[0.15] rounded-[2px] md:rounded-r-none text-[#EDEDED] text-[17px] md:text-base placeholder:text-[#999999] focus:outline-none focus:border-[#FF5233] transition-colors"
-              placeholder="you@company.com"
-              required
-            />
-            <button
-              type="submit"
-              className="h-14 md:h-14 px-6 md:px-6 bg-[#FF5233] text-white rounded-[3px] md:rounded-l-none text-sm font-semibold uppercase tracking-wider flex items-center justify-center gap-2 hover:bg-[#E64A2E] focus:outline focus:outline-2 focus:outline-white focus:outline-offset-2 transition-colors duration-200"
+          {status === 'success' ? (
+            <div className="flex items-center gap-3 mt-5 text-[#E4E2D8] text-lg">
+              <span className="text-[#FF5233] font-bold text-2xl">✓</span>
+              <span>You&apos;re in! Check your inbox.</span>
+            </div>
+          ) : (
+            <form
+              className="flex flex-col md:flex-row gap-3 w-full max-w-[620px] mt-5"
+              onSubmit={handleSubmit}
             >
-              <span>SUBSCRIBE</span>
-              <ChevronRight className="w-[18px] h-[18px]" strokeWidth={2.2} />
-            </button>
-          </form>
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="flex-1 min-h-[60px] md:min-h-[56px] px-5 py-4 md:py-0 bg-white/[0.08] border border-white/[0.15] rounded-[2px] md:rounded-r-none text-[#EDEDED] text-[17px] md:text-base placeholder:text-[#999999] focus:outline-none focus:border-[#FF5233] transition-colors"
+                placeholder="you@company.com"
+                required
+                disabled={status === 'loading'}
+              />
+              <button
+                type="submit"
+                disabled={status === 'loading'}
+                className="h-14 md:h-14 px-6 md:px-6 bg-[#FF5233] text-white rounded-[3px] md:rounded-l-none text-sm font-semibold uppercase tracking-wider flex items-center justify-center gap-2 hover:bg-[#E64A2E] focus:outline focus:outline-2 focus:outline-white focus:outline-offset-2 transition-colors duration-200 disabled:opacity-70 disabled:cursor-not-allowed"
+              >
+                {status === 'loading' ? (
+                  <span>Subscribing...</span>
+                ) : (
+                  <>
+                    <span>SUBSCRIBE</span>
+                    <ChevronRight className="w-[18px] h-[18px]" strokeWidth={2.2} />
+                  </>
+                )}
+              </button>
+              {status === 'error' && (
+                <p className="w-full text-sm text-red-400 mt-1">
+                  Something went wrong. Please try again.
+                </p>
+              )}
+            </form>
+          )}
 
           {/* Authorship */}
           <p className="text-sm text-white/60 mt-3">
