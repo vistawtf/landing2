@@ -79,6 +79,97 @@ function readCachedArticles() {
   }
 }
 
+// ─── Apify ──────────────────────────────────────────────────────────────────
+// Runs benthepythondev/newsletter-scraper via Apify's sync endpoint.
+// This bypasses Substack's 403 on GitHub Actions IPs since Apify uses its own infra.
+// Input: { newsletterUrl, maxArticles }
+// Output: { title, url, published_date, content_markdown, subtitle, ... }
+async function fetchViaApify() {
+  const token = process.env.APIFY_API_TOKEN;
+  if (!token) throw new Error('APIFY_API_TOKEN not set');
+
+  console.log('Fetching via Apify (benthepythondev/newsletter-scraper)...');
+
+  const response = await fetch(
+    `https://api.apify.com/v2/acts/benthepythondev~newsletter-scraper/run-sync-get-dataset-items?token=${token}`,
+    {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        newsletterUrl: 'https://efra0x.substack.com',
+        scrapeMode: 'archive',
+        maxPosts: 5,
+        outputFormat: 'text',
+        includeImages: true,
+        includeMetadata: false,
+        delaySeconds: 0.1,
+      }),
+      signal: AbortSignal.timeout(90_000),
+    },
+  );
+
+  if (!response.ok) {
+    throw new Error(`Apify actor responded with HTTP ${response.status}`);
+  }
+
+  const items = await response.json();
+  if (!Array.isArray(items) || items.length === 0) {
+    throw new Error('Apify actor returned no items');
+  }
+
+  console.log(`Apify returned ${items.length} items`);
+
+  return items.slice(0, 5).map((item) => {
+    const title = item.title || 'Untitled';
+    const description = item.subtitle || item.content_text?.substring(0, 200) || '';
+    return {
+      title,
+      excerpt: formatExcerpt(description),
+      category: inferCategory(title, description),
+      link: item.url || '#',
+      image: item.images?.[0]?.url || undefined,
+      date: item.published_date,
+    };
+  });
+}
+
+// ─── Direct RSS ──────────────────────────────────────────────────────────────
+async function fetchFromRSS() {
+  const parser = new Parser({
+    customFields: {
+      item: [
+        ['content:encoded', 'content:encoded'],
+        ['content', 'content'],
+      ],
+    },
+    requestOptions: { headers: REQUEST_HEADERS },
+  });
+
+  console.log('Fetching RSS feed directly from:', RSS_FEED_URL);
+  const feed = await parser.parseURL(RSS_FEED_URL);
+  console.log('Feed fetched successfully:', feed.title);
+
+  if (!Array.isArray(feed.items) || feed.items.length === 0) {
+    throw new Error('RSS feed returned no items');
+  }
+
+  return feed.items.slice(0, 5).map((item) => {
+    const title = item.title || 'Untitled';
+    const description = item.contentSnippet || item.content?.substring(0, 200) || 'No description available';
+    const category = inferCategory(title, description);
+
+    return {
+      title,
+      excerpt: formatExcerpt(description),
+      category,
+      link: item.link || '#',
+      image: extractImage(item),
+      date: item.pubDate,
+    };
+  });
+}
+
+// ─── Archive API ─────────────────────────────────────────────────────────────
 async function fetchFromArchive() {
   console.log('Fetching archive API from:', ARCHIVE_API_URL);
   const response = await fetch(ARCHIVE_API_URL, { headers: REQUEST_HEADERS });
@@ -108,68 +199,48 @@ async function fetchFromArchive() {
   });
 }
 
+// ─── Main ────────────────────────────────────────────────────────────────────
 async function fetchRSS() {
+  // 1. Apify — bypasses Substack 403 on CI/VPS IPs
   try {
-    const parser = new Parser({
-      customFields: {
-        item: [
-          ['content:encoded', 'content:encoded'],
-          ['content', 'content'],
-        ],
-      },
-      requestOptions: {
-        headers: REQUEST_HEADERS,
-      },
-    });
-
-    console.log('Fetching RSS feed from:', RSS_FEED_URL);
-    const feed = await parser.parseURL(RSS_FEED_URL);
-    console.log('Feed fetched successfully:', feed.title);
-
-    if (!Array.isArray(feed.items) || feed.items.length === 0) {
-      throw new Error('RSS feed returned no items');
-    }
-
-    const articles = feed.items.slice(0, 5).map((item) => {
-      const title = item.title || 'Untitled';
-      const description = item.contentSnippet || item.content?.substring(0, 200) || 'No description available';
-      const category = inferCategory(title, description);
-
-      return {
-        title,
-        excerpt: formatExcerpt(description),
-        category,
-        link: item.link || '#',
-        image: extractImage(item),
-        date: item.pubDate,
-      };
-    });
-
+    const articles = await fetchViaApify();
     const file = writeArticles(articles, RSS_FEED_URL);
-    console.log('RSS articles saved to:', file);
-    console.log(`Fetched ${articles.length} articles from RSS`);
-  } catch (rssError) {
-    console.warn('RSS fetch failed, trying archive API:', rssError.message);
-
-    try {
-      const archiveArticles = await fetchFromArchive();
-      const file = writeArticles(archiveArticles, ARCHIVE_API_URL);
-      console.log('Archive articles saved to:', file);
-      console.log(`Fetched ${archiveArticles.length} articles from archive API`);
-    } catch (archiveError) {
-      console.warn('Archive API fetch failed:', archiveError.message);
-      const cachedArticles = readCachedArticles();
-
-      if (cachedArticles.length > 0) {
-        const file = writeArticles(cachedArticles, 'cached');
-        console.log(`Using cached rss-articles.json (${cachedArticles.length} articles):`, file);
-        return;
-      }
-
-      const file = writeArticles([], RSS_FEED_URL);
-      console.log('No cached articles found; wrote empty rss-articles.json:', file);
-    }
+    console.log(`Apify: ${articles.length} articles saved to ${file}`);
+    return;
+  } catch (apifyErr) {
+    console.warn('Apify fetch failed, trying direct RSS:', apifyErr.message);
   }
+
+  // 2. Direct RSS
+  try {
+    const articles = await fetchFromRSS();
+    const file = writeArticles(articles, RSS_FEED_URL);
+    console.log(`Direct RSS: ${articles.length} articles saved to ${file}`);
+    return;
+  } catch (rssErr) {
+    console.warn('Direct RSS failed, trying archive API:', rssErr.message);
+  }
+
+  // 3. Archive API
+  try {
+    const articles = await fetchFromArchive();
+    const file = writeArticles(articles, ARCHIVE_API_URL);
+    console.log(`Archive API: ${articles.length} articles saved to ${file}`);
+    return;
+  } catch (archiveErr) {
+    console.warn('Archive API failed:', archiveErr.message);
+  }
+
+  // 4. Cache
+  const cached = readCachedArticles();
+  if (cached.length > 0) {
+    const file = writeArticles(cached, 'cached');
+    console.log(`Using cached rss-articles.json (${cached.length} articles): ${file}`);
+    return;
+  }
+
+  const file = writeArticles([], RSS_FEED_URL);
+  console.log('No cached articles found; wrote empty rss-articles.json:', file);
 }
 
 fetchRSS();
