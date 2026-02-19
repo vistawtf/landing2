@@ -119,7 +119,7 @@ async function fetchViaApify() {
 
   console.log(`Apify returned ${items.length} items`);
 
-  return items.slice(0, 5).map((item) => {
+  const articles = await Promise.all(items.slice(0, 5).map(async (item) => {
     // Actor doesn't return article title — derive it from the URL slug
     const slug = item.url?.split('/p/')?.[1]?.split('?')?.[0];
     const title = slug
@@ -128,11 +128,22 @@ async function fetchViaApify() {
 
     const description = item.excerpt || item.content_text?.substring(0, 200) || '';
 
-    // Actor returns Substack CDN thumbnails (40x40). Extract the original S3 URL.
-    const cdnUrl = item.featured_image?.url || item.images?.[0]?.url;
-    const imageUrl = cdnUrl
-      ? (() => { try { return decodeURIComponent(cdnUrl.split('/fetch/')[1]?.split('/').slice(1).join('/')); } catch { return cdnUrl; } })()
-      : undefined;
+    // Fetch og:image from the article page — more reliable than actor's image extraction
+    let imageUrl;
+    if (item.url) {
+      try {
+        const pageRes = await fetch(item.url, {
+          headers: REQUEST_HEADERS,
+          signal: AbortSignal.timeout(10_000),
+        });
+        const html = await pageRes.text();
+        const ogMatch = html.match(/<meta[^>]+property=["']og:image["'][^>]+content=["']([^"']+)["']/i)
+          || html.match(/<meta[^>]+content=["']([^"']+)["'][^>]+property=["']og:image["']/i);
+        if (ogMatch?.[1]) imageUrl = ogMatch[1];
+      } catch {
+        // ignore, fall through to no image
+      }
+    }
 
     return {
       title,
@@ -142,7 +153,9 @@ async function fetchViaApify() {
       image: imageUrl,
       date: item.published_date,
     };
-  });
+  }));
+
+  return articles;
 }
 
 // ─── Direct RSS ──────────────────────────────────────────────────────────────
