@@ -118,6 +118,8 @@ async function fetchViaApify() {
   }
 
   console.log(`Apify returned ${items.length} items`);
+  console.log('First item keys:', Object.keys(items[0]));
+  console.log('First item full:', JSON.stringify(items[0], null, 2));
 
   return items.slice(0, 5).map((item) => {
     // The actor returns item.title = newsletter name, item.subtitle = article title
