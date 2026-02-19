@@ -88,23 +88,22 @@ async function fetchViaApify() {
   const token = process.env.APIFY_API_TOKEN;
   if (!token) throw new Error('APIFY_API_TOKEN not set');
 
-  console.log('Fetching via Apify (benthepythondev/newsletter-scraper)...');
+  console.log('Fetching via Apify (opalescent_quintet/substack-newsletter-scraper)...');
 
   const response = await fetch(
-    `https://api.apify.com/v2/acts/benthepythondev~newsletter-scraper/run-sync-get-dataset-items?token=${token}`,
+    `https://api.apify.com/v2/acts/opalescent_quintet~substack-newsletter-scraper/run-sync-get-dataset-items?token=${token}`,
     {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        newsletterUrl: 'https://efra0x.substack.com',
-        scrapeMode: 'archive',
-        maxPosts: 5,
+        startUrls: [{ url: 'https://efra0x.substack.com' }],
+        maxItems: 5,
         outputFormat: 'text',
-        includeImages: true,
-        includeMetadata: false,
-        delaySeconds: 0.1,
+        includeComments: false,
+        includeFullJson: false,
+        proxyConfiguration: { useApifyProxy: true },
       }),
-      signal: AbortSignal.timeout(90_000),
+      signal: AbortSignal.timeout(120_000),
     },
   );
 
@@ -118,53 +117,24 @@ async function fetchViaApify() {
   }
 
   console.log(`Apify returned ${items.length} items`);
-
-  // Try to enrich with cover images from the Substack API (different endpoint from RSS,
-  // may not be blocked from GitHub Actions IPs)
-  const newsletterBase = 'https://efra0x.substack.com';
-  const coverImageMap = {};
-  try {
-    const apiRes = await fetch(`${newsletterBase}/api/v1/posts?limit=10`, {
-      headers: REQUEST_HEADERS,
-      signal: AbortSignal.timeout(10_000),
-    });
-    if (apiRes.ok) {
-      const apiData = await apiRes.json();
-      const posts = apiData?.posts || apiData;
-      if (Array.isArray(posts)) {
-        for (const post of posts) {
-          if (post.slug && post.cover_image) {
-            coverImageMap[post.slug] = post.cover_image;
-          }
-        }
-        console.log(`Substack API: got cover images for ${Object.keys(coverImageMap).length} posts`);
-      }
-    } else {
-      console.log(`Substack API returned HTTP ${apiRes.status}, skipping cover images`);
-    }
-  } catch (e) {
-    console.log(`Substack API unavailable: ${e.message}`);
-  }
+  console.log('First item keys:', Object.keys(items[0]));
+  console.log('First item:', JSON.stringify(items[0], null, 2));
 
   return items.slice(0, 5).map((item) => {
-    // Actor doesn't return article title — derive it from the URL slug
     const slug = item.url?.split('/p/')?.[1]?.split('?')?.[0];
     const title = slug
       ? slug.split('-').map((w) => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')
-      : item.subtitle || 'Untitled';
+      : item.title || item.subtitle || 'Untitled';
 
-    const description = item.excerpt || item.content_text?.substring(0, 200) || '';
-
-    // Prefer cover image from Substack API; fall back to actor's image extraction
-    const imageUrl = (slug && coverImageMap[slug]) || undefined;
+    const description = item.excerpt || item.description || item.content?.substring(0, 200) || '';
 
     return {
       title,
       excerpt: formatExcerpt(description),
       category: inferCategory(title, description),
       link: item.url || '#',
-      image: imageUrl,
-      date: item.published_date,
+      image: undefined, // will fix once we see the field names
+      date: item.publishedAt || item.published_date || item.date,
     };
   });
 }
