@@ -99,7 +99,7 @@ async function fetchViaApify() {
         newsletterUrl: 'https://efra0x.substack.com',
         scrapeMode: 'archive',
         maxPosts: 5,
-        outputFormat: 'html',
+        outputFormat: 'text',
         includeImages: true,
         includeMetadata: false,
         delaySeconds: 0.1,
@@ -118,26 +118,58 @@ async function fetchViaApify() {
   }
 
   console.log(`Apify returned ${items.length} items`);
-  console.log('First item keys:', Object.keys(items[0]));
-  // Log HTML snippet to check if cover image is included
-  const htmlSnippet = items[0].content_html?.substring(0, 500) || 'no content_html';
-  console.log('content_html snippet:', htmlSnippet);
+
+  // Fetch Substack archive API through Apify's infrastructure (bypasses GitHub Actions IP block)
+  const coverImageMap = {};
+  try {
+    const archiveRes = await fetch(
+      `https://api.apify.com/v2/acts/apify~http-request/run-sync-get-dataset-items?token=${token}`,
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          url: 'https://efra0x.substack.com/api/v1/archive?sort=new&limit=10',
+          method: 'GET',
+          headers: { 'User-Agent': REQUEST_HEADERS['User-Agent'] },
+        }),
+        signal: AbortSignal.timeout(30_000),
+      },
+    );
+    if (archiveRes.ok) {
+      const archiveItems = await archiveRes.json();
+      const body = archiveItems?.[0]?.body;
+      const posts = body ? JSON.parse(body) : null;
+      if (Array.isArray(posts)) {
+        for (const post of posts) {
+          if (post.slug && post.cover_image) coverImageMap[post.slug] = post.cover_image;
+        }
+        console.log(`Got cover images for ${Object.keys(coverImageMap).length} posts via Apify proxy`);
+      } else {
+        console.log('Archive API response:', JSON.stringify(archiveItems?.[0])?.substring(0, 300));
+      }
+    } else {
+      console.log(`apify/http-request returned HTTP ${archiveRes.status}`);
+    }
+  } catch (e) {
+    console.log(`Cover image fetch failed: ${e.message}`);
+  }
 
   return items.slice(0, 5).map((item) => {
     const slug = item.url?.split('/p/')?.[1]?.split('?')?.[0];
     const title = slug
       ? slug.split('-').map((w) => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')
-      : item.title || item.subtitle || 'Untitled';
+      : item.subtitle || 'Untitled';
 
-    const description = item.excerpt || item.description || item.content?.substring(0, 200) || '';
+    const description = item.excerpt || item.content_text?.substring(0, 200) || '';
+    const imageUrl = (slug && coverImageMap[slug]) || undefined;
 
     return {
       title,
       excerpt: formatExcerpt(description),
       category: inferCategory(title, description),
       link: item.url || '#',
-      image: undefined, // will fix once we see the field names
-      date: item.publishedAt || item.published_date || item.date,
+      image: imageUrl,
+      date: item.published_date,
     };
   });
 }
