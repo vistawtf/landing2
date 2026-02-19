@@ -32,7 +32,7 @@ function buildLines(articles: Article[]): Line[] {
     blank(30),
     { text: 'web        →  vista.wtf',                      style: 'dim', charDelay: 5, pauseMs: 10 },
     { text: 'telegram   →  t.me/vistainsights',             style: 'dim', charDelay: 5, pauseMs: 10 },
-    { text: 'twitter    →  @viaboratorio',                  style: 'dim', charDelay: 5, pauseMs: 10 },
+    { text: 'twitter    →  @vistawtf',                      style: 'dim', charDelay: 5, pauseMs: 10 },
     { text: 'newsletter →  vistasubstack.substack.com',     style: 'dim', charDelay: 5, pauseMs: 10 },
     blank(30),
     div(20),

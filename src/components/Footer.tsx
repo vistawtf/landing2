@@ -13,7 +13,7 @@ const navLinks = [
 const externalLinks = [
   { href: "https://vistasubstack.substack.com", label: "Substack" },
   { href: "https://t.me/vistaDAO", label: "Telegram" },
-  { href: "https://twitter.com/viaboratorio", label: "Twitter" },
+  { href: "https://twitter.com/vistawtf", label: "Twitter" },
 ];
 
 function FooterBrandLogo() {
