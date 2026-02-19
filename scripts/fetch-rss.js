@@ -88,22 +88,23 @@ async function fetchViaApify() {
   const token = process.env.APIFY_API_TOKEN;
   if (!token) throw new Error('APIFY_API_TOKEN not set');
 
-  console.log('Fetching via Apify (opalescent_quintet/substack-newsletter-scraper)...');
+  console.log('Fetching via Apify (benthepythondev/newsletter-scraper)...');
 
   const response = await fetch(
-    `https://api.apify.com/v2/acts/opalescent_quintet~substack-newsletter-scraper/run-sync-get-dataset-items?token=${token}`,
+    `https://api.apify.com/v2/acts/benthepythondev~newsletter-scraper/run-sync-get-dataset-items?token=${token}`,
     {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        startUrls: [{ url: 'https://efra0x.substack.com' }],
-        maxItems: 5,
-        outputFormat: 'text',
-        includeComments: false,
-        includeFullJson: false,
-        proxyConfiguration: { useApifyProxy: true },
+        newsletterUrl: 'https://efra0x.substack.com',
+        scrapeMode: 'archive',
+        maxPosts: 5,
+        outputFormat: 'html',
+        includeImages: true,
+        includeMetadata: false,
+        delaySeconds: 0.1,
       }),
-      signal: AbortSignal.timeout(120_000),
+      signal: AbortSignal.timeout(90_000),
     },
   );
 
@@ -118,7 +119,9 @@ async function fetchViaApify() {
 
   console.log(`Apify returned ${items.length} items`);
   console.log('First item keys:', Object.keys(items[0]));
-  console.log('First item:', JSON.stringify(items[0], null, 2));
+  // Log HTML snippet to check if cover image is included
+  const htmlSnippet = items[0].content_html?.substring(0, 500) || 'no content_html';
+  console.log('content_html snippet:', htmlSnippet);
 
   return items.slice(0, 5).map((item) => {
     const slug = item.url?.split('/p/')?.[1]?.split('?')?.[0];
