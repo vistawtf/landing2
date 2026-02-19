@@ -120,14 +120,15 @@ async function fetchViaApify() {
   console.log(`Apify returned ${items.length} items`);
 
   return items.slice(0, 5).map((item) => {
-    const title = item.title || 'Untitled';
-    const description = item.subtitle || item.content_text?.substring(0, 200) || '';
+    // The actor returns item.title = newsletter name, item.subtitle = article title
+    const title = item.subtitle || 'Untitled';
+    const description = item.content_text?.substring(0, 200) || '';
     return {
       title,
       excerpt: formatExcerpt(description),
       category: inferCategory(title, description),
       link: item.url || '#',
-      image: item.images?.[0]?.url || undefined,
+      image: item.cover_image || item.images?.[0]?.url || undefined,
       date: item.published_date,
     };
   });
