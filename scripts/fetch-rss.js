@@ -118,19 +118,28 @@ async function fetchViaApify() {
   }
 
   console.log(`Apify returned ${items.length} items`);
-  console.log('First item keys:', Object.keys(items[0]));
-  console.log('First item full:', JSON.stringify(items[0], null, 2));
 
   return items.slice(0, 5).map((item) => {
-    // The actor returns item.title = newsletter name, item.subtitle = article title
-    const title = item.subtitle || 'Untitled';
-    const description = item.content_text?.substring(0, 200) || '';
+    // Actor doesn't return article title — derive it from the URL slug
+    const slug = item.url?.split('/p/')?.[1]?.split('?')?.[0];
+    const title = slug
+      ? slug.split('-').map((w) => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')
+      : item.subtitle || 'Untitled';
+
+    const description = item.excerpt || item.content_text?.substring(0, 200) || '';
+
+    // Actor returns Substack CDN thumbnails (40x40). Extract the original S3 URL.
+    const cdnUrl = item.featured_image?.url || item.images?.[0]?.url;
+    const imageUrl = cdnUrl
+      ? (() => { try { return decodeURIComponent(cdnUrl.split('/fetch/')[1]?.split('/').slice(1).join('/')); } catch { return cdnUrl; } })()
+      : undefined;
+
     return {
       title,
       excerpt: formatExcerpt(description),
       category: inferCategory(title, description),
       link: item.url || '#',
-      image: item.cover_image || item.images?.[0]?.url || undefined,
+      image: imageUrl,
       date: item.published_date,
     };
   });
