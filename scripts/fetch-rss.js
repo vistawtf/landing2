@@ -119,36 +119,40 @@ async function fetchViaApify() {
 
   console.log(`Apify returned ${items.length} items`);
 
-  // Fetch Substack archive API through Apify's infrastructure (bypasses GitHub Actions IP block)
+  // Use apify/cheerio-scraper to extract og:image from each article page via Apify's proxy
+  // (GitHub Actions IPs are blocked by Substack, but Apify's infra is not)
   const coverImageMap = {};
+  const articleUrls = items.slice(0, 5).map((i) => i.url).filter(Boolean);
   try {
-    const archiveRes = await fetch(
-      `https://api.apify.com/v2/acts/apify~http-request/run-sync-get-dataset-items?token=${token}`,
+    const cheerioRes = await fetch(
+      `https://api.apify.com/v2/acts/apify~cheerio-scraper/run-sync-get-dataset-items?token=${token}`,
       {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          url: 'https://efra0x.substack.com/api/v1/archive?sort=new&limit=10',
-          method: 'GET',
-          headers: { 'User-Agent': REQUEST_HEADERS['User-Agent'] },
+          startUrls: articleUrls.map((url) => ({ url })),
+          // eslint-disable-next-line no-useless-escape
+          pageFunction: `async function pageFunction(context) {
+            const $ = context.$;
+            const ogImage = $('meta[property="og:image"]').attr('content');
+            return { url: context.request.url, ogImage: ogImage || null };
+          }`,
+          maxCrawlingDepth: 0,
         }),
-        signal: AbortSignal.timeout(30_000),
+        signal: AbortSignal.timeout(60_000),
       },
     );
-    if (archiveRes.ok) {
-      const archiveItems = await archiveRes.json();
-      const body = archiveItems?.[0]?.body;
-      const posts = body ? JSON.parse(body) : null;
-      if (Array.isArray(posts)) {
-        for (const post of posts) {
-          if (post.slug && post.cover_image) coverImageMap[post.slug] = post.cover_image;
+    if (cheerioRes.ok) {
+      const results = await cheerioRes.json();
+      for (const r of results) {
+        if (r.ogImage) {
+          const slug = r.url?.split('/p/')?.[1]?.split('?')?.[0];
+          if (slug) coverImageMap[slug] = r.ogImage;
         }
-        console.log(`Got cover images for ${Object.keys(coverImageMap).length} posts via Apify proxy`);
-      } else {
-        console.log('Archive API response:', JSON.stringify(archiveItems?.[0])?.substring(0, 300));
       }
+      console.log(`Got og:image for ${Object.keys(coverImageMap).length} articles via cheerio-scraper`);
     } else {
-      console.log(`apify/http-request returned HTTP ${archiveRes.status}`);
+      console.log(`cheerio-scraper returned HTTP ${cheerioRes.status}`);
     }
   } catch (e) {
     console.log(`Cover image fetch failed: ${e.message}`);
