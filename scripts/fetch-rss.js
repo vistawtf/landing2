@@ -119,6 +119,33 @@ async function fetchViaApify() {
 
   console.log(`Apify returned ${items.length} items`);
 
+  // Try to enrich with cover images from the Substack API (different endpoint from RSS,
+  // may not be blocked from GitHub Actions IPs)
+  const newsletterBase = 'https://efra0x.substack.com';
+  const coverImageMap = {};
+  try {
+    const apiRes = await fetch(`${newsletterBase}/api/v1/posts?limit=10`, {
+      headers: REQUEST_HEADERS,
+      signal: AbortSignal.timeout(10_000),
+    });
+    if (apiRes.ok) {
+      const apiData = await apiRes.json();
+      const posts = apiData?.posts || apiData;
+      if (Array.isArray(posts)) {
+        for (const post of posts) {
+          if (post.slug && post.cover_image) {
+            coverImageMap[post.slug] = post.cover_image;
+          }
+        }
+        console.log(`Substack API: got cover images for ${Object.keys(coverImageMap).length} posts`);
+      }
+    } else {
+      console.log(`Substack API returned HTTP ${apiRes.status}, skipping cover images`);
+    }
+  } catch (e) {
+    console.log(`Substack API unavailable: ${e.message}`);
+  }
+
   return items.slice(0, 5).map((item) => {
     // Actor doesn't return article title — derive it from the URL slug
     const slug = item.url?.split('/p/')?.[1]?.split('?')?.[0];
@@ -128,22 +155,8 @@ async function fetchViaApify() {
 
     const description = item.excerpt || item.content_text?.substring(0, 200) || '';
 
-    // Actor returns Substack CDN thumbnails. Find the first non-avatar image and
-    // extract the original S3 URL from the CDN URL.
-    const allImages = item.images || [];
-    const coverImage = allImages.find(
-      (img) => img?.url && !img.alt_text?.toLowerCase().includes('avatar'),
-    );
-    const cdnUrl = coverImage?.url;
-    let imageUrl;
-    if (cdnUrl) {
-      try {
-        const encoded = cdnUrl.split('/fetch/')[1]?.split('/').slice(1).join('/');
-        imageUrl = encoded ? decodeURIComponent(encoded) : cdnUrl;
-      } catch {
-        imageUrl = cdnUrl;
-      }
-    }
+    // Prefer cover image from Substack API; fall back to actor's image extraction
+    const imageUrl = (slug && coverImageMap[slug]) || undefined;
 
     return {
       title,
