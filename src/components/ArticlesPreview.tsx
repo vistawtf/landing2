@@ -1,6 +1,7 @@
 "use client";
 
 import { AnimatedSection, SectionHeader } from "./shared";
+import { SOCIAL_SUBSTACK } from "@/lib/constants";
 
 const placeholderArticles = [
   {
@@ -36,7 +37,7 @@ export function ArticlesPreview() {
           {placeholderArticles.map((article, i) => (
             <AnimatedSection key={article.title} delay={i * 120}>
               <a
-                href="https://vistasubstack.substack.com"
+                href={SOCIAL_SUBSTACK}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="article-card group"

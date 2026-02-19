@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { DarkModeToggle } from "./shared";
+import { SOCIAL_SUBSTACK, SOCIAL_TELEGRAM, SOCIAL_TWITTER } from "@/lib/constants";
 
 const navLinks = [
   { href: "/", label: "Home" },
@@ -11,9 +12,9 @@ const navLinks = [
 ];
 
 const externalLinks = [
-  { href: "https://vistasubstack.substack.com", label: "Substack" },
-  { href: "https://t.me/vistaDAO", label: "Telegram" },
-  { href: "https://twitter.com/vistawtf", label: "Twitter" },
+  { href: SOCIAL_SUBSTACK, label: "Substack" },
+  { href: SOCIAL_TELEGRAM, label: "Telegram" },
+  { href: SOCIAL_TWITTER,  label: "Twitter" },
 ];
 
 function FooterBrandLogo() {

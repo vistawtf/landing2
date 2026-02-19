@@ -6,6 +6,7 @@ import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { AnimatedSection } from "@/components/shared";
 import { TwitterIcon } from "@/components/icons";
+import { SOCIAL_TWITTER } from "@/lib/constants";
 
 const values = [
   {
@@ -87,7 +88,7 @@ export default function AboutPage() {
 
                 <div className="flex items-center gap-4 mt-8">
                   <span className="text-label text-muted-light">Follow</span>
-                  <a href="https://twitter.com/vistawtf" target="_blank" rel="noopener noreferrer" className="p-2 text-muted hover:text-ultra-orange transition-colors" aria-label="Twitter">
+                  <a href={SOCIAL_TWITTER} target="_blank" rel="noopener noreferrer" className="p-2 text-muted hover:text-ultra-orange transition-colors" aria-label="Twitter">
                     <TwitterIcon className="w-[18px] h-[18px]" />
                   </a>
                 </div>

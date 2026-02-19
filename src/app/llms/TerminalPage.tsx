@@ -1,6 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { SOCIAL_SUBSTACK, SOCIAL_TELEGRAM } from '@/lib/constants';
 
 export interface Article {
   title: string;
@@ -31,9 +32,9 @@ function buildLines(articles: Article[]): Line[] {
     { text: 'research collective · blockchain + AI', style: 'dim', charDelay: 6, pauseMs: 25 },
     blank(30),
     { text: 'web        →  vista.wtf',                      style: 'dim', charDelay: 5, pauseMs: 10 },
-    { text: 'telegram   →  t.me/vistainsights',             style: 'dim', charDelay: 5, pauseMs: 10 },
+    { text: `telegram   →  ${SOCIAL_TELEGRAM.replace('https://', '')}`, style: 'dim', charDelay: 5, pauseMs: 10 },
     { text: 'twitter    →  @vistawtf',                      style: 'dim', charDelay: 5, pauseMs: 10 },
-    { text: 'newsletter →  vistasubstack.substack.com',     style: 'dim', charDelay: 5, pauseMs: 10 },
+    { text: `newsletter →  ${SOCIAL_SUBSTACK.replace('https://', '')}`, style: 'dim', charDelay: 5, pauseMs: 10 },
     blank(30),
     div(20),
     blank(30),
@@ -64,7 +65,7 @@ function buildLines(articles: Article[]): Line[] {
 
   if (articles.length === 0) {
     lines.push({ text: '[ no articles cached ]', style: 'dim', charDelay: 18, pauseMs: 30 });
-    lines.push({ text: '  → vistasubstack.substack.com', style: 'dim', charDelay: 14, pauseMs: 30, href: 'https://vistasubstack.substack.com' });
+    lines.push({ text: `  → ${SOCIAL_SUBSTACK.replace('https://', '')}`, style: 'dim', charDelay: 14, pauseMs: 30, href: SOCIAL_SUBSTACK });
   } else {
     articles.forEach(a => {
       const date  = a.pubDate ? `  [${new Date(a.pubDate).toISOString().slice(0, 10)}]` : '';

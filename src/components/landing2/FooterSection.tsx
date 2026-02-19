@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { AsciiPlasma } from './AsciiPlasma';
 import { AgentModeBlock } from './AgentModeBlock';
+import { SOCIAL_SUBSTACK, SOCIAL_TELEGRAM, SOCIAL_TWITTER } from '@/lib/constants';
 
 // Custom Substack icon SVG
 function SubstackIcon({ className }: { className?: string }) {
@@ -96,9 +97,9 @@ export function FooterSection() {
           <div className="py-8 md:py-10 px-6 md:border-r md:border-white/[0.08]">
             <h3 className="text-xs uppercase tracking-[0.12em] text-white/50 mb-3 font-mono">Socials</h3>
             <ul className="space-y-2">
-              <li><a href="https://twitter.com/vistawtf" target="_blank" rel="noopener noreferrer" className="text-sm text-white/70 hover:text-[#FF5233] transition-colors">Twitter</a></li>
-              <li><a href="https://vistasubstack.substack.com" target="_blank" rel="noopener noreferrer" className="text-sm text-white/70 hover:text-[#FF5233] transition-colors">Substack</a></li>
-              <li><a href="https://t.me/vistainsights" target="_blank" rel="noopener noreferrer" className="text-sm text-white/70 hover:text-[#FF5233] transition-colors">Telegram</a></li>
+              <li><a href={SOCIAL_TWITTER}  target="_blank" rel="noopener noreferrer" className="text-sm text-white/70 hover:text-[#FF5233] transition-colors">Twitter</a></li>
+              <li><a href={SOCIAL_SUBSTACK} target="_blank" rel="noopener noreferrer" className="text-sm text-white/70 hover:text-[#FF5233] transition-colors">Substack</a></li>
+              <li><a href={SOCIAL_TELEGRAM} target="_blank" rel="noopener noreferrer" className="text-sm text-white/70 hover:text-[#FF5233] transition-colors">Telegram</a></li>
             </ul>
           </div>
 
@@ -112,20 +113,20 @@ export function FooterSection() {
             <span>© 2026 Vista</span>
             <span className="hidden md:inline">|</span>
             <span>
-              made with <span className="text-[#FF8A65]">&lt;3</span> by vista
+              <span className="text-[#FF8A65]">vibecoded with &lt;3</span>
             </span>
           </div>
 
           <div className="flex gap-4">
-            <a href="https://twitter.com/vistawtf" target="_blank" rel="noopener noreferrer"
+            <a href={SOCIAL_TWITTER} target="_blank" rel="noopener noreferrer"
                className="text-white/40 hover:text-white transition-colors" aria-label="X (Twitter)">
               <XIcon className="w-5 h-5" />
             </a>
-            <a href="https://vistasubstack.substack.com" target="_blank" rel="noopener noreferrer"
+            <a href={SOCIAL_SUBSTACK} target="_blank" rel="noopener noreferrer"
                className="text-white/40 hover:text-white transition-colors" aria-label="Substack">
               <SubstackIcon className="w-5 h-5" />
             </a>
-            <a href="https://t.me/vistainsights" target="_blank" rel="noopener noreferrer"
+            <a href={SOCIAL_TELEGRAM} target="_blank" rel="noopener noreferrer"
                className="text-white/40 hover:text-white transition-colors" aria-label="Telegram">
               <TelegramIcon className="w-5 h-5" />
             </a>

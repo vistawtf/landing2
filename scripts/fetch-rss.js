@@ -96,7 +96,7 @@ async function fetchViaApify() {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        newsletterUrl: 'https://efra0x.substack.com',
+        newsletterUrl: 'https://vistalabs.substack.com', // keep in sync with src/lib/constants.ts SOCIAL_SUBSTACK
         scrapeMode: 'archive',
         maxPosts: 5,
         outputFormat: 'text',
