@@ -1,46 +1,6 @@
 {
-  "articles": [
-    {
-      "title": "A Primer on Factory Economics for Startups",
-      "excerpt": "The \"Factory-is-the-Product\" Model in Venture-Backed Manufacturing",
-      "category": "AI",
-      "link": "https://www.a16z.news/p/a-primer-on-factory-economics-for",
-      "image": "https://substack-post-media.s3.amazonaws.com/public/images/ecd23721-51b1-4664-bb90-3dfd8e43d7f5_2844x1600.png",
-      "date": "Tue, 17 Feb 2026 15:02:40 GMT"
-    },
-    {
-      "title": "The mindset shift we need to rebuild American factories",
-      "excerpt": "Factory Mindset means finding the best ideas and people, and giving them a shot",
-      "category": "AI",
-      "link": "https://www.a16z.news/p/the-mindset-shift-we-need-to-rebuild",
-      "image": "https://substack-post-media.s3.amazonaws.com/public/images/12f2ea49-3b23-45bf-972b-5cbcee7e4a2a_2844x1600.png",
-      "date": "Tue, 17 Feb 2026 11:15:32 GMT"
-    },
-    {
-      "title": "Charts of the Week: Customer Service Reckoning",
-      "excerpt": "Industrials valuation pop; SF is the hub; Capex; White collar sitters",
-      "category": "AI",
-      "link": "https://www.a16z.news/p/charts-of-the-week-customer-service",
-      "image": "https://substack-post-media.s3.amazonaws.com/public/images/669e99cf-8eda-408e-919c-723b26014bf1_2844x1600.png",
-      "date": "Fri, 13 Feb 2026 15:00:29 GMT"
-    },
-    {
-      "title": "The Lighthouse Playbook",
-      "excerpt": "How today's founders make friends and influence people",
-      "category": "AI",
-      "link": "https://www.a16z.news/p/the-lighthouse-playbook",
-      "image": "https://substack-post-media.s3.amazonaws.com/public/images/7be27b23-f8d6-4de1-9637-260b68a495be_2844x1600.png",
-      "date": "Thu, 12 Feb 2026 15:02:58 GMT"
-    },
-    {
-      "title": "\"I'm out, who's with me?\": 'Exit' as an organizing idea",
-      "excerpt": "A guest post for a16z Culture",
-      "category": "AI",
-      "link": "https://www.a16z.news/p/im-out-whos-with-me-exit-as-an-organizing",
-      "image": "https://substack-post-media.s3.amazonaws.com/public/images/bdb83748-9308-4615-a7ad-f4785f1cefd3_2844x1600.png",
-      "date": "Wed, 11 Feb 2026 15:15:17 GMT"
-    }
-  ],
-  "fetchedAt": "2026-02-17T19:58:57.026Z",
-  "feedUrl": "https://www.a16z.news/feed"
+  "articles": [],
+  "fetchedAt": "2026-02-21T21:40:00.000Z",
+  "feedUrl": "https://vistalabs.substack.com/feed",
+  "note": "Vista Substack launched 2026-02-17, no posts published yet. Cache cleared of stale a16z content."
 }
