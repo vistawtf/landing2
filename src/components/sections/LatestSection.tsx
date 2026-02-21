@@ -116,7 +116,7 @@ export function LatestSection() {
   const [latest, ...rest] = displayArticles;
 
   return (
-    <section id="latest" className="relative landing2-section-spacing bg-[#FFFFFF]">
+    <section id="latest" className="relative page-section-spacing bg-[#FFFFFF]">
       <GridLines />
 
       <div className="relative z-10 max-w-[1200px] mx-auto px-6 md:px-16">

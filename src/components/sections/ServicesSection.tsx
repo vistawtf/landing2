@@ -10,21 +10,21 @@ const services = [
     number: "01",
     title: "AI Training",
     description: "Custom AI models trained on your data. From fine-tuning LLMs to building agent systems.",
-    link: "/landing2/services#ai-training"
+    link: "#services"
   },
   {
     icon: Megaphone,
     number: "02",
     title: "Marketing Campaigns",
     description: "Research-backed marketing strategies that cut through the noise and reach your audience.",
-    link: "/landing2/services#marketing"
+    link: "#services"
   },
   {
     icon: TrendingUp,
     number: "03",
     title: "Protocol Growth",
     description: "Growth strategies for blockchain protocols. Community building, tokenomics, and ecosystem expansion.",
-    link: "/landing2/services#protocol-growth"
+    link: "#services"
   }
 ];
 
@@ -64,7 +64,7 @@ function ServiceCard({ service }: { service: typeof services[0] }) {
 
 export function ServicesSection() {
   return (
-    <section id="services" className="relative landing2-section-spacing bg-[#FFFFFF]">
+    <section id="services" className="relative page-section-spacing bg-[#FFFFFF]">
       <GridLines />
 
       <div className="relative z-10 max-w-[1200px] mx-auto px-6 md:px-16">
@@ -82,7 +82,7 @@ export function ServicesSection() {
         {/* Bottom CTA */}
         <div className="text-center mt-12">
           <Link
-            href="/landing2/services"
+            href="#services"
             className="inline-block text-[13px] font-mono font-medium uppercase tracking-[0.05em] text-[#575757] hover:text-[#FF5233] hover:underline hover:underline-offset-4 transition-all"
           >
             View all services →

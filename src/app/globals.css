@@ -1299,8 +1299,8 @@ body {
 }
 
 
-/* Landing2 shared section spacing (avoid Tailwind JIT/caching misses for arbitrary values) */
-.landing2-section-spacing {
+/* Shared spacing for main homepage sections */
+.page-section-spacing {
   padding-top: 140px;
   padding-bottom: 90px;
   /* Keep true 140/90 internal spacing, but avoid additive 90+140 gaps between stacked sections */
@@ -1308,7 +1308,7 @@ body {
 }
 
 /* First stacked section after hero keeps a slightly larger transition due to hero divider strip */
-#latest.landing2-section-spacing {
+#latest.page-section-spacing {
   margin-top: -72px;
 }
 

@@ -14,12 +14,12 @@
 Isaac views:  https://...ngrok.../     →  src/app/page.tsx        ← EDIT THIS
 ```
 
-**The `/landing2` route was DELETED on 2026-02-17.** Only `src/app/page.tsx` (root) is active.
+Only `src/app/page.tsx` (root) is active.
 
-**Components used by root page:** `src/components/landing2/` (shared component folder)
+**Components used by root page:** `src/components/sections/` (shared component folder)
 
 **The rule:** When Isaac reports a bug or requests a change, ALL edits go to:
-1. `src/components/landing2/*.tsx` (shared components)
+1. `src/components/sections/*.tsx` (shared components)
 2. `src/app/page.tsx` (root page composition)
 
 **When to doubt:** If you've made a change but Isaac says "still broken" → immediately check:
@@ -165,13 +165,13 @@ Before claiming ANY change is complete:
 
 ```
 src/app/page.tsx                          ← ROOT PAGE (what Isaac sees)
-src/components/landing2/Navigation.tsx    ← Navbar + stars
-src/components/landing2/HeroSection.tsx   ← Hero
-src/components/landing2/LatestSection.tsx ← Article cards
-src/components/landing2/NewsletterSection.tsx
-src/components/landing2/ServicesSection.tsx
-src/components/landing2/FooterSection.tsx ← Footer (LEFT/RIGHT layout + ASCII plasma)
-src/components/landing2/SectionDividers.tsx
+src/components/sections/Navigation.tsx    ← Navbar + stars
+src/components/sections/HeroSection.tsx   ← Hero
+src/components/sections/LatestSection.tsx ← Article cards
+src/components/sections/NewsletterSection.tsx
+src/components/sections/ServicesSection.tsx
+src/components/sections/FooterSection.tsx ← Footer (LEFT/RIGHT layout + ASCII plasma)
+src/components/sections/SectionDividers.tsx
 public/rss-articles.json                  ← Static RSS cache
 VISTA-COLORS.md                           ← Color reference
 VISTA-QA-CHECKLIST.md                     ← QA protocol (mandatory)

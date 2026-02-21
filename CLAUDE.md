@@ -13,9 +13,9 @@ npm run lint
 
 Next.js 16 static export (`output: 'export'`). Dos mundos de componentes:
 - `src/components/` — legacy (Footer, Hero, etc.) usado en /about, /services
-- `src/components/landing2/` — diseño activo de la homepage
+- `src/components/sections/` — diseño activo de la homepage
 
-Routes: `/` (landing2), `/about`, `/services`, `/archive`, `/llms`
+Routes: `/`, `/about`, `/services`, `/archive`, `/llms`
 
 ## Key Files
 
