@@ -1,14 +1,46 @@
 {
   "articles": [
     {
-      "title": "wao",
-      "excerpt": "wao",
+      "title": "A Primer on Factory Economics for Startups",
+      "excerpt": "The \"Factory-is-the-Product\" Model in Venture-Backed Manufacturing",
       "category": "AI",
-      "link": "https://vistalabs.substack.com/p/wao",
-      "image": "https://substackcdn.com/image/fetch/$s_!Oizc!,w_256,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F14f6c753-8ea9-4f97-bff3-c26f9a86155f_1000x1000.png",
-      "date": "Wed, 18 Feb 2026 20:27:00 GMT"
+      "link": "https://www.a16z.news/p/a-primer-on-factory-economics-for",
+      "image": "https://substack-post-media.s3.amazonaws.com/public/images/ecd23721-51b1-4664-bb90-3dfd8e43d7f5_2844x1600.png",
+      "date": "Tue, 17 Feb 2026 15:02:40 GMT"
+    },
+    {
+      "title": "The mindset shift we need to rebuild American factories",
+      "excerpt": "Factory Mindset means finding the best ideas and people, and giving them a shot",
+      "category": "AI",
+      "link": "https://www.a16z.news/p/the-mindset-shift-we-need-to-rebuild",
+      "image": "https://substack-post-media.s3.amazonaws.com/public/images/12f2ea49-3b23-45bf-972b-5cbcee7e4a2a_2844x1600.png",
+      "date": "Tue, 17 Feb 2026 11:15:32 GMT"
+    },
+    {
+      "title": "Charts of the Week: Customer Service Reckoning",
+      "excerpt": "Industrials valuation pop; SF is the hub; Capex; White collar sitters",
+      "category": "AI",
+      "link": "https://www.a16z.news/p/charts-of-the-week-customer-service",
+      "image": "https://substack-post-media.s3.amazonaws.com/public/images/669e99cf-8eda-408e-919c-723b26014bf1_2844x1600.png",
+      "date": "Fri, 13 Feb 2026 15:00:29 GMT"
+    },
+    {
+      "title": "The Lighthouse Playbook",
+      "excerpt": "How today's founders make friends and influence people",
+      "category": "AI",
+      "link": "https://www.a16z.news/p/the-lighthouse-playbook",
+      "image": "https://substack-post-media.s3.amazonaws.com/public/images/7be27b23-f8d6-4de1-9637-260b68a495be_2844x1600.png",
+      "date": "Thu, 12 Feb 2026 15:02:58 GMT"
+    },
+    {
+      "title": "\"I'm out, who's with me?\": 'Exit' as an organizing idea",
+      "excerpt": "A guest post for a16z Culture",
+      "category": "AI",
+      "link": "https://www.a16z.news/p/im-out-whos-with-me-exit-as-an-organizing",
+      "image": "https://substack-post-media.s3.amazonaws.com/public/images/bdb83748-9308-4615-a7ad-f4785f1cefd3_2844x1600.png",
+      "date": "Wed, 11 Feb 2026 15:15:17 GMT"
     }
   ],
-  "fetchedAt": "2026-02-18T20:56:35.033Z",
-  "feedUrl": "cached"
+  "fetchedAt": "2026-02-17T19:58:57.026Z",
+  "feedUrl": "https://www.a16z.news/feed"
 }

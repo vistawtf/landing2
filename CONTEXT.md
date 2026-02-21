@@ -12,16 +12,15 @@
 
 ```
 Isaac views:  https://...ngrok.../     →  src/app/page.tsx        ← EDIT THIS
-NOT:          https://...ngrok.../landing2 →  src/app/landing2/page.tsx  ← DO NOT EDIT
 ```
 
-**Components used by root page:** `src/components/landing2/` (shared folder)
+**The `/landing2` route was DELETED on 2026-02-17.** Only `src/app/page.tsx` (root) is active.
+
+**Components used by root page:** `src/components/landing2/` (shared component folder)
 
 **The rule:** When Isaac reports a bug or requests a change, ALL edits go to:
 1. `src/components/landing2/*.tsx` (shared components)
 2. `src/app/page.tsx` (root page composition)
-
-**NEVER edit `src/app/landing2/page.tsx`** unless Isaac explicitly says "edit the /landing2 route."
 
 **When to doubt:** If you've made a change but Isaac says "still broken" → immediately check:
 ```bash
@@ -29,11 +28,11 @@ grep -n "WhoWeAreSection\|import" src/app/page.tsx  # verify root page imports
 curl -I http://localhost:3050/  # verify root page serves
 ```
 
-This failure caused 30+ minutes of wasted effort on 2026-02-16.
+Historical note: routing confusion caused 30+ minutes of wasted effort on 2026-02-16. Don't repeat it.
 
 ---
 
-## Current State (Updated 2026-02-17)
+## Current State (Updated 2026-02-21)
 
 ### Design System
 - **Background:** `#FAFAFA` (alabaster white)
@@ -65,6 +64,13 @@ RIGHT column: "Build something useful" CTA band
 Bottom: social icons (X official, LinkedIn "in" cuadrado, Substack) + links
 Padding: px-6 on ALL sections (consistent)
 ```
+
+### ASCII Plasma Animation (Footer right column — Feb 17)
+- Chars: `['₊', '˚', '⊹']` (Vista brand, minimal)
+- Base color: `rgba(228,226,216,0.55)` — cream on dark
+- Hover: chars within 50px → `#FF5233` (Vista orange)
+- Click: instant 100px radius jump, smooth return on mouseup
+- Container: `border-r`, `border-t` added
 
 ### Article Cards (LatestSection)
 - 1 large card + 4 small cards
@@ -104,6 +110,24 @@ Padding: px-6 on ALL sections (consistent)
 
 ---
 
+## Compound Engineering Docs Structure (Added 2026-02-20)
+
+Plans, brainstorms, and solutions live in `vista-website/docs/`:
+```
+docs/
+  plans/        ← Required before multi-file changes: write plan, get Isaac's approval
+  brainstorms/  ← Optional: for new ideas or complex features without clear scope
+  solutions/    ← Document completed solutions (architecture, patterns, decisions)
+    ui/
+    data/
+    api/
+    infra/
+```
+
+**Rule:** Any task touching >1 file → write plan in `docs/plans/` first, present to Isaac, wait for approval before coding.
+
+---
+
 ## Pending Items
 
 - [ ] Deploy to vista.wtf (overdue since Feb 14)
@@ -111,6 +135,13 @@ Padding: px-6 on ALL sections (consistent)
 - [ ] Isaac to send Vista branded backgrounds (for workshop slides)
 - [ ] Partner logos (placeholder currently)
 - [ ] Team member photos
+
+---
+
+## ⚠️ Repo Hygiene Note
+
+There are backup files in `src/app/` (`*.backup-*`) — do NOT commit these. They are local working snapshots.
+Use `git add src/components/ src/app/page.tsx` (targeted) instead of `git add -A` to avoid committing them.
 
 ---
 
@@ -134,16 +165,17 @@ Before claiming ANY change is complete:
 
 ```
 src/app/page.tsx                          ← ROOT PAGE (what Isaac sees)
-src/app/landing2/page.tsx                 ← ALTERNATE ROUTE (not used)
 src/components/landing2/Navigation.tsx    ← Navbar + stars
 src/components/landing2/HeroSection.tsx   ← Hero
 src/components/landing2/LatestSection.tsx ← Article cards
 src/components/landing2/NewsletterSection.tsx
 src/components/landing2/ServicesSection.tsx
-src/components/landing2/FooterSection.tsx ← Footer (LEFT/RIGHT layout)
+src/components/landing2/FooterSection.tsx ← Footer (LEFT/RIGHT layout + ASCII plasma)
 src/components/landing2/SectionDividers.tsx
 public/rss-articles.json                  ← Static RSS cache
 VISTA-COLORS.md                           ← Color reference
 VISTA-QA-CHECKLIST.md                     ← QA protocol (mandatory)
 WORK-QUEUE.md                             ← Auto-queue task tracking
+docs/plans/                               ← Pre-implementation plans
+docs/solutions/                           ← Documented solutions
 ```
