@@ -24,7 +24,11 @@
       "Bash(git -C /c/Users/efra/Documents/vista_repos/landing2 log --oneline -5)",
       "Bash(git -C /c/Users/efra/Documents/vista_repos/landing2 add src/components/landing2/NewsletterSection.tsx)",
       "Bash(git -C:*)",
-      "Bash(dir:*)"
+      "Bash(dir:*)",
+      "mcp__plugin_context7_context7__resolve-library-id",
+      "Bash(curl:*)",
+      "Bash(node -e \"let d=''''; process.stdin.on\\(''data'',c=>d+=c\\); process.stdin.on\\(''end'',\\(\\)=>{ const r=JSON.parse\\(d\\); console.log\\(''EXAMPLE INPUT:'', JSON.stringify\\(r.data?.exampleRunInput, null, 2\\)\\); console.log\\(''DESC:'', r.data?.description\\); console.log\\(''README:'', r.data?.readmeSummary\\); }\\)\")",
+      "Bash(node -e \"let d=''''; process.stdin.on\\(''data'',c=>d+=c\\); process.stdin.on\\(''end'',\\(\\)=>{ const r=JSON.parse\\(d\\); const schema=JSON.parse\\(r.data.inputSchema\\); Object.entries\\(schema.properties\\).forEach\\(\\([k,v]\\)=>console.log\\(k,''\\(''+v.type+''\\):'', v.description, ''| default:'', v.default\\)\\); }\\)\")"
     ]
   }
 }

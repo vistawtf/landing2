@@ -1,6 +1,22 @@
 {
-  "articles": [],
-  "fetchedAt": "2026-02-21T21:40:00.000Z",
-  "feedUrl": "https://vistalabs.substack.com/feed",
-  "note": "Vista Substack launched 2026-02-17, no posts published yet. Cache cleared of stale a16z content."
+  "articles": [
+    {
+      "title": "f*ck efficiency, optimize for innovation",
+      "excerpt": "All web3 now looks the same, not because we ran out of ideas - but because we became obsessed with being \"serious\".",
+      "category": "AI",
+      "link": "https://vistalabs.substack.com/p/fck-efficiency-optimize-for-innovation",
+      "image": "https://substack-post-media.s3.amazonaws.com/public/images/6ec7bd3d-697a-4542-b834-cd1aabe721d3_1500x565.png",
+      "date": "2026-02-23T20:06:11.281Z"
+    },
+    {
+      "title": "x402 as the speed of value",
+      "excerpt": "For 30 years, HTTP code 402 was collecting dust, AI agents just gave it purpose: enabling a $30 trillion machine economy",
+      "category": "AI",
+      "link": "https://vistalabs.substack.com/p/x402-as-the-speed-of-value",
+      "image": "https://substack-post-media.s3.amazonaws.com/public/images/5e65b7af-9962-499c-acb6-2e1b77bf9459_1500x565.png",
+      "date": "2026-02-21T23:45:20.407Z"
+    }
+  ],
+  "fetchedAt": "2026-02-23T21:28:16.541Z",
+  "feedUrl": "https://vistalabs.substack.com/feed"
 }

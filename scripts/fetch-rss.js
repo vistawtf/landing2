@@ -80,29 +80,26 @@ function readCachedArticles() {
 }
 
 // ─── Apify ──────────────────────────────────────────────────────────────────
-// Runs benthepythondev/newsletter-scraper via Apify's sync endpoint.
+// Uses apify/cheerio-scraper to fetch the Substack archive API via Apify proxies.
 // This bypasses Substack's 403 on GitHub Actions IPs since Apify uses its own infra.
-// Input: { newsletterUrl, maxArticles }
-// Output: { title, url, published_date, content_markdown, subtitle, ... }
 async function fetchViaApify() {
   const token = process.env.APIFY_API_TOKEN;
   if (!token) throw new Error('APIFY_API_TOKEN not set');
 
-  console.log('Fetching via Apify (benthepythondev/newsletter-scraper)...');
+  console.log('Fetching via Apify (cheerio-scraper → Substack archive API)...');
 
   const response = await fetch(
-    `https://api.apify.com/v2/acts/benthepythondev~newsletter-scraper/run-sync-get-dataset-items?token=${token}`,
+    `https://api.apify.com/v2/acts/apify~cheerio-scraper/run-sync-get-dataset-items?token=${token}`,
     {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        newsletterUrl: 'https://vistalabs.substack.com', // keep in sync with src/lib/constants.ts SOCIAL_SUBSTACK
-        scrapeMode: 'archive',
-        maxPosts: 5,
-        outputFormat: 'text',
-        includeImages: true,
-        includeMetadata: false,
-        delaySeconds: 0.1,
+        startUrls: [{ url: 'https://vistalabs.substack.com/api/v1/archive?sort=new&limit=5' }], // keep in sync with src/lib/constants.ts SOCIAL_SUBSTACK
+        // eslint-disable-next-line no-useless-escape
+        pageFunction: `async function pageFunction(context) {
+          return JSON.parse(context.body);
+        }`,
+        maxCrawlingDepth: 0,
       }),
       signal: AbortSignal.timeout(90_000),
     },
@@ -112,68 +109,27 @@ async function fetchViaApify() {
     throw new Error(`Apify actor responded with HTTP ${response.status}`);
   }
 
-  const items = await response.json();
+  const result = await response.json();
+  const items = Array.isArray(result[0]) ? result[0] : result;
   if (!Array.isArray(items) || items.length === 0) {
     throw new Error('Apify actor returned no items');
   }
 
   console.log(`Apify returned ${items.length} items`);
 
-  // Use apify/cheerio-scraper to extract og:image from each article page via Apify's proxy
-  // (GitHub Actions IPs are blocked by Substack, but Apify's infra is not)
-  const coverImageMap = {};
-  const articleUrls = items.slice(0, 5).map((i) => i.url).filter(Boolean);
-  try {
-    const cheerioRes = await fetch(
-      `https://api.apify.com/v2/acts/apify~cheerio-scraper/run-sync-get-dataset-items?token=${token}`,
-      {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          startUrls: articleUrls.map((url) => ({ url })),
-          // eslint-disable-next-line no-useless-escape
-          pageFunction: `async function pageFunction(context) {
-            const $ = context.$;
-            const ogImage = $('meta[property="og:image"]').attr('content');
-            return { url: context.request.url, ogImage: ogImage || null };
-          }`,
-          maxCrawlingDepth: 0,
-        }),
-        signal: AbortSignal.timeout(60_000),
-      },
-    );
-    if (cheerioRes.ok) {
-      const results = await cheerioRes.json();
-      for (const r of results) {
-        if (r.ogImage) {
-          const slug = r.url?.split('/p/')?.[1]?.split('?')?.[0];
-          if (slug) coverImageMap[slug] = r.ogImage;
-        }
-      }
-      console.log(`Got og:image for ${Object.keys(coverImageMap).length} articles via cheerio-scraper`);
-    } else {
-      console.log(`cheerio-scraper returned HTTP ${cheerioRes.status}`);
-    }
-  } catch (e) {
-    console.log(`Cover image fetch failed: ${e.message}`);
-  }
-
   return items.slice(0, 5).map((item) => {
-    const slug = item.url?.split('/p/')?.[1]?.split('?')?.[0];
-    const title = slug
-      ? slug.split('-').map((w) => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')
-      : item.subtitle || 'Untitled';
-
-    const description = item.excerpt || item.content_text?.substring(0, 200) || '';
-    const imageUrl = (slug && coverImageMap[slug]) || undefined;
+    const slug = item.slug || '';
+    const title = item.title || 'Untitled';
+    const description = item.subtitle || item.truncated_body_text || '';
+    const link = `https://vistalabs.substack.com/p/${slug}`; // keep in sync with src/lib/constants.ts SOCIAL_SUBSTACK
 
     return {
       title,
       excerpt: formatExcerpt(description),
       category: inferCategory(title, description),
-      link: item.url || '#',
-      image: imageUrl,
-      date: item.published_date,
+      link,
+      image: item.cover_image || undefined,
+      date: item.post_date,
     };
   });
 }
