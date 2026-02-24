@@ -19,6 +19,9 @@ export const metadata: Metadata = {
     "research collective",
   ],
   authors: [{ name: "Vista" }],
+  alternates: {
+    canonical: "https://vista.wtf",
+  },
   icons: {
     icon: [{ url: "/favicon.svg", type: "image/svg+xml" }],
     shortcut: "/favicon.svg",
@@ -28,6 +31,7 @@ export const metadata: Metadata = {
     description:
       "Research and execution across blockchain and AI for builders, operators, and investors.",
     type: "website",
+    url: "https://vista.wtf",
     locale: "en_US",
     siteName: "Vista",
     images: [
@@ -49,6 +53,10 @@ export const metadata: Metadata = {
   robots: {
     index: true,
     follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+    },
   },
 };
 
@@ -60,6 +68,25 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${GeistSans.variable} ${GeistMono.variable}`} suppressHydrationWarning>
       <head>
+        <meta name="theme-color" content="#FF5233" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              name: "Vista",
+              url: "https://vista.wtf",
+              logo: "https://vista.wtf/og-image.png",
+              description:
+                "Vista is a research and execution team focused on blockchain and AI. We turn emerging signals into practical strategy and production-ready products.",
+              sameAs: [
+                "https://x.com/vistawtf",
+                "https://vistalabs.substack.com",
+              ],
+            }),
+          }}
+        />
         <script
           dangerouslySetInnerHTML={{
             __html: `
