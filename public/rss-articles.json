@@ -1,22 +1,30 @@
 {
   "articles": [
     {
+      "title": "Can we trust AAVE facing the future?",
+      "excerpt": "Two things happened at Aave this week: one is a ~$50M funding proposal, the other is the BGD resignation. They reveal a problem the DAO cannot ignore.",
+      "category": "DeFi",
+      "link": "https://vistalabs.substack.com/p/can-we-trust-aave-facing-the-future",
+      "image": "https://substack-post-media.s3.amazonaws.com/public/images/35a9442f-3ca0-4d72-9858-fe3eda4b2b12_1200x630.png",
+      "date": "Wed, 25 Feb 2026 19:42:43 GMT"
+    },
+    {
       "title": "f*ck efficiency, optimize for innovation",
       "excerpt": "All web3 now looks the same, not because we ran out of ideas - but because we became obsessed with being \"serious\".",
       "category": "AI",
       "link": "https://vistalabs.substack.com/p/fck-efficiency-optimize-for-innovation",
-      "image": "https://substack-post-media.s3.amazonaws.com/public/images/6ec7bd3d-697a-4542-b834-cd1aabe721d3_1500x565.png",
-      "date": "2026-02-23T20:06:11.281Z"
+      "image": "https://substack-post-media.s3.amazonaws.com/public/images/c83a7327-65b1-443c-ae9c-aed8cdcac66b_1200x630.png",
+      "date": "Mon, 23 Feb 2026 20:06:11 GMT"
     },
     {
       "title": "x402 as the speed of value",
       "excerpt": "For 30 years, HTTP code 402 was collecting dust, AI agents just gave it purpose: enabling a $30 trillion machine economy",
       "category": "AI",
       "link": "https://vistalabs.substack.com/p/x402-as-the-speed-of-value",
-      "image": "https://substack-post-media.s3.amazonaws.com/public/images/5e65b7af-9962-499c-acb6-2e1b77bf9459_1500x565.png",
-      "date": "2026-02-21T23:45:20.407Z"
+      "image": "https://substack-post-media.s3.amazonaws.com/public/images/881f2896-2754-4681-be8e-a4f574bd1b77_1200x630.png",
+      "date": "Sat, 21 Feb 2026 23:45:20 GMT"
     }
   ],
-  "fetchedAt": "2026-02-23T21:28:16.541Z",
+  "fetchedAt": "2026-02-26T13:49:30.844Z",
   "feedUrl": "https://vistalabs.substack.com/feed"
 }
