@@ -1,93 +1,162 @@
 'use client';
 
-import { Fragment, useEffect, useRef, useState } from 'react';
+import { Fragment, useEffect, useRef, useState, type CSSProperties } from 'react';
 import { createNoise3D } from 'simplex-noise';
 
 const noise3D = createNoise3D();
 
-// Characters ordered by visual density: spaces = dark, # = bright
-const shades = '    .₊˚:-=+#';
-const shadesLength = shades.length;
+const SHADES = '   .:-=+*#%@';
+const SHADES_LENGTH = SHADES.length;
 
 const FONT_SIZE = 14;
 const LINE_HEIGHT = 20;
 const LETTER_SPACING = 4;
 // Monospace char ~60% of font-size + letter-spacing
-const CHAR_WIDTH = FONT_SIZE * 0.6 + LETTER_SPACING; // ~12.4px
+const CHAR_WIDTH = FONT_SIZE * 0.6 + LETTER_SPACING;
 
 const BASE_RADIUS = 50;
 const CLICK_RADIUS = 100;
+const TARGET_FPS = 12;
+const FRAME_INTERVAL_MS = 1000 / TARGET_FPS;
 
-// Base color components (rgba(228, 226, 216, 0.55))
-const BASE_R = 228, BASE_G = 226, BASE_B = 216;
-// Orange target components (#FF5233 = rgb(255, 82, 51))
-const ORANGE_R = 255, ORANGE_G = 82, ORANGE_B = 51;
+const BASE_R = 228;
+const BASE_G = 226;
+const BASE_B = 216;
+const BASE_A = 0.55;
+const HOVER_R = 255;
+const HOVER_G = 82;
+const HOVER_B = 51;
+const HOVER_A = 0.8;
+
+const PRE_STYLE: CSSProperties = {
+  whiteSpace: 'pre',
+  fontSize: `${FONT_SIZE}px`,
+  lineHeight: `${LINE_HEIGHT}px`,
+  letterSpacing: `${LETTER_SPACING}px`,
+  overflowX: 'hidden',
+  margin: 0,
+  padding: 0,
+  position: 'absolute',
+  top: 0,
+  left: 0,
+  width: '100%',
+  userSelect: 'none',
+};
 
 function convertToChar(value: number) {
-  return shades[Math.min(Math.floor(value * shadesLength), shadesLength - 1)];
+  return SHADES[Math.min(Math.floor(value * SHADES_LENGTH), SHADES_LENGTH - 1)];
 }
 
-function drawPlasma(t: number, cols: number, rows: number): string[][] {
+function mixColor(intensity: number) {
+  const clamped = Math.max(0, Math.min(1, intensity));
+  const r = Math.round(BASE_R + (HOVER_R - BASE_R) * clamped);
+  const g = Math.round(BASE_G + (HOVER_G - BASE_G) * clamped);
+  const b = Math.round(BASE_B + (HOVER_B - BASE_B) * clamped);
+  const a = BASE_A + (HOVER_A - BASE_A) * clamped;
+  return `rgba(${r}, ${g}, ${b}, ${a.toFixed(3)})`;
+}
+
+function drawPlasma(tick: number, cols: number, rows: number): string[][] {
   const grid: string[][] = [];
-  for (let x = 0; x < rows; x++) {
-    const row: string[] = [];
-    for (let y = 0; y < cols; y++) {
-      const r = (noise3D(x / 32, y / 32, t / 64) + 1) / 2;
-      row.push(convertToChar(r));
+  for (let row = 0; row < rows; row++) {
+    const rowChars: string[] = [];
+    for (let col = 0; col < cols; col++) {
+      const value = (noise3D(row / 32, col / 32, tick / 64) + 1) / 2;
+      rowChars.push(convertToChar(value));
     }
-    grid.push(row);
+    grid.push(rowChars);
   }
   return grid;
 }
 
-function interpolatedColor(intensity: number): string {
-  const r = Math.round(BASE_R + (ORANGE_R - BASE_R) * intensity);
-  const g = Math.round(BASE_G + (ORANGE_G - BASE_G) * intensity);
-  const b = Math.round(BASE_B + (ORANGE_B - BASE_B) * intensity);
-  return `rgba(${r}, ${g}, ${b}, 0.55)`;
-}
-
-/**
- * AsciiPlasma — fills its parent container completely.
- * Parent must be position:relative (or absolute/fixed) with explicit dimensions.
- * Dark aesthetic: very dim characters against black background.
- * Hover: characters within 50px of cursor glow orange (#FF5233).
- * Click (held): radius expands smoothly to 100px and holds; releases back to 50px.
- */
 export function AsciiPlasma() {
   const [plasma, setPlasma] = useState<string[][]>([]);
+  const [mousePos, setMousePos] = useState<{ x: number; y: number } | null>(null);
+  const [radiusSq, setRadiusSq] = useState<number>(BASE_RADIUS * BASE_RADIUS);
+  const [isVisible, setIsVisible] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
-  // Ref instead of state — mouse moves don't trigger re-renders;
-  // colors update on the next 8fps plasma tick (≤125ms lag, imperceptible here).
+
   const mousePosRef = useRef<{ x: number; y: number } | null>(null);
-  // Radius: smoothly animates between BASE_RADIUS and CLICK_RADIUS
   const radiusRef = useRef<number>(BASE_RADIUS);
+  const targetRadiusRef = useRef<number>(BASE_RADIUS);
   const isClickRef = useRef<boolean>(false);
 
+  const sizeRef = useRef<{ cols: number; rows: number }>({ cols: 40, rows: 15 });
+  const rafRef = useRef<number | null>(null);
+  const lastFrameTsRef = useRef<number>(0);
+  const tickRef = useRef<number>(0);
+
   useEffect(() => {
-    const getSize = () => {
-      if (!containerRef.current) return { cols: 40, rows: 15 };
-      const { width, height } = containerRef.current.getBoundingClientRect();
-      return {
-        cols: Math.ceil(width / CHAR_WIDTH) + 2, // +2 ensures edge coverage
+    const node = containerRef.current;
+    if (!node) return;
+
+    const updateSize = () => {
+      const { width, height } = node.getBoundingClientRect();
+      sizeRef.current = {
+        cols: Math.ceil(width / CHAR_WIDTH) + 2,
         rows: Math.ceil(height / LINE_HEIGHT) + 1,
       };
     };
 
-    let t = 0;
+    updateSize();
+    const resizeObserver = new ResizeObserver(updateSize);
+    resizeObserver.observe(node);
 
-    const interval = setInterval(() => {
-      // Contraction only — expansion is handled instantly on mousedown
-      if (!isClickRef.current && radiusRef.current > BASE_RADIUS) {
-        radiusRef.current = Math.max(BASE_RADIUS, radiusRef.current - 6);
+    return () => resizeObserver.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const node = containerRef.current;
+    if (!node) return;
+
+    const intersectionObserver = new IntersectionObserver(
+      ([entry]) => setIsVisible(entry.isIntersecting),
+      { threshold: 0 },
+    );
+
+    intersectionObserver.observe(node);
+    return () => intersectionObserver.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!isVisible) {
+      if (rafRef.current !== null) {
+        window.cancelAnimationFrame(rafRef.current);
+        rafRef.current = null;
+      }
+      return;
+    }
+
+    const loop = (ts: number) => {
+      if (!document.hidden && ts - lastFrameTsRef.current >= FRAME_INTERVAL_MS) {
+        lastFrameTsRef.current = ts;
+
+        const targetRadius = targetRadiusRef.current;
+        const currentRadius = radiusRef.current;
+        if (Math.abs(targetRadius - currentRadius) > 0.25) {
+          radiusRef.current = currentRadius + (targetRadius - currentRadius) * 0.22;
+        } else {
+          radiusRef.current = targetRadius;
+        }
+
+        setMousePos(mousePosRef.current);
+        setRadiusSq(radiusRef.current * radiusRef.current);
+
+        const { cols, rows } = sizeRef.current;
+        setPlasma(drawPlasma(tickRef.current++, cols, rows));
       }
 
-      const dims = getSize();
-      setPlasma(drawPlasma(t++, dims.cols, dims.rows));
-    }, 1000 / 8); // 8 FPS
+      rafRef.current = window.requestAnimationFrame(loop);
+    };
 
-    return () => clearInterval(interval);
-  }, []);
+    rafRef.current = window.requestAnimationFrame(loop);
+    return () => {
+      if (rafRef.current !== null) {
+        window.cancelAnimationFrame(rafRef.current);
+        rafRef.current = null;
+      }
+    };
+  }, [isVisible]);
 
   return (
     <div
@@ -104,57 +173,46 @@ export function AsciiPlasma() {
       onMouseLeave={() => {
         mousePosRef.current = null;
         isClickRef.current = false;
+        targetRadiusRef.current = BASE_RADIUS;
       }}
       onMouseDown={() => {
         isClickRef.current = true;
-        radiusRef.current = CLICK_RADIUS; // salto instantáneo
+        targetRadiusRef.current = CLICK_RADIUS;
       }}
       onMouseUp={() => {
         isClickRef.current = false;
+        targetRadiusRef.current = BASE_RADIUS;
       }}
     >
-      <pre
-        style={{
-          whiteSpace: 'pre',
-          fontSize: `${FONT_SIZE}px`,
-          lineHeight: `${LINE_HEIGHT}px`,
-          letterSpacing: `${LETTER_SPACING}px`,
-          overflowX: 'hidden',
-          margin: 0,
-          padding: 0,
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          width: '100%',
-          userSelect: 'none',
-        }}
-      >
-        {plasma.map((row, rowIdx) => (
-          <Fragment key={rowIdx}>
-            {row.map((char, colIdx) => {
-              const mouse = mousePosRef.current;
-              let color: string;
+      <pre style={PRE_STYLE}>
+        {plasma.map((row, rowIdx) => {
+          return (
+            <Fragment key={rowIdx}>
+              {row.map((char, colIdx) => {
+                let color = mixColor(0);
 
-              if (mouse) {
-                const charCenterX = colIdx * CHAR_WIDTH + CHAR_WIDTH / 2;
-                const charCenterY = rowIdx * LINE_HEIGHT + LINE_HEIGHT / 2;
-                const dist = Math.sqrt(
-                  (charCenterX - mouse.x) ** 2 + (charCenterY - mouse.y) ** 2
+                if (mousePos) {
+                  const charCenterX = colIdx * CHAR_WIDTH + CHAR_WIDTH / 2;
+                  const charCenterY = rowIdx * LINE_HEIGHT + LINE_HEIGHT / 2;
+                  const dx = charCenterX - mousePos.x;
+                  const dy = charCenterY - mousePos.y;
+                  const distSq = dx * dx + dy * dy;
+                  if (distSq < radiusSq) {
+                    const intensity = 1 - distSq / radiusSq;
+                    color = mixColor(intensity);
+                  }
+                }
+
+                return (
+                  <span key={colIdx} style={{ color }}>
+                    {char}
+                  </span>
                 );
-                color = dist < radiusRef.current ? '#FF5233' : interpolatedColor(0);
-              } else {
-                color = interpolatedColor(0);
-              }
-
-              return (
-                <span key={colIdx} style={{ color }}>
-                  {char}
-                </span>
-              );
-            })}
-            {'\n'}
-          </Fragment>
-        ))}
+              })}
+              {'\n'}
+            </Fragment>
+          );
+        })}
       </pre>
     </div>
   );

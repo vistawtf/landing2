@@ -1,5 +1,3 @@
-"use client";
-
 import { RingIcon, GridIcon, PlusIcon } from './icons';
 import { GridLines } from './GridLines';
 import Link from 'next/link';
@@ -10,7 +8,7 @@ function DecorativeSymbols() {
     <div className="parallax-container absolute inset-0 pointer-events-none select-none" style={{ perspective: '1000px' }}>
       <div className="relative h-full w-full max-w-[1200px] mx-auto overflow-hidden">
         <RingIcon
-          className="absolute text-[#FF5233] will-change-transform"
+          className="absolute text-[#FF5233]"
           style={{
             width: 'clamp(150px, 18vw, 230px)',
             height: 'auto',
@@ -20,7 +18,7 @@ function DecorativeSymbols() {
           }}
         />
         <GridIcon
-          className="absolute text-[#FF5233] hidden sm:block will-change-transform"
+          className="absolute text-[#FF5233] hidden sm:block"
           style={{
             width: 'clamp(180px, 32vw, 340px)',
             height: 'auto',
@@ -30,7 +28,7 @@ function DecorativeSymbols() {
           }}
         />
         <PlusIcon
-          className="absolute text-[#FF5233] will-change-transform"
+          className="absolute text-[#FF5233]"
           style={{
             width: 'clamp(120px, 18vw, 200px)',
             height: 'auto',

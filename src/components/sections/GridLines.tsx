@@ -1,34 +1,8 @@
-"use client";
-
 export function GridLines() {
   return (
-    <div className="grid-lines absolute inset-0 max-w-[1200px] mx-auto pointer-events-none">
-      <style jsx>{`
-        .grid-lines::before,
-        .grid-lines::after {
-          content: '';
-          position: absolute;
-          top: 0;
-          bottom: 0;
-          width: 1px;
-          background: rgba(0, 0, 0, 0.06);
-        }
-        
-        .grid-lines::before {
-          left: 0;
-        }
-        
-        .grid-lines::after {
-          right: 0;
-        }
-        
-        @media (max-width: 640px) {
-          .grid-lines::before,
-          .grid-lines::after {
-            opacity: 0;
-          }
-        }
-      `}</style>
+    <div className="absolute inset-0 max-w-[1200px] mx-auto pointer-events-none" aria-hidden="true">
+      <div className="absolute left-0 top-0 bottom-0 w-px bg-black/[0.06] max-sm:opacity-0" />
+      <div className="absolute right-0 top-0 bottom-0 w-px bg-black/[0.06] max-sm:opacity-0" />
     </div>
   );
 }

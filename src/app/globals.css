@@ -293,6 +293,13 @@ body {
   display: block;
 }
 
+.footer-vista-logo-size {
+  width: 48px;
+  height: auto;
+  max-width: none;
+  flex: 0 0 auto;
+}
+
 @media (min-width: 640px) {
   .footer-compact {
     padding: 2rem 0 1.5rem;
@@ -323,6 +330,25 @@ body {
 
 .nav-link-active::after {
   transform: scaleX(1);
+}
+
+/* ========================================
+   BRAND LOGO MOTION
+   ======================================== */
+
+.brand-wordmark-transition {
+  will-change: max-width, opacity, transform;
+  transition:
+    max-width 450ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 450ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 450ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .brand-wordmark-transition {
+    transition: none;
+    transform: none !important;
+  }
 }
 
 /* ========================================
