@@ -3,6 +3,30 @@ import { GridLines } from './GridLines';
 import Link from 'next/link';
 import Image from 'next/image';
 
+const trustedByLogos = [
+  {
+    name: 'ApeCo',
+    href: 'https://apechain.com',
+    src: '/partners/apeco black.svg',
+    width: 92,
+    height: 24,
+  },
+  {
+    name: 'Obol',
+    href: 'https://obol.org',
+    src: '/partners/obol dark.svg',
+    width: 64,
+    height: 24,
+  },
+  {
+    name: 'Arco',
+    href: 'https://arco.lat',
+    src: '/partners/arco-black.png',
+    width: 78,
+    height: 24,
+  },
+];
+
 function DecorativeSymbols() {
   return (
     <div className="parallax-container absolute inset-0 pointer-events-none select-none" style={{ perspective: '1000px' }}>
@@ -106,28 +130,25 @@ export function HeroSection() {
             <p className="text-[10px] md:text-[11px] font-semibold uppercase tracking-[0.12em] text-[#999999] mb-2 md:mb-3 font-mono">
               Trusted by
             </p>
-            <div className="flex gap-6 md:gap-8 items-center opacity-60">
-              <Image
-                src="/partners/apeco black.svg"
-                alt="ApeChain"
-                width={92}
-                height={24}
-                className="h-5 md:h-6 w-auto"
-              />
-              <Image
-                src="/partners/obol dark.svg"
-                alt="Obol"
-                width={64}
-                height={24}
-                className="h-5 md:h-6 w-auto"
-              />
-              <Image
-                src="/partners/arco-black.png"
-                alt="Arco"
-                width={78}
-                height={24}
-                className="h-5 md:h-6 w-auto"
-              />
+            <div className="flex gap-6 md:gap-8 items-center">
+              {trustedByLogos.map((logo) => (
+                <a
+                  key={logo.name}
+                  href={logo.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hero-trusted-logo"
+                  aria-label={logo.name}
+                >
+                  <Image
+                    src={logo.src}
+                    alt={logo.name}
+                    width={logo.width}
+                    height={logo.height}
+                    className="hero-trusted-logo-image h-5 md:h-6 w-auto"
+                  />
+                </a>
+              ))}
             </div>
           </div>
         </div>

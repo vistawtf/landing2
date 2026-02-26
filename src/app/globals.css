@@ -219,6 +219,42 @@ body {
 }
 
 /* ========================================
+   HERO TRUSTED LOGOS
+   ======================================== */
+
+.hero-trusted-logo {
+  display: inline-flex;
+  align-items: center;
+  opacity: 0.5;
+  filter: grayscale(1) saturate(0);
+  transition:
+    opacity 0.24s ease,
+    filter 0.24s ease,
+    transform 0.24s ease;
+}
+
+.hero-trusted-logo:hover,
+.hero-trusted-logo:focus-visible {
+  opacity: 1;
+  filter: grayscale(0) saturate(1);
+  transform: translateY(-1px);
+}
+
+.hero-trusted-logo:focus-visible {
+  outline: 1px solid currentColor;
+  outline-offset: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-trusted-logo {
+    transition:
+      opacity 0.24s ease,
+      filter 0.24s ease;
+    transform: none !important;
+  }
+}
+
+/* ========================================
    ABOUT SECTION (legacy support)
    ======================================== */
 
