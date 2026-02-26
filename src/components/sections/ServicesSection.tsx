@@ -1,5 +1,3 @@
-"use client";
-
 import { Brain, Megaphone, TrendingUp } from 'lucide-react';
 import Link from 'next/link';
 import { GridLines } from './GridLines';

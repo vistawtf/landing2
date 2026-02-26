@@ -1,9 +1,9 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { DarkModeToggle } from "./shared";
 import { SOCIAL_SUBSTACK, SOCIAL_TELEGRAM, SOCIAL_TWITTER } from "@/lib/constants";
+import { BrandLogo } from "@/components/brand/BrandLogo";
 
 const navLinks = [
   { href: "/", label: "Home" },
@@ -14,25 +14,21 @@ const navLinks = [
 const externalLinks = [
   { href: SOCIAL_SUBSTACK, label: "Substack" },
   { href: SOCIAL_TELEGRAM, label: "Telegram" },
-  { href: SOCIAL_TWITTER,  label: "Twitter" },
+  { href: SOCIAL_TWITTER, label: "Twitter" },
 ];
 
 function FooterBrandLogo() {
   return (
     <Link href="/" className="inline-flex items-center" aria-label="Vista home">
-      <Image
-        src="/partners/vista logo for light bgs.svg"
-        alt="Vista logo"
-        width={452}
-        height={164}
-        className="footer-vista-logo-light w-[64px] h-[20px] object-contain"
+      <BrandLogo
+        variant="lockup"
+        theme="light"
+        className="footer-vista-logo-light footer-vista-logo-size"
       />
-      <Image
-        src="/partners/vista logo for dark bgs.svg"
-        alt="Vista logo"
-        width={513}
-        height={236}
-        className="footer-vista-logo-dark w-[64px] h-[20px] object-contain"
+      <BrandLogo
+        variant="lockup"
+        theme="dark"
+        className="footer-vista-logo-dark footer-vista-logo-size"
       />
     </Link>
   );
@@ -60,7 +56,7 @@ export function Footer() {
             </div>
           </div>
           <div className="flex items-center justify-between pt-4">
-            <span className="text-caption text-muted">© {new Date().getFullYear()} Vista</span>
+            <span className="text-caption text-muted">&copy; {new Date().getFullYear()} Vista</span>
             <div className="flex items-center gap-3">
               <span className="text-caption text-muted font-mono">vista.wtf</span>
               <DarkModeToggle />
@@ -94,7 +90,7 @@ export function Footer() {
             </div>
           </div>
           <div className="mt-12 pt-6 border-t border-border flex items-center justify-between">
-            <span className="text-caption text-muted">© {new Date().getFullYear()} Vista. All rights reserved.</span>
+            <span className="text-caption text-muted">&copy; {new Date().getFullYear()} Vista. All rights reserved.</span>
             <div className="flex items-center gap-3">
               <span className="text-caption text-muted font-mono">vista.wtf</span>
               <DarkModeToggle />
