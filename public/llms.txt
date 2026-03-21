@@ -1,0 +1,48 @@
+# Vista
+
+> Research collective exploring blockchain and AI in Latin America.
+
+## About
+
+Vista is a research and execution team focused on blockchain and AI.
+We turn emerging signals into practical strategy and production-ready products.
+Based in LATAM. Writing in Spanish and English.
+
+- Website: https://vista.wtf
+- Newsletter: https://vistalabs.substack.com
+- Telegram: https://t.me/vistawtf
+- Twitter: https://twitter.com/vistawtf
+
+## Services
+
+### AI Training
+Custom models, fine-tuning LLMs, agent systems for companies entering the AI space.
+
+### Marketing Campaigns
+Research-backed go-to-market strategies for blockchain and AI products in LATAM.
+
+### Protocol Growth
+Community building, tokenomics, ecosystem growth for crypto protocols.
+
+Contact: vista.wtf/services
+
+## Newsletter
+
+Emergent Stack — weekly digest on blockchain and AI for builders, investors, and explorers in LATAM.
+10,000+ subscribers. Published every Monday.
+Subscribe: https://vistalabs.substack.com
+
+## Recent Articles
+
+- Can we trust AAVE facing the future?
+  https://vistalabs.substack.com/p/can-we-trust-aave-facing-the-future
+
+- f*ck efficiency, optimize for innovation
+  https://vistalabs.substack.com/p/fck-efficiency-optimize-for-innovation
+
+- x402 as the speed of value
+  https://vistalabs.substack.com/p/x402-as-the-speed-of-value
+
+## Work with Vista
+
+https://vista.wtf/services

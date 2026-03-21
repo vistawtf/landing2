@@ -48,12 +48,12 @@ function convertToChar(value: number) {
 }
 
 function mixColor(intensity: number) {
-  const clamped = Math.max(0, Math.min(1, intensity));
-  const r = Math.round(BASE_R + (HOVER_R - BASE_R) * clamped);
-  const g = Math.round(BASE_G + (HOVER_G - BASE_G) * clamped);
-  const b = Math.round(BASE_B + (HOVER_B - BASE_B) * clamped);
-  const a = BASE_A + (HOVER_A - BASE_A) * clamped;
-  return `rgba(${r}, ${g}, ${b}, ${a.toFixed(3)})`;
+  // Solid circle: characters inside the radius get full orange, outside get base color.
+  // No gradient fade — hard cutoff at intensity > 0.
+  if (intensity > 0) {
+    return `rgba(${HOVER_R}, ${HOVER_G}, ${HOVER_B}, ${HOVER_A.toFixed(3)})`;
+  }
+  return `rgba(${BASE_R}, ${BASE_G}, ${BASE_B}, ${BASE_A.toFixed(3)})`;
 }
 
 function drawPlasma(tick: number, cols: number, rows: number): string[][] {
@@ -134,7 +134,7 @@ export function AsciiPlasma() {
         const targetRadius = targetRadiusRef.current;
         const currentRadius = radiusRef.current;
         if (Math.abs(targetRadius - currentRadius) > 0.25) {
-          radiusRef.current = currentRadius + (targetRadius - currentRadius) * 0.22;
+          radiusRef.current = currentRadius + (targetRadius - currentRadius) * 0.08;
         } else {
           radiusRef.current = targetRadius;
         }
@@ -177,10 +177,13 @@ export function AsciiPlasma() {
       }}
       onMouseDown={() => {
         isClickRef.current = true;
+        // Instantly snap to click radius (bypass lerp)
+        radiusRef.current = CLICK_RADIUS;
         targetRadiusRef.current = CLICK_RADIUS;
       }}
       onMouseUp={() => {
         isClickRef.current = false;
+        // Smoothly lerp back to base radius
         targetRadiusRef.current = BASE_RADIUS;
       }}
     >

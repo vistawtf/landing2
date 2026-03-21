@@ -49,7 +49,7 @@ export function NewsletterSection() {
       />
 
       {/* Content */}
-      <div className="relative z-10 w-full max-w-[1200px] mx-auto px-8 md:px-16">
+      <div className="relative z-10 w-full max-w-[1200px] mx-auto px-6 md:px-16">
         <div className="flex flex-col gap-5 max-w-[700px]">
           {/* Kicker + Badge */}
           <div className="flex items-center gap-3 mb-4">
@@ -107,13 +107,13 @@ export function NewsletterSection() {
               <button
                 type="submit"
                 disabled={status === 'loading'}
-                className="h-14 md:h-14 px-6 md:px-6 bg-[#FF5233] text-white rounded-[3px] md:rounded-l-none text-sm font-semibold uppercase tracking-wider flex items-center justify-center gap-2 hover:bg-[#E64A2E] focus:outline focus:outline-2 focus:outline-white focus:outline-offset-2 transition-colors duration-200 disabled:opacity-70 disabled:cursor-not-allowed"
+                className="h-14 md:h-14 px-6 md:px-6 bg-[#FF5233] text-white rounded-[3px] md:rounded-l-none text-sm font-semibold tracking-wider flex items-center justify-center gap-2 hover:bg-[#E64A2E] focus:outline focus:outline-2 focus:outline-white focus:outline-offset-2 transition-colors duration-200 disabled:opacity-70 disabled:cursor-not-allowed"
               >
                 {status === 'loading' ? (
                   <span>Subscribing...</span>
                 ) : (
                   <>
-                    <span>SUBSCRIBE</span>
+                    <span>Subscribe</span>
                     <ChevronRight className="w-[18px] h-[18px]" strokeWidth={2.2} />
                   </>
                 )}

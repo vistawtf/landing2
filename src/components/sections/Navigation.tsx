@@ -82,7 +82,7 @@ export function Navigation() {
       }`}
       style={scrolled ? { backdropFilter: "blur(8px) saturate(1.1)", WebkitBackdropFilter: "blur(8px) saturate(1.1)" } : undefined}
     >
-      <div className="max-w-[1200px] mx-auto px-4 md:px-16">
+      <div className="max-w-[1200px] mx-auto px-6 md:px-16">
         <div className={`flex items-center justify-between transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${scrolled ? "py-2.5" : "py-3"}`}>
           <Link href="/" className="flex items-center transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]">
             <span

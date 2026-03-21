@@ -111,7 +111,11 @@ export function HeroSection() {
             A research hub for builders, investors, and explorers in blockchain and AI.
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-4 mt-9">
+          <p className="text-sm text-[#666666] mt-6">
+            Join 10,000+ builders, investors, and explorers across LATAM.
+          </p>
+
+          <div className="flex flex-col sm:flex-row gap-4 mt-4">
             <Link
               href="#newsletter"
               className="bg-[#FF5233] text-white px-7 py-3.5 rounded-[3px] text-[15px] font-medium hover:bg-[#E64A2E] transition-colors duration-200 text-center"

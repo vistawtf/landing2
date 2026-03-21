@@ -51,13 +51,13 @@ export function FooterSection() {
             <div className="flex gap-3 flex-wrap">
               <Link
                 href="/services"
-                className="bg-[#FF5233] text-white px-7 py-4 rounded-[3px] text-sm font-semibold uppercase tracking-wider hover:bg-[#E64A2E] transition-colors duration-200"
+                className="bg-[#FF5233] text-white px-7 py-4 rounded-[3px] text-sm font-semibold tracking-wider hover:bg-[#E64A2E] transition-colors duration-200"
               >
                 Work with Vista {"->"}
               </Link>
               <Link
                 href="/about"
-                className="border border-white/[0.2] text-[#E4E2D8] px-7 py-4 rounded-[3px] text-sm font-semibold uppercase tracking-wider hover:border-white/[0.35] transition-colors"
+                className="border border-white/[0.2] text-[#E4E2D8] px-7 py-4 rounded-[3px] text-sm font-semibold tracking-wider hover:border-white/[0.35] transition-colors"
               >
                 Learn more
               </Link>
